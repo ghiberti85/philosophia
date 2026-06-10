@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Classic serif stacks — no webfont download keeps builds hermetic and fast. */
+  --font-display: 'Didot', 'Bodoni MT', 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Georgia', 'Iowan Old Style', 'Palatino Linotype', serif;
+
+  /* Isometric scene palette — light mode (marble & gold under daylight). */
+  --iso-sky: #f8f1e0;
+  --iso-ground: #e2cd9b;
+  --iso-ground-dark: #d2b272;
+  --iso-marble: #fdfaf3;
+  --iso-marble-shade: #e8dfc8;
+  --iso-marble-dark: #d6c9a8;
+  --iso-glow: rgba(216, 173, 79, 0.35);
+  --iso-line: rgba(43, 33, 23, 0.12);
+}
+
+.dark {
+  /* Isometric scene palette — dark mode (moonlit ruins & candlelight). */
+  --iso-sky: #151b28;
+  --iso-ground: #1d2433;
+  --iso-ground-dark: #0e1320;
+  --iso-marble: #3a4357;
+  --iso-marble-shade: #2a3245;
+  --iso-marble-dark: #1f2637;
+  --iso-glow: rgba(232, 200, 122, 0.25);
+  --iso-line: rgba(232, 200, 122, 0.14);
+}
+
+body {
+  font-family: var(--font-body);
+  @apply bg-parchment-50 text-ink transition-colors duration-500;
+}
+
+.dark body {
+  @apply bg-midnight-900 text-parchment-100;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+}
+
+/* Ornamental divider used between sections. */
+.ornament::before,
+.ornament::after {
+  content: '';
+  @apply block h-px flex-1 bg-gradient-to-r from-transparent via-gold-500/50 to-transparent;
+}
+
+/* Soft vignette behind the 3D canvas. */
+.bust-stage {
+  background: radial-gradient(ellipse at 50% 60%, var(--iso-glow) 0%, transparent 65%);
+}
