@@ -64,8 +64,8 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
 
   if (phase === 'intro') {
     return (
-      <div className="animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-8 text-center shadow-card dark:bg-midnight-800/50">
-        <h2 className="font-display text-3xl">{philosopherName}</h2>
+      <div className="animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-5 text-center shadow-card dark:bg-midnight-800/50 sm:p-8">
+        <h2 className="font-display text-2xl sm:text-3xl">{philosopherName}</h2>
         <p className="mx-auto mt-3 max-w-md opacity-80">{t(dict.quizSubtitle, locale)}</p>
         <p className="mt-2 text-sm opacity-60">
           {questions.length} {t(dict.questionsInPool, locale)}
@@ -89,9 +89,9 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
   if (phase === 'results') {
     const feedback = t(dict[scoreFeedbackKey(score, round.length)], locale);
     return (
-      <div className="animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-8 text-center shadow-card dark:bg-midnight-800/50">
+      <div className="animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-5 text-center shadow-card dark:bg-midnight-800/50 sm:p-8">
         <p className="text-sm uppercase tracking-widest opacity-60">{t(dict.yourScore, locale)}</p>
-        <p className="mt-2 font-display text-6xl text-gold-600 dark:text-gold-300">
+        <p className="mt-2 font-display text-5xl text-gold-600 dark:text-gold-300 sm:text-6xl">
           {score}/{round.length}
         </p>
         <p className="mt-4 text-lg italic">{feedback}</p>
@@ -112,8 +112,8 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
   }
 
   return (
-    <div className="animate-fade-in rounded-2xl border border-gold-500/20 bg-white/50 p-6 shadow-card dark:bg-midnight-800/50 md:p-8">
-      <div className="flex items-center justify-between text-sm uppercase tracking-widest opacity-60">
+    <div className="animate-fade-in rounded-2xl border border-gold-500/20 bg-white/50 p-4 shadow-card dark:bg-midnight-800/50 sm:p-6 md:p-8">
+      <div className="flex items-center justify-between text-xs uppercase tracking-widest opacity-60 sm:text-sm">
         <span>
           {t(dict.question, locale)} {current + 1} {t(dict.of, locale)} {round.length}
         </span>
@@ -128,7 +128,7 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
           style={{ width: `${((current + (answered ? 1 : 0)) / round.length) * 100}%` }}
         />
       </div>
-      <h3 className="mt-6 font-display text-xl md:text-2xl">{question.prompt}</h3>
+      <h3 className="mt-5 font-display text-lg sm:mt-6 sm:text-xl md:text-2xl">{question.prompt}</h3>
       <div className="mt-6 grid gap-3">
         {question.options.map((option, i) => {
           const isCorrect = i === question.correctIndex;
@@ -143,7 +143,7 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
               type="button"
               disabled={answered}
               onClick={() => answer(i)}
-              className={`rounded-xl border px-5 py-3 text-left transition-all ${style}`}
+              className={`rounded-xl border px-3 py-2.5 text-left text-sm transition-all sm:px-5 sm:py-3 sm:text-base ${style}`}
             >
               {option}
             </button>

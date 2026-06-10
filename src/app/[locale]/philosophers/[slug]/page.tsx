@@ -29,9 +29,9 @@ export default function PhilosopherPage({ params }: Props) {
   const school = getSchool(philosopher.schoolSlugs[0]);
 
   return (
-    <div className="space-y-16 pt-12">
+    <div className="space-y-12 pt-8 sm:space-y-16 sm:pt-12">
       {/* Hero: 3D bust + identity */}
-      <section className="grid items-center gap-10 md:grid-cols-2">
+      <section className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-10">
         <div className="animate-fade-in md:order-2">
           <BustViewer
             config={philosopher.bust}
@@ -46,8 +46,8 @@ export default function PhilosopherPage({ params }: Props) {
           >
             ← {t(dict.backTo, locale)} {t(dict.philosophers, locale)}
           </Link>
-          <h1 className="font-display text-5xl">{philosopher.name}</h1>
-          <p className="text-xl italic text-gold-600 dark:text-gold-300">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl">{philosopher.name}</h1>
+          <p className="text-lg italic text-gold-600 dark:text-gold-300 sm:text-xl">
             {t(philosopher.epithet, locale)}
           </p>
           <dl className="space-y-1 text-sm uppercase tracking-widest opacity-70">
@@ -104,11 +104,11 @@ export default function PhilosopherPage({ params }: Props) {
       {/* Contributions */}
       <section className="space-y-8">
         <SectionHeading>{t(dict.contributions, locale)}</SectionHeading>
-        <ul className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2">
+        <ul className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
           {t(philosopher.contributions, locale).map((item) => (
             <li
               key={item}
-              className="rounded-xl border border-gold-500/20 bg-white/50 p-5 shadow-card dark:bg-midnight-800/50"
+              className="rounded-xl border border-gold-500/20 bg-white/50 p-4 shadow-card dark:bg-midnight-800/50 sm:p-5"
             >
               <span className="mr-2 text-gold-500">✦</span>
               {item}
@@ -123,7 +123,7 @@ export default function PhilosopherPage({ params }: Props) {
         <div className="mx-auto max-w-3xl space-y-8">
           {philosopher.quotes.map((quote) => (
             <figure key={t(quote.text, locale)} className="text-center">
-              <blockquote className="font-display text-xl italic leading-relaxed md:text-2xl">
+              <blockquote className="font-display text-lg italic leading-relaxed sm:text-xl md:text-2xl">
                 “{t(quote.text, locale)}”
               </blockquote>
               {quote.source && (

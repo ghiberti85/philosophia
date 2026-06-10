@@ -14,28 +14,28 @@ export default function PhilosophersPage({ params }: { params: { locale: Locale 
   const { locale } = params;
 
   return (
-    <div className="space-y-12 pt-12">
+    <div className="space-y-8 pt-8 sm:space-y-12 sm:pt-12">
       <SectionHeading>{t(dict.philosophers, locale)}</SectionHeading>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {philosophers.map((p, i) => {
           const school = getSchool(p.schoolSlugs[0]);
           return (
             <Link
               key={p.slug}
               href={`/${locale}/philosophers/${p.slug}`}
-              className="group animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-plinth dark:bg-midnight-800/50"
+              className="group animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-4 shadow-card transition-all hover:-translate-y-1 hover:shadow-plinth dark:bg-midnight-800/50 sm:p-6"
               style={{ animationDelay: `${i * 70}ms` }}
             >
               {/* Marble swatch as a portrait placeholder, tinted per philosopher */}
               <div
-                className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 shadow-inner"
+                className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border-4 shadow-inner sm:h-24 sm:w-24"
                 style={{ backgroundColor: p.bust.marble, borderColor: p.bust.pedestal }}
               >
-                <span className="font-display text-4xl" style={{ color: p.bust.pedestal }}>
+                <span className="font-display text-2xl sm:text-4xl" style={{ color: p.bust.pedestal }}>
                   {p.name.charAt(0)}
                 </span>
               </div>
-              <h3 className="mt-4 text-center font-display text-2xl group-hover:text-gold-600 dark:group-hover:text-gold-300">
+              <h3 className="mt-3 text-center font-display text-lg group-hover:text-gold-600 dark:group-hover:text-gold-300 sm:mt-4 sm:text-2xl">
                 {p.name}
               </h3>
               <p className="text-center text-xs uppercase tracking-widest opacity-60">
