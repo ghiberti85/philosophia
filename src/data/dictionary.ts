@@ -85,6 +85,10 @@ export const dict = {
     pt: 'Esta página não existe — ou, como diria Heráclito, talvez já tenha mudado.',
   },
   goHome: { en: 'Return home', pt: 'Voltar ao início' },
+  close: { en: 'Close', pt: 'Fechar' },
+  about: { en: 'About', pt: 'Sobre' },
+  quizFor: { en: 'Quiz about', pt: 'Quiz sobre' },
+  readBio: { en: 'Full biography', pt: 'Biografia completa' },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;

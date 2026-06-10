@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BustViewer } from '@/components/bust/BustViewer';
+import { QuizModal } from '@/components/QuizModal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { dict } from '@/data/dictionary';
 import { getPhilosopher, philosophers } from '@/data/philosophers';
+import { getQuestionsFor } from '@/data/quizzes';
 import { getSchool } from '@/data/schools';
 import { t, type Locale } from '@/lib/i18n';
 
@@ -36,6 +38,7 @@ export default function PhilosopherPage({ params }: Props) {
           <BustViewer
             config={philosopher.bust}
             label={philosopher.name}
+            years={t(philosopher.years, locale)}
             hint={t(dict.dragToRotate, locale)}
           />
         </div>
@@ -82,12 +85,14 @@ export default function PhilosopherPage({ params }: Props) {
               </span>
             ))}
           </div>
-          <Link
-            href={`/${locale}/quiz/${philosopher.slug}`}
-            className="mt-4 inline-block rounded-full bg-gold-500 px-7 py-3 font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
-          >
-            {t(dict.takeQuiz, locale)} →
-          </Link>
+          <div className="pt-2">
+            <QuizModal
+              questions={getQuestionsFor(philosopher.slug)}
+              locale={locale}
+              philosopherName={philosopher.name}
+              storageKey={`philosophia:best:${philosopher.slug}`}
+            />
+          </div>
         </div>
       </section>
 

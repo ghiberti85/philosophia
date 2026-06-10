@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { QuizModal } from '@/components/QuizModal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { dict } from '@/data/dictionary';
 import { philosophers } from '@/data/philosophers';
@@ -14,32 +15,45 @@ export default function QuizIndexPage({ params }: { params: { locale: Locale } }
   const { locale } = params;
 
   return (
-    <div className="space-y-12 pt-12">
+    <div className="space-y-8 pt-8 sm:space-y-12 sm:pt-12">
       <SectionHeading>{t(dict.quizzes, locale)}</SectionHeading>
       <p className="text-center opacity-70">{t(dict.chooseThinker, locale)}</p>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {philosophers.map((p, i) => {
-          const poolSize = getQuestionsFor(p.slug).length;
+          const questions = getQuestionsFor(p.slug);
           return (
-            <Link
+            <div
               key={p.slug}
-              href={`/${locale}/quiz/${p.slug}`}
-              className="group animate-fade-up rounded-2xl border border-gold-500/20 bg-white/50 p-6 text-center shadow-card transition-all hover:-translate-y-1 hover:shadow-plinth dark:bg-midnight-800/50"
+              className="animate-fade-up flex flex-col items-center rounded-2xl border border-gold-500/20 bg-white/50 p-5 text-center shadow-card transition-all hover:-translate-y-1 hover:shadow-plinth dark:bg-midnight-800/50 sm:p-6"
               style={{ animationDelay: `${i * 70}ms` }}
             >
               <span
-                className="mx-auto flex h-16 w-16 items-center justify-center rounded-full font-display text-2xl text-white"
+                className="flex h-14 w-14 items-center justify-center rounded-full font-display text-2xl text-white"
                 style={{ backgroundColor: p.bust.pedestal }}
               >
                 ?
               </span>
-              <h3 className="mt-4 font-display text-2xl group-hover:text-gold-600 dark:group-hover:text-gold-300">
-                {p.name}
+              <h3 className="mt-3 font-display text-xl sm:text-2xl">
+                <Link
+                  href={`/${locale}/philosophers/${p.slug}`}
+                  className="hover:text-gold-600 dark:hover:text-gold-300"
+                >
+                  {p.name}
+                </Link>
               </h3>
               <p className="mt-1 text-xs uppercase tracking-widest opacity-60">
-                {poolSize} {t(dict.questionsInPool, locale)}
+                {questions.length} {t(dict.questionsInPool, locale)}
               </p>
-            </Link>
+              <div className="mt-4">
+                <QuizModal
+                  questions={questions}
+                  locale={locale}
+                  philosopherName={p.name}
+                  storageKey={`philosophia:best:${p.slug}`}
+                  triggerLabel={t(dict.startQuiz, locale)}
+                />
+              </div>
+            </div>
           );
         })}
       </div>

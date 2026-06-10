@@ -17,13 +17,34 @@ const PhilosopherBust = dynamic(() => import('./PhilosopherBust'), {
   ),
 });
 
-export function BustViewer({ config, label, hint }: { config: BustConfig; label: string; hint: string }) {
+export function BustViewer({
+  config,
+  label,
+  years,
+  hint,
+}: {
+  config: BustConfig;
+  label: string;
+  years: string;
+  hint: string;
+}) {
   return (
-    <div className="bust-stage relative h-[280px] w-full overflow-hidden rounded-2xl border border-gold-500/20 sm:h-[360px] md:h-[460px] lg:h-[520px]">
-      <PhilosopherBust config={config} label={label} />
-      <p className="pointer-events-none absolute bottom-3 left-0 right-0 text-center text-xs uppercase tracking-widest opacity-60">
-        {hint}
-      </p>
-    </div>
+    <figure className="w-full">
+      <div className="bust-stage relative h-[300px] w-full overflow-hidden rounded-t-2xl border border-b-0 border-gold-500/25 sm:h-[380px] md:h-[480px] lg:h-[540px]">
+        <PhilosopherBust config={config} label={label} />
+        <p className="pointer-events-none absolute bottom-3 left-0 right-0 text-center text-[10px] uppercase tracking-[0.25em] text-parchment-100/50">
+          {hint}
+        </p>
+      </div>
+      {/* Engraved museum plaque */}
+      <figcaption className="bust-plaque rounded-b-2xl px-6 py-3 text-center">
+        <span className="block font-display text-lg uppercase tracking-[0.3em] text-midnight-900 sm:text-xl">
+          {label}
+        </span>
+        <span className="block text-[11px] uppercase tracking-[0.35em] text-midnight-900/70">
+          {years}
+        </span>
+      </figcaption>
+    </figure>
   );
 }
