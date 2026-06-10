@@ -1,0 +1,90 @@
+import type { Localized } from '@/lib/i18n';
+
+/** UI strings (everything that is not content data). */
+export const dict = {
+  appName: { en: 'Philosophia', pt: 'Philosophia' },
+  tagline: {
+    en: 'A living gallery of the great schools of thought',
+    pt: 'Uma galeria viva das grandes escolas do pensamento',
+  },
+  heroTitle: {
+    en: 'Walk among the great minds',
+    pt: 'Caminhe entre as grandes mentes',
+  },
+  heroSubtitle: {
+    en: 'Explore the major philosophical traditions, meet their thinkers as rotatable 3D busts, and test yourself with quizzes that are different every time.',
+    pt: 'Explore as principais tradições filosóficas, conheça seus pensadores em bustos 3D rotacionáveis e teste seus conhecimentos com quizzes diferentes a cada rodada.',
+  },
+  exploreSchools: { en: 'Explore the schools', pt: 'Explorar as escolas' },
+  meetPhilosophers: { en: 'Meet the philosophers', pt: 'Conheça os filósofos' },
+  schools: { en: 'Schools of Thought', pt: 'Escolas de Pensamento' },
+  philosophers: { en: 'Philosophers', pt: 'Filósofos' },
+  quizzes: { en: 'Quizzes', pt: 'Quizzes' },
+  home: { en: 'Home', pt: 'Início' },
+  timeline: { en: 'Timeline', pt: 'Linha do Tempo' },
+  timelineSubtitle: {
+    en: 'Twenty-four centuries of ideas at a glance.',
+    pt: 'Vinte e quatro séculos de ideias em um relance.',
+  },
+  quoteOfTheDay: { en: 'Quote of the day', pt: 'Frase do dia' },
+  coreIdeas: { en: 'Core ideas', pt: 'Ideias centrais' },
+  keyThinkers: { en: 'Key thinkers', pt: 'Principais pensadores' },
+  biography: { en: 'Biography', pt: 'Biografia' },
+  contributions: { en: 'Main contributions', pt: 'Principais contribuições' },
+  notableQuotes: { en: 'Notable quotes', pt: 'Frases marcantes' },
+  traits: { en: 'Traits', pt: 'Características' },
+  remarkableFacts: { en: 'Remarkable facts', pt: 'Fatos marcantes' },
+  dragToRotate: { en: 'Drag to rotate the bust', pt: 'Arraste para girar o busto' },
+  takeQuiz: { en: 'Take the quiz', pt: 'Fazer o quiz' },
+  quizSubtitle: {
+    en: 'Five questions drawn at random from a larger pool — every attempt is unique.',
+    pt: 'Cinco perguntas sorteadas de um banco maior — cada tentativa é única.',
+  },
+  startQuiz: { en: 'Start quiz', pt: 'Começar quiz' },
+  playAgain: { en: 'Play again (new questions)', pt: 'Jogar de novo (novas perguntas)' },
+  nextQuestion: { en: 'Next question', pt: 'Próxima pergunta' },
+  seeResults: { en: 'See results', pt: 'Ver resultado' },
+  question: { en: 'Question', pt: 'Pergunta' },
+  of: { en: 'of', pt: 'de' },
+  correct: { en: 'Correct!', pt: 'Correto!' },
+  incorrect: { en: 'Not quite.', pt: 'Não foi dessa vez.' },
+  yourScore: { en: 'Your score', pt: 'Sua pontuação' },
+  bestScore: { en: 'Best score', pt: 'Melhor pontuação' },
+  scorePerfect: {
+    en: 'Flawless! A true philosopher-sage.',
+    pt: 'Impecável! Um verdadeiro sábio.',
+  },
+  scoreGood: {
+    en: 'Well done — the examined life suits you.',
+    pt: 'Muito bem — a vida examinada combina com você.',
+  },
+  scoreOk: {
+    en: 'A solid start. Keep questioning!',
+    pt: 'Um bom começo. Continue questionando!',
+  },
+  scoreLow: {
+    en: '“I know that I know nothing” is a fine place to begin.',
+    pt: '“Só sei que nada sei” é um ótimo ponto de partida.',
+  },
+  chooseThinker: { en: 'Choose a thinker to be quizzed on', pt: 'Escolha um pensador para o quiz' },
+  questionsInPool: { en: 'questions in the pool', pt: 'perguntas no banco' },
+  switchToDark: { en: 'Switch to dark mode', pt: 'Mudar para modo escuro' },
+  switchToLight: { en: 'Switch to light mode', pt: 'Mudar para modo claro' },
+  language: { en: 'Language', pt: 'Idioma' },
+  backTo: { en: 'Back to', pt: 'Voltar para' },
+  school: { en: 'School', pt: 'Escola' },
+  born: { en: 'Born in', pt: 'Nascido em' },
+  footerNote: {
+    en: 'Built as an open-source portfolio project. Content curated for educational purposes.',
+    pt: 'Construído como projeto open-source de portfólio. Conteúdo curado para fins educacionais.',
+  },
+  viewAll: { en: 'View all', pt: 'Ver todos' },
+  notFoundTitle: { en: 'Lost in thought?', pt: 'Perdido em pensamentos?' },
+  notFoundBody: {
+    en: 'This page does not exist — or perhaps, as Heraclitus would say, it has already changed.',
+    pt: 'Esta página não existe — ou, como diria Heráclito, talvez já tenha mudado.',
+  },
+  goHome: { en: 'Return home', pt: 'Voltar ao início' },
+} satisfies Record<string, Localized>;
+
+export type DictKey = keyof typeof dict;
