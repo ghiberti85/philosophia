@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { IsometricScene } from '@/components/IsometricScene';
+import { IsometricSceneViewer } from '@/components/IsometricSceneViewer';
 import { QuizModal } from '@/components/QuizModal';
 import { dict } from '@/data/dictionary';
 import type { Philosopher } from '@/data/types';
@@ -49,7 +49,7 @@ export default function SchoolPage({ params }: Props) {
             &larr; {t(dict.schools, locale)}
           </Link>
           <div className="-mx-2 mt-1">
-            <IsometricScene scene={school.scene} accent={school.accent} />
+            <IsometricSceneViewer scene={school.scene} accent={school.accent} />
           </div>
           <p className="text-center text-[10px] uppercase tracking-[0.3em] text-gold-600 dark:text-gold-300">
             {t(school.period, locale)}
