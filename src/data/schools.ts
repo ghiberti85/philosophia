@@ -30,7 +30,7 @@ export const schools: School[] = [
     philosopherSlugs: ['socrates'],
     accent: '#c2922f',
     scene: 'agora',
-    cityImage: '/scenes/athens-v2.webp',
+    cityImage: '/scenes/athens-v3.webp',
   },
   {
     slug: 'platonism',
