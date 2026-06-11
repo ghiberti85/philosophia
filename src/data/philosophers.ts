@@ -76,6 +76,7 @@ export const philosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#e8e2d4', pedestal: '#c2922f', headWidth: 0.85, beard: 0.9, hair: 0.35 , look: { skin: '#e3a878', hair: '#ebe6da', cloth: '#ece2cc', clothAccent: '#c2922f', hairstyle: 'bald', beard: 'long', mustache: 'normal' } },
+    figureImage: '/figures/socrates.webp',
   },
   {
     slug: 'plato',

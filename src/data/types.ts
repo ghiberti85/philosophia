@@ -17,6 +17,8 @@ export interface School {
   accent: string;
   /** Which isometric scene to render for the school. */
   scene: 'agora' | 'academy' | 'lyceum' | 'stoa' | 'observatory' | 'cafe' | 'library';
+  /** Optional pre-rendered isometric city image (public path); preferred over the procedural scene. */
+  cityImage?: string;
 }
 
 /** A single notable quote with attribution context. */
@@ -45,6 +47,8 @@ export interface Philosopher {
   facts: Localized<string[]>;
   /** Configuration for the procedural 3D bust. */
   bust: BustConfig;
+  /** Optional pre-rendered figurine image (public path) in the diorama art style. */
+  figureImage?: string;
 }
 
 /** Stylized "animated character" look for the 3D bust. */

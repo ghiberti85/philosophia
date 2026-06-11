@@ -36,10 +36,7 @@ export default function LocaleLayout({
       <body>
         <Providers>
           <Header locale={locale} />
-          <main className="mx-auto max-w-6xl px-4 pb-24">{children}</main>
-          <footer className="border-t border-gold-500/20 py-8 text-center text-sm opacity-70">
-            <p>Φ {t(dict.appName, locale)} · {t(dict.footerNote, locale)}</p>
-          </footer>
+          {children}
         </Providers>
       </body>
     </html>

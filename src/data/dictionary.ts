@@ -89,6 +89,10 @@ export const dict = {
   about: { en: 'About', pt: 'Sobre' },
   quizFor: { en: 'Quiz about', pt: 'Quiz sobre' },
   readBio: { en: 'Full biography', pt: 'Biografia completa' },
+  prevSchool: { en: 'Previous school', pt: 'Escola anterior' },
+  nextSchool: { en: 'Next school', pt: 'Próxima escola' },
+  thinkers: { en: 'thinkers', pt: 'pensadores' },
+  thinker: { en: 'thinker', pt: 'pensador' },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;
