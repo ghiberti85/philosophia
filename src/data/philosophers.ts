@@ -75,7 +75,7 @@ export const philosophers: Philosopher[] = [
         'Em seu julgamento, propôs como "punição" receber refeições gratuitas e vitalícias às custas do Estado.',
       ],
     },
-    bust: { marble: '#e8e2d4', pedestal: '#c2922f', headWidth: 0.85, beard: 0.9, hair: 0.35 },
+    bust: { marble: '#e8e2d4', pedestal: '#c2922f', headWidth: 0.85, beard: 0.9, hair: 0.35 , look: { skin: '#e3a878', hair: '#ebe6da', cloth: '#ece2cc', clothAccent: '#c2922f', hairstyle: 'bald', beard: 'long', mustache: 'normal' } },
   },
   {
     slug: 'plato',
@@ -151,7 +151,7 @@ export const philosophers: Philosopher[] = [
         'Sua história de Atlântida, contada no Timeu e no Crítias, alimenta expedições e teorias conspiratórias até hoje.',
       ],
     },
-    bust: { marble: '#ece6da', pedestal: '#5b7fb9', headWidth: 1.0, beard: 0.75, hair: 0.6 },
+    bust: { marble: '#ece6da', pedestal: '#5b7fb9', headWidth: 1.0, beard: 0.75, hair: 0.6 , look: { skin: '#eebd92', hair: '#b3aea2', cloth: '#5b7fb9', clothAccent: '#d9ad4f', hairstyle: 'short', beard: 'full', mustache: 'normal' } },
   },
   {
     slug: 'aristotle',
@@ -227,7 +227,7 @@ export const philosophers: Philosopher[] = [
         'Passou dois anos em Lesbos estudando a vida marinha; Darwin disse que seus próprios heróis eram "meros colegiais diante do velho Aristóteles".',
       ],
     },
-    bust: { marble: '#eae4d6', pedestal: '#7a9a59', headWidth: 0.92, beard: 0.55, hair: 0.5 },
+    bust: { marble: '#eae4d6', pedestal: '#7a9a59', headWidth: 0.92, beard: 0.55, hair: 0.5 , look: { skin: '#e4b083', hair: '#6e5639', cloth: '#7a9a59', clothAccent: '#d9ad4f', hairstyle: 'short', beard: 'trimmed', mustache: 'normal' } },
   },
   {
     slug: 'seneca',
@@ -304,7 +304,7 @@ export const philosophers: Philosopher[] = [
         'Os cristãos medievais o admiravam tanto que forjaram uma correspondência entre Sêneca e São Paulo.',
       ],
     },
-    bust: { marble: '#e6dfd0', pedestal: '#a35e3b', headWidth: 0.95, beard: 0.3, hair: 0.25 },
+    bust: { marble: '#e6dfd0', pedestal: '#a35e3b', headWidth: 0.95, beard: 0.3, hair: 0.25 , look: { skin: '#ecbf96', hair: '#a89c8a', cloth: '#a35e3b', clothAccent: '#d9ad4f', hairstyle: 'bald', beard: 'trimmed', mustache: 'normal' } },
   },
   {
     slug: 'marcus-aurelius',
@@ -381,7 +381,7 @@ export const philosophers: Philosopher[] = [
         'Apesar dos alertas estoicos sobre a ira, perdoou a família do general rebelde Avídio Cássio e queimou as cartas dos conspiradores sem lê-las.',
       ],
     },
-    bust: { marble: '#ece5d8', pedestal: '#a35e3b', headWidth: 0.9, beard: 0.7, hair: 0.75 },
+    bust: { marble: '#ece5d8', pedestal: '#a35e3b', headWidth: 0.9, beard: 0.7, hair: 0.75 , look: { skin: '#e0ab7c', hair: '#54422e', cloth: '#6e3f7d', clothAccent: '#d9ad4f', hairstyle: 'curly', beard: 'curly', mustache: 'normal', laurel: true } },
   },
   {
     slug: 'descartes',
@@ -458,7 +458,7 @@ export const philosophers: Philosopher[] = [
         'Seu crânio foi separado do corpo após a morte e está exposto no Musée de l\'Homme, em Paris.',
       ],
     },
-    bust: { marble: '#e9e3d7', pedestal: '#6b5b95', headWidth: 0.88, beard: 0.15, hair: 0.85 },
+    bust: { marble: '#e9e3d7', pedestal: '#6b5b95', headWidth: 0.88, beard: 0.15, hair: 0.85 , look: { skin: '#f0c8a4', hair: '#2e2a26', cloth: '#2f3542', clothAccent: '#f2efe6', hairstyle: 'long', beard: 'goatee', mustache: 'normal', collar: true } },
   },
   {
     slug: 'kant',
@@ -535,7 +535,7 @@ export const philosophers: Philosopher[] = [
         'Seu túmulo traz a frase sobre "o céu estrelado sobre mim e a lei moral em mim".',
       ],
     },
-    bust: { marble: '#ebe5d9', pedestal: '#3f7d75', headWidth: 0.82, beard: 0, hair: 0.55 },
+    bust: { marble: '#ebe5d9', pedestal: '#3f7d75', headWidth: 0.82, beard: 0, hair: 0.55 , look: { skin: '#f2cead', hair: '#eceae2', cloth: '#3f5d8c', clothAccent: '#f4f0e8', hairstyle: 'wig', beard: 'none', mustache: 'none', collar: true } },
   },
   {
     slug: 'nietzsche',
@@ -612,7 +612,7 @@ export const philosophers: Philosopher[] = [
         'Renunciou à cidadania prussiana em 1869 e permaneceu oficialmente apátrida pelo resto da vida.',
       ],
     },
-    bust: { marble: '#e7e0d2', pedestal: '#9a4a5a', headWidth: 0.86, beard: 0.5, hair: 0.8 },
+    bust: { marble: '#e7e0d2', pedestal: '#9a4a5a', headWidth: 0.86, beard: 0.5, hair: 0.8 , look: { skin: '#eabd92', hair: '#46352a', cloth: '#3a3f4a', clothAccent: '#6b4f3a', hairstyle: 'swept', beard: 'none', mustache: 'grand' } },
   },
   {
     slug: 'simone-de-beauvoir',
@@ -689,7 +689,7 @@ export const philosophers: Philosopher[] = [
         'Mantinha uma rotina meticulosa: escrevia todos os dias das 10h à 13h e das 17h às 21h — em cafés, não em casa.',
       ],
     },
-    bust: { marble: '#efe9dd', pedestal: '#9a4a5a', headWidth: 0.78, beard: 0, hair: 0.95 },
+    bust: { marble: '#efe9dd', pedestal: '#9a4a5a', headWidth: 0.78, beard: 0, hair: 0.95 , look: { skin: '#f2c9a8', hair: '#4a3527', cloth: '#9a4a5a', clothAccent: '#d9ad4f', hairstyle: 'updo', beard: 'none', mustache: 'none', headband: true } },
   },
 ];
 
