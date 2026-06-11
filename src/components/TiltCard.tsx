@@ -12,11 +12,14 @@ export function TiltCard({
   children,
   className = '',
   max = 8,
+  glare: glareEnabled = true,
 }: {
   children: ReactNode;
   className?: string;
   /** Maximum tilt in degrees. */
   max?: number;
+  /** Disable the light glare (e.g. for transparent cut-out images). */
+  glare?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState<CSSProperties['transform']>();
@@ -49,14 +52,16 @@ export function TiltCard({
     >
       {children}
       {/* Moving light glare */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
-        style={{
-          opacity: glare.opacity,
-          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.28), rgba(255,255,255,0) 55%)`,
-        }}
-      />
+      {glareEnabled && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
+          style={{
+            opacity: glare.opacity,
+            background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.28), rgba(255,255,255,0) 55%)`,
+          }}
+        />
+      )}
     </div>
   );
 }

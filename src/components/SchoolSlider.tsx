@@ -77,13 +77,13 @@ function ThinkerCard({ thinker, accent, locale }: { thinker: ThinkerVM; accent: 
     >
       <div className="flex items-center gap-3">
         {thinker.figureImage ? (
-          <TiltCard max={12} className="shrink-0 rounded-lg">
+          <TiltCard max={12} glare={false} className="shrink-0">
             <Image
               src={thinker.figureImage}
               alt={thinker.name}
               width={88}
               height={88}
-              className="h-20 w-20 rounded-lg object-cover shadow-card sm:h-22 sm:w-22"
+              className="h-20 w-20 object-contain [filter:drop-shadow(0_8px_8px_rgba(46,36,51,0.35))]"
             />
           </TiltCard>
         ) : (
@@ -122,7 +122,8 @@ function ThinkerCard({ thinker, accent, locale }: { thinker: ThinkerVM; accent: 
 
 function Slide({ school, locale, active }: { school: SchoolVM; locale: Locale; active: boolean }) {
   return (
-    <div className="flex h-full flex-col gap-3 overflow-y-auto p-3 sm:p-4 lg:gap-4 lg:overflow-hidden lg:p-5">
+    <div className="h-full overflow-y-auto lg:overflow-hidden">
+    <div className="flex flex-col gap-3 p-3 sm:p-4 lg:h-full lg:gap-4 lg:p-5">
       {/* HUD title */}
       <header className="shrink-0 text-center">
         <p className="text-[10px] uppercase tracking-[0.35em]" style={{ color: school.accent }}>
@@ -133,10 +134,10 @@ function Slide({ school, locale, active }: { school: SchoolVM; locale: Locale; a
       </header>
 
       {/* HUD body */}
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 lg:grid-cols-[minmax(230px,290px),1fr,minmax(250px,320px)] lg:gap-5">
+      <div className="grid grid-cols-1 gap-3 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(230px,290px),1fr,minmax(250px,320px)] lg:gap-5">
         {/* Center: the diorama */}
         <div className="order-1 flex min-h-0 items-center justify-center lg:order-2">
-          <TiltCard className="w-full max-w-[340px] rounded-3xl sm:max-w-[420px] lg:max-w-none lg:px-2">
+          <TiltCard glare={false} className="w-full max-w-[340px] sm:max-w-[440px] lg:max-w-none lg:px-2">
             {school.cityImage ? (
               <Image
                 src={school.cityImage}
@@ -144,7 +145,7 @@ function Slide({ school, locale, active }: { school: SchoolVM; locale: Locale; a
                 width={1024}
                 height={1024}
                 priority={active}
-                className="mx-auto h-auto w-full rounded-3xl object-contain ring-1 ring-gold-500/30 drop-shadow-2xl lg:max-h-[58vh] lg:w-auto"
+                className="mx-auto h-auto w-full object-contain [filter:drop-shadow(0_30px_30px_rgba(46,36,51,0.35))] lg:max-h-[60vh] lg:w-auto"
               />
             ) : (
               <div className="mx-auto w-full max-w-[480px]">
@@ -199,6 +200,7 @@ function Slide({ school, locale, active }: { school: SchoolVM; locale: Locale; a
           {school.thinkers.reduce((n, p) => n + p.questions.length, 0)} {t(dict.questionsInPool, locale)}
         </span>
       </footer>
+    </div>
     </div>
   );
 }
