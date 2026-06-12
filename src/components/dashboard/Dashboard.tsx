@@ -10,6 +10,7 @@ import { philosophers } from '@/data/philosophers';
 import { getQuestionsFor } from '@/data/quizzes';
 import { schools } from '@/data/schools';
 import { getPhilosopher } from '@/data/philosophers';
+import { schoolDetails } from '@/data/school-details';
 import type { Philosopher, School } from '@/data/types';
 import { t, type Locale } from '@/lib/i18n';
 import { IsoScene } from './IsoScene';
@@ -116,38 +117,207 @@ function Hero({ school, locale, onDossier }: { school: School; locale: Locale; o
   );
 }
 
-function Stats({ school, idx, locale, poolCount }: { school: School; idx: number; locale: Locale; poolCount: number }) {
-  const items = [
-    { glyph: '◉', label: t(dict.sages, locale), val: roman(school.philosopherSlugs.length), unit: t(dict.thinkers, locale) },
-    { glyph: '▣', label: t(dict.coreTenets, locale), val: roman(school.coreIdeas.en.length), unit: t(dict.principles, locale) },
-    { glyph: '◈', label: t(dict.quizPool, locale), val: roman(poolCount), unit: t(dict.questionsInPool, locale) },
-    { glyph: '→', label: t(dict.inSequence, locale), val: roman(idx + 1), unit: `${t(dict.of, locale)} ${roman(schools.length)}` },
+type StatKind = 'sages' | 'tenets' | 'quiz' | 'sequence';
+
+function Stats({
+  school, idx, locale, poolCount, onOpen,
+}: {
+  school: School; idx: number; locale: Locale; poolCount: number; onOpen: (kind: StatKind) => void;
+}) {
+  const items: { kind: StatKind; glyph: string; label: string; val: string; unit: string }[] = [
+    { kind: 'sages', glyph: '◉', label: t(dict.sages, locale), val: roman(school.philosopherSlugs.length), unit: t(dict.thinkers, locale) },
+    { kind: 'tenets', glyph: '▣', label: t(dict.coreTenets, locale), val: roman(school.coreIdeas.en.length), unit: t(dict.principles, locale) },
+    { kind: 'quiz', glyph: '◈', label: t(dict.quizPool, locale), val: roman(poolCount), unit: t(dict.questionsInPool, locale) },
+    { kind: 'sequence', glyph: '→', label: t(dict.inSequence, locale), val: roman(idx + 1), unit: `${t(dict.of, locale)} ${roman(schools.length)}` },
   ];
   return (
     <Panel area="stats" glyph="▣" label={t(dict.factionReadout, locale)} className="reveal" style={{ '--d': '80ms' } as CSSProperties}>
       <div className="stats-grid">
-        {items.map((s, i) => (
-          <div className="stat" key={i}>
+        {items.map((s) => (
+          <button className="stat" key={s.kind} onClick={() => onOpen(s.kind)}>
             <span className="mono" style={{ color: 'var(--accent)' }}>{s.glyph} {s.label}</span>
             <span className="stat__val"><span className="roman">{s.val}</span></span>
             <span className="stat__unit">{s.unit}</span>
-          </div>
+            <span className="stat__more mono">{t(dict.readMore, locale)} →</span>
+          </button>
         ))}
       </div>
     </Panel>
   );
 }
 
-function Tenets({ school, locale }: { school: School; locale: Locale }) {
+/** Popup behind each faction-readout cell: explanation + the data itself. */
+function StatModal({
+  kind, school, idx, locale, onClose, onThinker, onIdea, onQuiz, onSchool,
+}: {
+  kind: StatKind | null;
+  school: School;
+  idx: number;
+  locale: Locale;
+  onClose: () => void;
+  onThinker: (p: Philosopher) => void;
+  onIdea: (i: number) => void;
+  onQuiz: () => void;
+  onSchool: (i: number) => void;
+}) {
+  if (!kind) return null;
+  const list = school.philosopherSlugs.map(getPhilosopher).filter((p): p is Philosopher => Boolean(p));
+  const titles: Record<StatKind, string> = {
+    sages: t(dict.sages, locale),
+    tenets: t(dict.coreTenets, locale),
+    quiz: t(dict.quizPool, locale),
+    sequence: t(dict.inSequence, locale),
+  };
+  const infos: Record<StatKind, string> = {
+    sages: t(dict.statSagesInfo, locale),
+    tenets: t(dict.statTenetsInfo, locale),
+    quiz: t(dict.statQuizInfo, locale),
+    sequence: t(dict.statSequenceInfo, locale),
+  };
+  return (
+    <Modal open onClose={onClose} variant="modal--quiz" labelledby="stat-title" closeLabel={t(dict.close, locale)}>
+      <div className="modal__scroll">
+        <div className="tabpanel">
+          <div className="panel__head">
+            <span className="glyph">▣</span>
+            <span className="mono" id="stat-title">{titles[kind]} · {t(school.name, locale)}</span>
+          </div>
+          <p className="context-body" style={{ marginBottom: 18 }}>{infos[kind]}</p>
+
+          {kind === 'sages' && (
+            <ul className="list-clean">
+              {list.map((p, i) => (
+                <li key={p.slug}>
+                  <span className="mk">{String(i + 1).padStart(2, '0')}</span>
+                  <button className="statlink" onClick={() => { onClose(); onThinker(p); }}>
+                    <span className="serif" style={{ fontWeight: 700 }}>{p.name}</span>
+                    <span className="statlink__sub mono">{t(p.epithet, locale)} · {t(p.years, locale)}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {kind === 'tenets' && (
+            <ul className="list-clean">
+              {t(school.coreIdeas, locale).map((idea, i) => (
+                <li key={i}>
+                  <span className="mk">{String(i + 1).padStart(2, '0')}</span>
+                  <button className="statlink" onClick={() => { onClose(); onIdea(i); }}>
+                    <span>{idea}</span>
+                    <span className="statlink__sub mono">{t(dict.inDepth, locale)} →</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {kind === 'quiz' && (
+            <>
+              <ul className="list-clean" style={{ marginBottom: 18 }}>
+                {list.map((p, i) => (
+                  <li key={p.slug}>
+                    <span className="mk">{String(i + 1).padStart(2, '0')}</span>
+                    <span style={{ flex: 1 }}>{p.name}</span>
+                    <span className="mono" style={{ color: 'var(--accent)' }}>{roman(getQuestionsFor(p.slug).length)}</span>
+                  </li>
+                ))}
+              </ul>
+              <button className="btn-primary" onClick={() => { onClose(); onQuiz(); }}>
+                <Icon name="target" size={18} /> {t(dict.startQuiz, locale)}
+              </button>
+            </>
+          )}
+
+          {kind === 'sequence' && (
+            <ul className="list-clean">
+              {schools.map((s, i) => (
+                <li key={s.slug}>
+                  <span className="mk">{ERAS[s.slug] ?? roman(i + 1)}</span>
+                  <button className="statlink" onClick={() => { onClose(); onSchool(i); }}
+                    style={i === idx ? { color: 'var(--accent)' } : undefined}>
+                    <span style={{ fontWeight: i === idx ? 700 : 500 }}>{t(s.name, locale)}</span>
+                    <span className="statlink__sub mono">{t(s.period, locale)}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+function Tenets({ school, locale, onIdea }: { school: School; locale: Locale; onIdea: (i: number) => void }) {
   const ideas = t(school.coreIdeas, locale);
   return (
     <Panel area="ideas" glyph="◉" label={t(dict.coreIdeas, locale)} count={roman(ideas.length)} className="reveal" style={{ '--d': '140ms' } as CSSProperties}>
-      <ul className="list-clean tenets">
+      <ul className="list-clean tenets tenets--fill">
         {ideas.map((idea, i) => (
-          <li key={i}><span className="mk">{String(i + 1).padStart(2, '0')}</span><span style={{ fontSize: '0.92rem' }}>{idea}</span></li>
+          <li key={i}>
+            <button className="tenet-row" onClick={() => onIdea(i)}>
+              <span className="mk">{String(i + 1).padStart(2, '0')}</span>
+              <span className="tenet-row__text">{idea}</span>
+              <span className="tenet-row__more mono">{t(dict.inDepth, locale)} →</span>
+            </button>
+          </li>
         ))}
       </ul>
     </Panel>
+  );
+}
+
+/** Deep-dive popup for one core idea. */
+function IdeaModal({
+  ideaIdx, school, locale, onClose,
+}: {
+  ideaIdx: number | null; school: School; locale: Locale; onClose: () => void;
+}) {
+  if (ideaIdx == null) return null;
+  const ideas = t(school.coreIdeas, locale);
+  const detail = schoolDetails[school.slug];
+  const text = detail ? t(detail.ideaDetails, locale)[ideaIdx] : undefined;
+  return (
+    <Modal open onClose={onClose} labelledby="idea-title" closeLabel={t(dict.close, locale)}>
+      <div className="modal__scroll">
+        <div className="tabpanel idea-deep">
+          <div className="panel__head">
+            <span className="glyph">◉</span>
+            <span className="mono">{t(dict.coreIdeas, locale)} · {t(school.name, locale)}</span>
+            <span className="count">{String(ideaIdx + 1).padStart(2, '0')} / {String(ideas.length).padStart(2, '0')}</span>
+          </div>
+          <h2 className="idea-deep__title" id="idea-title">{ideas[ideaIdx]}</h2>
+          {text && <p className="idea-deep__body dropcap">{text}</p>}
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+/** Extended historical-context popup. */
+function ContextModal({
+  open, school, locale, onClose,
+}: {
+  open: boolean; school: School; locale: Locale; onClose: () => void;
+}) {
+  if (!open) return null;
+  const detail = schoolDetails[school.slug];
+  const paras = detail ? t(detail.contextLong, locale) : [t(school.description, locale)];
+  return (
+    <Modal open onClose={onClose} labelledby="ctx-title" closeLabel={t(dict.close, locale)}>
+      <div className="modal__scroll">
+        <div className="tabpanel">
+          <div className="panel__head">
+            <span className="glyph">◉</span>
+            <span className="mono" id="ctx-title">{t(dict.historicalContext, locale)} · {t(school.name, locale)}</span>
+          </div>
+          <div className="prose dropcap">
+            {paras.map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+        </div>
+      </div>
+    </Modal>
   );
 }
 
@@ -162,14 +332,19 @@ function Thinkers({ school, locale, cardStyle, onOpen }: { school: School; local
   );
 }
 
-function ContextQuiz({ school, locale, onQuiz }: { school: School; locale: Locale; onQuiz: () => void }) {
+function ContextQuiz({
+  school, locale, onQuiz, onContext,
+}: {
+  school: School; locale: Locale; onQuiz: () => void; onContext: () => void;
+}) {
   return (
     <Panel area="context" className="reveal" style={{ '--d': '260ms', gap: 16 } as CSSProperties}>
       <Brackets />
-      <div>
+      <button className="context-open" onClick={onContext}>
         <div className="panel__head"><span className="glyph">◉</span><span className="mono">{t(dict.historicalContext, locale)}</span></div>
         <p className="context-body dropcap">{t(school.description, locale)}</p>
-      </div>
+        <span className="context-open__more mono">{t(dict.readMore, locale)} →</span>
+      </button>
       <hr className="rule rule--gold" />
       <div className="quiz-cta">
         <div className="panel__head" style={{ margin: 0 }}><span className="glyph">◈</span><span className="mono">{t(dict.quizzes, locale)}</span></div>
@@ -311,6 +486,9 @@ export function Dashboard({ locale }: { locale: Locale }) {
   const [quizOpen, setQuizOpen] = useState(false);
   const [quizScope, setQuizScope] = useState<Philosopher | null>(null); // null = whole school
   const [schoolOpen, setSchoolOpen] = useState(false);
+  const [statOpen, setStatOpen] = useState<StatKind | null>(null);
+  const [ideaOpen, setIdeaOpen] = useState<number | null>(null);
+  const [ctxOpen, setCtxOpen] = useState(false);
 
   // hydrate persisted state on the client only (SSR markup stays deterministic)
   useEffect(() => {
@@ -347,13 +525,13 @@ export function Dashboard({ locale }: { locale: Locale }) {
   // keyboard nav for the timeline (when no modal open)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (philOpen || quizOpen || schoolOpen) return;
+      if (philOpen || quizOpen || schoolOpen || statOpen || ideaOpen != null || ctxOpen) return;
       if (e.key === 'ArrowRight') setIdx((i) => (i + 1) % schools.length);
       if (e.key === 'ArrowLeft') setIdx((i) => (i - 1 + schools.length) % schools.length);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [philOpen, quizOpen, schoolOpen]);
+  }, [philOpen, quizOpen, schoolOpen, statOpen, ideaOpen, ctxOpen]);
 
   const openSchoolQuiz = () => { setQuizScope(null); setQuizOpen(true); };
   const openPhilQuiz = (p: Philosopher) => { setPhilOpen(null); setQuizScope(p); setQuizOpen(true); };
@@ -369,10 +547,10 @@ export function Dashboard({ locale }: { locale: Locale }) {
 
       <main className="dash" data-layout={layout} key={school.slug}>
         <Hero school={school} locale={locale} onDossier={() => setSchoolOpen(true)} />
-        <Stats school={school} idx={idx} locale={locale} poolCount={pool.length} />
-        <Tenets school={school} locale={locale} />
+        <Stats school={school} idx={idx} locale={locale} poolCount={pool.length} onOpen={setStatOpen} />
+        <Tenets school={school} locale={locale} onIdea={setIdeaOpen} />
         <Thinkers school={school} locale={locale} cardStyle={cardStyle} onOpen={setPhilOpen} />
-        <ContextQuiz school={school} locale={locale} onQuiz={openSchoolQuiz} />
+        <ContextQuiz school={school} locale={locale} onQuiz={openSchoolQuiz} onContext={() => setCtxOpen(true)} />
       </main>
 
       <Rail idx={idx} setIdx={setIdx} locale={locale} />
@@ -381,6 +559,11 @@ export function Dashboard({ locale }: { locale: Locale }) {
       <SchoolModal school={school} open={schoolOpen} onClose={() => setSchoolOpen(false)} locale={locale}
         onThinker={(p) => { setSchoolOpen(false); setPhilOpen(p); }} />
       <QuizModal open={quizOpen} onClose={() => setQuizOpen(false)} pool={quizPool} title={quizTitle} scoreKey={quizKey} locale={locale} />
+
+      <StatModal kind={statOpen} school={school} idx={idx} locale={locale} onClose={() => setStatOpen(null)}
+        onThinker={setPhilOpen} onIdea={setIdeaOpen} onQuiz={openSchoolQuiz} onSchool={(i) => setIdx(() => i)} />
+      <IdeaModal ideaIdx={ideaOpen} school={school} locale={locale} onClose={() => setIdeaOpen(null)} />
+      <ContextModal open={ctxOpen} school={school} locale={locale} onClose={() => setCtxOpen(false)} />
 
       <TweaksPanel locale={locale} layout={layout} density={density} cardStyle={cardStyle}
         onLayout={tweak.layout} onDensity={tweak.density} onCardStyle={tweak.cardStyle} />

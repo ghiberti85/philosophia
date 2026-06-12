@@ -1,6 +1,7 @@
 import type { Philosopher } from './types';
+import { philosophersExtra } from './philosophers-extra';
 
-export const philosophers: Philosopher[] = [
+const corePhilosophers: Philosopher[] = [
   {
     slug: 'socrates',
     name: 'Socrates',
@@ -693,6 +694,9 @@ export const philosophers: Philosopher[] = [
     bust: { marble: '#efe9dd', pedestal: '#9a4a5a', headWidth: 0.78, beard: 0, hair: 0.95 , look: { skin: '#f2c9a8', hair: '#4a3527', cloth: '#9a4a5a', clothAccent: '#d9ad4f', hairstyle: 'updo', beard: 'none', mustache: 'none', headband: true } },
   },
 ];
+
+/** All philosophers: the original nine plus the redesign extras. */
+export const philosophers: Philosopher[] = [...corePhilosophers, ...philosophersExtra];
 
 export function getPhilosopher(slug: string): Philosopher | undefined {
   return philosophers.find((p) => p.slug === slug);

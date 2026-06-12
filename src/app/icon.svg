@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Philosophia mark: golden Φ on ink, with HUD corner brackets -->
+  <rect width="64" height="64" rx="14" fill="#1A1208"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#3D3020" stroke-width="1"/>
+  <!-- corner brackets -->
+  <path d="M10 15v-3a2 2 0 0 1 2-2h3M49 10h3a2 2 0 0 1 2 2v3M54 49v3a2 2 0 0 1-2 2h-3M15 54h-3a2 2 0 0 1-2-2v-3"
+        fill="none" stroke="#B8860B" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+  <!-- Phi -->
+  <ellipse cx="32" cy="32" rx="13.5" ry="10.5" fill="none" stroke="#D9AC52" stroke-width="4"/>
+  <line x1="32" y1="13" x2="32" y2="51" stroke="#D9AC52" stroke-width="4" stroke-linecap="round"/>
+</svg>
