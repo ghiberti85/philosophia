@@ -105,6 +105,24 @@ export const dict = {
   tweakLayout: { en: 'Layout', pt: 'Disposição' },
   tweakDensity: { en: 'Density', pt: 'Densidade' },
   tweakCardStyle: { en: 'Card style', pt: 'Estilo dos cards' },
+  readMore: { en: 'Read more', pt: 'Ler mais' },
+  inDepth: { en: 'In depth', pt: 'Em profundidade' },
+  statSagesInfo: {
+    en: 'The thinkers who shaped this school — masters, disciples and heirs across the generations. Open any dossier to read their biography, contributions, quotes and remarkable facts.',
+    pt: 'Os pensadores que moldaram esta escola — mestres, discípulos e herdeiros através das gerações. Abra qualquer dossiê para ler biografia, contribuições, frases e fatos marcantes.',
+  },
+  statTenetsInfo: {
+    en: 'The load-bearing ideas of this tradition — the principles every other claim rests on. Open any of them for an in-depth reading of what it means and why it mattered.',
+    pt: 'As ideias estruturais desta tradição — os princípios sobre os quais todo o resto se apoia. Abra qualquer uma delas para uma leitura aprofundada do que significa e por que importou.',
+  },
+  statQuizInfo: {
+    en: 'Every quiz draws five random questions from this pool, and the options are shuffled each round — so no two attempts are the same. Your best score per school and per thinker is saved on this device.',
+    pt: 'Cada quiz sorteia cinco perguntas deste banco, e as opções são embaralhadas a cada rodada — duas tentativas nunca são iguais. Sua melhor pontuação por escola e por pensador fica salva neste dispositivo.',
+  },
+  statSequenceInfo: {
+    en: 'Where this school stands on the timeline — twenty-four centuries of ideas, each school answering, refining or rebelling against the ones before it. Jump to any era below.',
+    pt: 'Onde esta escola está na linha do tempo — vinte e quatro séculos de ideias, cada escola respondendo, refinando ou se rebelando contra as anteriores. Salte para qualquer era abaixo.',
+  },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;
