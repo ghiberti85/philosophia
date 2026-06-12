@@ -691,7 +691,8 @@ button.stat:hover .stat__more { opacity: 1; }
 .railbtn:hover { border-color: var(--accent); background: var(--accent-soft); }
 
 .timeline { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0; }
-.timeline__line { position: absolute; left: 0; right: 0; top: 19px; height: 2px; background: var(--color-semantic-border); }
+/* track centered on the dots: tnode padding-top 6px + half of the 14px dot */
+.timeline__line { position: absolute; left: 0; right: 0; top: 12px; height: 2px; background: var(--color-semantic-border); }
 .timeline__line::before {
   content: "";
   position: absolute;
@@ -972,6 +973,7 @@ button.stat:hover .stat__more { opacity: 1; }
   .pm__portrait { min-height: 200px; border-right: 0; border-bottom: 1px solid var(--color-semantic-border); }
   .topbar { flex-wrap: wrap; }
   .tnode__name { display: none; }
+  .rail__sub { display: none; }
 }
 @media (max-width: 520px) {
   .wordmark .sub { display: none; }
