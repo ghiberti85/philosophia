@@ -93,6 +93,18 @@ export const dict = {
   nextSchool: { en: 'Next school', pt: 'Próxima escola' },
   thinkers: { en: 'thinkers', pt: 'pensadores' },
   thinker: { en: 'thinker', pt: 'pensador' },
+  readSchool: { en: 'Read the school', pt: 'Ler sobre a escola' },
+  sages: { en: 'Sages', pt: 'Sábios' },
+  coreTenets: { en: 'Core tenets', pt: 'Ideias centrais' },
+  quizPool: { en: 'Quiz pool', pt: 'Banco de quiz' },
+  inSequence: { en: 'In sequence', pt: 'Na sequência' },
+  principles: { en: 'principles', pt: 'princípios' },
+  factionReadout: { en: 'Faction readout', pt: 'Painel da escola' },
+  historicalContext: { en: 'Historical context', pt: 'Contexto histórico' },
+  tweaks: { en: 'Display tweaks', pt: 'Ajustes de exibição' },
+  tweakLayout: { en: 'Layout', pt: 'Disposição' },
+  tweakDensity: { en: 'Density', pt: 'Densidade' },
+  tweakCardStyle: { en: 'Card style', pt: 'Estilo dos cards' },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;

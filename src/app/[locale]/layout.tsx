@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import '../globals.css';
-import { Header } from '@/components/Header';
 import { Providers } from '@/components/Providers';
 import { dict } from '@/data/dictionary';
 import { isLocale, LOCALES, LOCALE_HTML_LANG, t, type Locale } from '@/lib/i18n';
@@ -35,7 +34,6 @@ export default function LocaleLayout({
     <html lang={LOCALE_HTML_LANG[locale]} suppressHydrationWarning>
       <body>
         <Providers>
-          <Header locale={locale} />
           {children}
         </Providers>
       </body>
