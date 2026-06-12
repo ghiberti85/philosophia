@@ -408,7 +408,7 @@ function Rail({ idx, setIdx, locale }: { idx: number; setIdx: (updater: (cur: nu
     <nav className="rail" aria-label={t(dict.timeline, locale)}>
       <div className="rail__head">
         <span className="glyph mono" style={{ color: 'var(--accent)' }}>◈ {t(dict.timeline, locale)}</span>
-        <span className="mono" style={{ color: 'var(--color-semantic-foreground-muted)' }}>{t(dict.timelineSubtitle, locale)}</span>
+        <span className="mono rail__sub" style={{ color: 'var(--color-semantic-foreground-muted)' }}>{t(dict.timelineSubtitle, locale)}</span>
         <div className="rail__nav">
           <button className="railbtn" onClick={prev} aria-label={t(dict.prevSchool, locale)}><Icon name="prev" /></button>
           <button className="railbtn" onClick={next} aria-label={t(dict.nextSchool, locale)}><Icon name="next" /></button>
