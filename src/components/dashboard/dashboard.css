@@ -839,8 +839,8 @@ button.stat:hover .stat__more { opacity: 1; }
 .modal--quiz { max-width: 620px; }
 .modal__close {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 20px;
+  right: 20px;
   z-index: 6;
   width: 38px;
   height: 38px;
