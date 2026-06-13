@@ -93,7 +93,7 @@ export const dict = {
   nextSchool: { en: 'Next school', pt: 'Próxima escola' },
   thinkers: { en: 'thinkers', pt: 'pensadores' },
   thinker: { en: 'thinker', pt: 'pensador' },
-  readSchool: { en: 'Read the school', pt: 'Ler sobre a escola' },
+  readSchool: { en: 'Read', pt: 'Ler' },
   sages: { en: 'Sages', pt: 'Sábios' },
   coreTenets: { en: 'Core tenets', pt: 'Ideias centrais' },
   quizPool: { en: 'Quiz pool', pt: 'Banco de quiz' },
