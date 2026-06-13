@@ -405,7 +405,9 @@ button.chip:hover { border-color: var(--accent); }
 .hero__veil {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 30%, color-mix(in oklch, var(--color-semantic-background) 78%, transparent) 78%, var(--color-semantic-background) 100%);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.82) 100%),
+    linear-gradient(180deg, transparent 30%, color-mix(in oklch, var(--color-semantic-background) 78%, transparent) 78%, var(--color-semantic-background) 100%);
 }
 .hero__body { position: relative; z-index: 2; margin-top: auto; padding: var(--panel-pad); }
 .hero__period {
@@ -415,6 +417,7 @@ button.chip:hover { border-color: var(--accent); }
   margin-bottom: 10px;
   color: var(--accent);
   white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
 }
 .hero__title {
   font-family: var(--typography-font-family-display);
@@ -424,6 +427,7 @@ button.chip:hover { border-color: var(--accent); }
   letter-spacing: -0.01em;
   margin: 0 0 8px;
   color: var(--color-semantic-foreground);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 .hero__tagline {
   font-family: var(--typography-font-family-serif);
@@ -432,6 +436,7 @@ button.chip:hover { border-color: var(--accent); }
   color: var(--color-semantic-foreground);
   max-width: 36ch;
   margin: 0 0 14px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 .hero__desc-btn { align-self: flex-start; }
 
