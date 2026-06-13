@@ -419,7 +419,7 @@ button.chip:hover { border-color: var(--accent); }
   justify-content: flex-end;
   padding: var(--panel-pad);
   flex: 0 0 42%;
-  background: var(--color-semantic-background);
+  background: color-mix(in oklch, var(--color-semantic-background) 88%, transparent);
 }
 
 /* Right zone: image with left-to-right fade */
@@ -446,9 +446,9 @@ button.chip:hover { border-color: var(--accent); }
   position: absolute;
   inset: 0;
   background: linear-gradient(to right,
-    var(--color-semantic-background) 0%,
-    color-mix(in oklch, var(--color-semantic-background) 70%, transparent) 50%,
-    transparent 85%
+    color-mix(in oklch, var(--color-semantic-background) 88%, transparent) 0%,
+    color-mix(in oklch, var(--color-semantic-background) 55%, transparent) 55%,
+    transparent 90%
   );
   pointer-events: none;
 }
@@ -457,7 +457,7 @@ button.chip:hover { border-color: var(--accent); }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   color: var(--accent);
   white-space: nowrap;
 }
@@ -467,7 +467,7 @@ button.chip:hover { border-color: var(--accent); }
   line-height: 0.98;
   font-weight: 600;
   letter-spacing: -0.01em;
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   color: var(--color-semantic-foreground);
 }
 .hero__tagline {
