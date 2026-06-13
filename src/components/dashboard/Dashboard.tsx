@@ -259,7 +259,6 @@ function Tenets({ school, locale, onIdea }: { school: School; locale: Locale; on
             <button className="tenet-row" onClick={() => onIdea(i)}>
               <span className="mk">{String(i + 1).padStart(2, '0')}</span>
               <span className="tenet-row__text">{idea}</span>
-              <span className="tenet-row__more mono">{t(dict.inDepth, locale)} →</span>
             </button>
           </li>
         ))}
