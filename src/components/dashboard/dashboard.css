@@ -400,38 +400,65 @@ button.chip:hover { border-color: var(--accent); }
 }
 
 /* ── Hero ───────────────────────────────────────────────────────────── */
-.hero { position: relative; overflow: hidden; padding: 0; min-height: 340px; }
-.hero__scene { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero__veil {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg,
-      rgba(0,0,0,0.25) 0%,
-      rgba(0,0,0,0.05) 35%,
-      rgba(0,0,0,0.5) 60%,
-      rgba(0,0,0,0.88) 82%,
-      rgba(0,0,0,0.96) 100%
-    );
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  min-height: 340px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
 }
+
+/* Left zone: text on panel background */
 .hero__body {
   position: relative;
   z-index: 2;
-  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: var(--panel-pad);
-  padding-top: clamp(16px, 2vw, 28px);
-  background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  flex: 0 0 52%;
+  background: var(--color-semantic-background);
 }
+
+/* Right zone: image with left-to-right fade */
+.hero__visual {
+  position: relative;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.hero__scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero__scene img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero__scene-fallback {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+/* Fade from panel background on the left to transparent on the right */
+.hero__fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    var(--color-semantic-background) 0%,
+    color-mix(in oklch, var(--color-semantic-background) 60%, transparent) 30%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
 .hero__period {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-  color: rgba(255,255,255,0.75);
+  color: var(--accent);
   white-space: nowrap;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 .hero__title {
   font-family: var(--typography-font-family-display);
@@ -440,19 +467,35 @@ button.chip:hover { border-color: var(--accent); }
   font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0 0 8px;
-  color: #fff;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+  color: var(--color-semantic-foreground);
 }
 .hero__tagline {
   font-family: var(--typography-font-family-serif);
   font-style: italic;
   font-size: clamp(1.05rem, 1.7vw, 1.45rem);
-  color: rgba(255,255,255,0.88);
+  color: var(--color-semantic-foreground-muted);
   max-width: 36ch;
   margin: 0 0 14px;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
 }
 .hero__desc-btn { align-self: flex-start; }
+
+/* SchoolModal mini-hero */
+.sm__hero {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 180px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-semantic-border);
+}
+.sm__hero-body {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(16px, 2vw, 24px);
+  background: var(--color-semantic-background);
+}
 
 /* ── Stats (game readouts) ──────────────────────────────────────────── */
 .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; flex: 1 1 auto; }
@@ -958,6 +1001,25 @@ button.stat:hover .stat__more { opacity: 1; }
   .topbar { flex-wrap: wrap; }
   .tnode__name { display: none; }
   .rail__sub { display: none; }
+  /* Hero: on mobile stack image above, text below */
+  .hero { flex-direction: column; min-height: unset; }
+  .hero__visual { height: 200px; flex: 0 0 200px; }
+  .hero__body { flex: 0 0 auto; justify-content: flex-start; }
+  .hero__fade {
+    background: linear-gradient(to bottom,
+      transparent 50%,
+      var(--color-semantic-background) 100%
+    );
+  }
+  .sm__hero { flex-direction: column; height: auto; }
+  .sm__hero-body { flex: 0 0 auto; }
+  .sm__hero .hero__visual { height: 140px; flex: 0 0 140px; order: -1; }
+  .sm__hero .hero__fade {
+    background: linear-gradient(to bottom,
+      transparent 50%,
+      var(--color-semantic-background) 100%
+    );
+  }
 }
 @media (max-width: 520px) {
   .wordmark .sub { display: none; }
