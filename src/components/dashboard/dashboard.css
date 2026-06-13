@@ -478,7 +478,7 @@ button.chip:hover { border-color: var(--accent); }
   max-width: 36ch;
   margin: 0 0 14px;
 }
-.hero__desc-btn { align-self: flex-start; }
+.hero__desc-btn { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; }
 
 /* SchoolModal mini-hero */
 .sm__hero {
