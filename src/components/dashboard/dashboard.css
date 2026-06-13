@@ -1003,6 +1003,13 @@ button.stat:hover .stat__more { opacity: 1; }
   .tnode__name { display: none; }
   .rail__sub { display: none; }
   .stats-grid { grid-template-columns: 1fr; }
+  /* Philosopher cards: reduce size and truncate text */
+  .pcard { padding: 10px; gap: 10px; }
+  .pcard__portrait { width: 64px; min-height: 90px; }
+  .pcard__epithet { font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pcard__name { font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pcard__years { font-size: 0.7rem; }
+  .pcard__quote { margin: 6px 0; font-size: 0.85rem; -webkit-line-clamp: 2; }
   /* Hero: on mobile stack image above, text below */
   .hero { flex-direction: column; min-height: unset; }
   .hero__visual { height: 200px; flex: 0 0 200px; }
