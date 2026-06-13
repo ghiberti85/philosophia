@@ -406,18 +406,32 @@ button.chip:hover { border-color: var(--accent); }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.82) 100%),
-    linear-gradient(180deg, transparent 30%, color-mix(in oklch, var(--color-semantic-background) 78%, transparent) 78%, var(--color-semantic-background) 100%);
+    linear-gradient(180deg,
+      rgba(0,0,0,0.25) 0%,
+      rgba(0,0,0,0.05) 35%,
+      rgba(0,0,0,0.5) 60%,
+      rgba(0,0,0,0.88) 82%,
+      rgba(0,0,0,0.96) 100%
+    );
 }
-.hero__body { position: relative; z-index: 2; margin-top: auto; padding: var(--panel-pad); }
+.hero__body {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding: var(--panel-pad);
+  padding-top: clamp(16px, 2vw, 28px);
+  background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
 .hero__period {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-  color: var(--accent);
+  color: rgba(255,255,255,0.75);
   white-space: nowrap;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 .hero__title {
   font-family: var(--typography-font-family-display);
@@ -426,17 +440,17 @@ button.chip:hover { border-color: var(--accent); }
   font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0 0 8px;
-  color: var(--color-semantic-foreground);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.7);
 }
 .hero__tagline {
   font-family: var(--typography-font-family-serif);
   font-style: italic;
   font-size: clamp(1.05rem, 1.7vw, 1.45rem);
-  color: var(--color-semantic-foreground);
+  color: rgba(255,255,255,0.88);
   max-width: 36ch;
   margin: 0 0 14px;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.7);
 }
 .hero__desc-btn { align-self: flex-start; }
 
