@@ -517,14 +517,6 @@ button.stat:hover .stat__more { opacity: 1; }
 .tenet-row:hover { border-color: var(--ring); background: var(--accent-soft); }
 .tenet-row .mk { padding-top: 0; }
 .tenet-row__text { flex: 1 1 auto; }
-.tenet-row__more {
-  font-size: 0.6rem;
-  color: var(--accent);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 150ms ease;
-}
-.tenet-row:hover .tenet-row__more { opacity: 1; }
 
 /* stat-modal data rows */
 .statlink {
@@ -974,8 +966,6 @@ button.stat:hover .stat__more { opacity: 1; }
   .topbar { flex-wrap: wrap; }
   .tnode__name { display: none; }
   .rail__sub { display: none; }
-  .tenet-row__more { display: none; }
-  .tenet-row__text { flex: 1 1 auto; max-width: 100%; }
 }
 @media (max-width: 520px) {
   .wordmark .sub { display: none; }
