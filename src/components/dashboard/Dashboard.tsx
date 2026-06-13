@@ -35,16 +35,8 @@ const LS = {
   },
 };
 
-type Layout = 'split' | 'stacked' | 'focus';
-type Density = 'compact' | 'regular' | 'comfy';
 type CardStyle = 'compact' | 'portrait' | 'plaque';
 
-const TWEAK_DEFAULTS = { layout: 'stacked' as Layout, density: 'regular' as Density, cardStyle: 'plaque' as CardStyle };
-const PAD: Record<Density, string> = {
-  compact: '14px',
-  regular: 'clamp(16px, 1.6vw, 24px)',
-  comfy: 'clamp(22px, 2vw, 32px)',
-};
 const ERAS: Record<string, string> = {
   'socratic-philosophy': 'V BC',
   platonism: 'IV BC',
@@ -428,58 +420,12 @@ function Rail({ idx, setIdx, locale }: { idx: number; setIdx: (updater: (cur: nu
   );
 }
 
-/* ── Tweaks panel ───────────────────────────────────────────────────── */
-
-function TweakRadio<V extends string>({ label, value, options, onChange }: {
-  label: string; value: V; options: readonly V[]; onChange: (v: V) => void;
-}) {
-  return (
-    <div className="tweaks__row">
-      <span className="mono">{label}</span>
-      <div className="tweaks__opts">
-        {options.map((opt) => (
-          <button key={opt} className="tweaks__opt" aria-pressed={value === opt} onClick={() => onChange(opt)}>
-            {opt}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function TweaksPanel({
-  locale, layout, density, cardStyle, onLayout, onDensity, onCardStyle,
-}: {
-  locale: Locale;
-  layout: Layout; density: Density; cardStyle: CardStyle;
-  onLayout: (v: Layout) => void; onDensity: (v: Density) => void; onCardStyle: (v: CardStyle) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="tweaks">
-      {open && (
-        <div className="tweaks__pop">
-          <TweakRadio label={t(dict.tweakLayout, locale)} value={layout} options={['split', 'stacked', 'focus'] as const} onChange={onLayout} />
-          <TweakRadio label={t(dict.tweakDensity, locale)} value={density} options={['compact', 'regular', 'comfy'] as const} onChange={onDensity} />
-          <TweakRadio label={t(dict.tweakCardStyle, locale)} value={cardStyle} options={['compact', 'portrait', 'plaque'] as const} onChange={onCardStyle} />
-        </div>
-      )}
-      <button className="iconbtn" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label={t(dict.tweaks, locale)}>
-        <Icon name="sliders" />
-      </button>
-    </div>
-  );
-}
 
 /* ── App ────────────────────────────────────────────────────────────── */
 
 export function Dashboard({ locale }: { locale: Locale }) {
   const [idx, setIdxState] = useState(DEFAULT_SCHOOL);
   const [entered, setEntered] = useState(false);
-
-  const [layout, setLayout] = useState<Layout>(TWEAK_DEFAULTS.layout);
-  const [density, setDensity] = useState<Density>(TWEAK_DEFAULTS.density);
-  const [cardStyle, setCardStyle] = useState<CardStyle>(TWEAK_DEFAULTS.cardStyle);
 
   const [philOpen, setPhilOpen] = useState<Philosopher | null>(null);
   const [quizOpen, setQuizOpen] = useState(false);
@@ -493,9 +439,6 @@ export function Dashboard({ locale }: { locale: Locale }) {
   useEffect(() => {
     const saved = Number(LS.get('school', String(DEFAULT_SCHOOL)));
     if (Number.isFinite(saved)) setIdxState(Math.min(schools.length - 1, Math.max(0, saved)));
-    setLayout(LS.get('tweak.layout', TWEAK_DEFAULTS.layout) as Layout);
-    setDensity(LS.get('tweak.density', TWEAK_DEFAULTS.density) as Density);
-    setCardStyle(LS.get('tweak.cardStyle', TWEAK_DEFAULTS.cardStyle) as CardStyle);
     LS.set('lang', locale);
   }, [locale]);
 
@@ -506,12 +449,6 @@ export function Dashboard({ locale }: { locale: Locale }) {
       return n;
     });
   };
-  const tweak = {
-    layout: (v: Layout) => { setLayout(v); LS.set('tweak.layout', v); },
-    density: (v: Density) => { setDensity(v); LS.set('tweak.density', v); },
-    cardStyle: (v: CardStyle) => { setCardStyle(v); LS.set('tweak.cardStyle', v); },
-  };
-
   const school = schools[idx];
   const pool = useMemo(() => school.philosopherSlugs.flatMap((s) => getQuestionsFor(s)), [school]);
 
@@ -541,14 +478,14 @@ export function Dashboard({ locale }: { locale: Locale }) {
 
   return (
     <div className="stage" data-enter={entered}
-      style={{ '--accent-base': school.accent, '--panel-pad': PAD[density] } as CSSProperties}>
+      style={{ '--accent-base': school.accent, '--panel-pad': 'clamp(22px, 2vw, 32px)' } as CSSProperties}>
       <Topbar locale={locale} />
 
-      <main className="dash" data-layout={layout} key={school.slug}>
+      <main className="dash" data-layout="stacked" key={school.slug}>
         <Hero school={school} locale={locale} onDossier={() => setSchoolOpen(true)} />
         <Stats school={school} idx={idx} locale={locale} poolCount={pool.length} onOpen={setStatOpen} />
         <Tenets school={school} locale={locale} onIdea={setIdeaOpen} />
-        <Thinkers school={school} locale={locale} cardStyle={cardStyle} onOpen={setPhilOpen} />
+        <Thinkers school={school} locale={locale} cardStyle="plaque" onOpen={setPhilOpen} />
         <ContextQuiz school={school} locale={locale} onQuiz={openSchoolQuiz} onContext={() => setCtxOpen(true)} />
       </main>
 
@@ -564,8 +501,6 @@ export function Dashboard({ locale }: { locale: Locale }) {
       <IdeaModal ideaIdx={ideaOpen} school={school} locale={locale} onClose={() => setIdeaOpen(null)} />
       <ContextModal open={ctxOpen} school={school} locale={locale} onClose={() => setCtxOpen(false)} />
 
-      <TweaksPanel locale={locale} layout={layout} density={density} cardStyle={cardStyle}
-        onLayout={tweak.layout} onDensity={tweak.density} onCardStyle={tweak.cardStyle} />
     </div>
   );
 }

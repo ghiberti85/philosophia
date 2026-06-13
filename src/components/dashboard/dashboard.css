@@ -914,33 +914,6 @@ button.stat:hover .stat__more { opacity: 1; }
 .quiz__score { font-family: var(--typography-font-family-display); font-size: 4.5rem; line-height: 1; color: var(--accent); font-weight: 600; }
 .quiz__verdict { font-family: var(--typography-font-family-serif); font-size: 1.3rem; font-style: italic; margin: 0; }
 
-/* ── Tweaks panel ───────────────────────────────────────────────────── */
-.tweaks { position: fixed; right: 14px; bottom: 130px; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-.tweaks__pop {
-  width: 230px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: var(--color-semantic-background);
-  border: 1px solid var(--color-semantic-border);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-xl);
-}
-.tweaks__row { display: flex; flex-direction: column; gap: 6px; }
-.tweaks__opts { display: flex; flex-wrap: wrap; gap: 5px; }
-.tweaks__opt {
-  border: 1px solid var(--color-semantic-border);
-  background: var(--color-semantic-background-subtle);
-  border-radius: var(--border-radius-full);
-  padding: 4px 10px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--color-semantic-foreground-muted);
-  transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
-}
-.tweaks__opt:hover { border-color: var(--accent); }
-.tweaks__opt[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 /* ── Responsive ─────────────────────────────────────────────────────── */
 @media (max-width: 1080px) {
