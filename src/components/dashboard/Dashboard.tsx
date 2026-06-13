@@ -95,7 +95,10 @@ function Topbar({ locale }: { locale: Locale }) {
 function Hero({ school, locale, onDossier }: { school: School; locale: Locale; onDossier: () => void }) {
   return (
     <Panel area="hero" className="hero reveal" style={{ '--d': '0ms' } as CSSProperties} tint>
-      <div className="hero__scene"><IsoScene scene={school.scene} /></div>
+      <div className="hero__scene">
+        <img src={`/scenes/${school.slug}.png`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+        <div style={{ position: 'absolute', inset: 0, display: 'none' }}><IsoScene scene={school.scene} /></div>
+      </div>
       <div className="hero__veil" />
       <div className="hero__body">
         <span className="hero__period mono"><Icon name="map" size={14} /> {t(school.period, locale)}</span>
@@ -360,7 +363,10 @@ function SchoolModal({
     <Modal open={open} onClose={onClose} labelledby="sm-name" closeLabel={t(dict.close, locale)}>
       <div className="modal__scroll">
         <div style={{ position: 'relative', height: 200, overflow: 'hidden', borderBottom: '1px solid var(--color-semantic-border)' }}>
-          <div className="hero__scene"><IsoScene scene={school.scene} /></div>
+          <div className="hero__scene">
+            <img src={`/scenes/${school.slug}.png`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+            <div style={{ position: 'absolute', inset: 0, display: 'none' }}><IsoScene scene={school.scene} /></div>
+          </div>
           <div className="hero__veil" />
           <div style={{ position: 'absolute', left: 'clamp(20px,3vw,30px)', bottom: 18, zIndex: 2 }}>
             <span className="hero__period mono"><Icon name="map" size={14} /> {t(school.period, locale)}</span>
