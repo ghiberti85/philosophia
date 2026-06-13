@@ -995,13 +995,14 @@ button.stat:hover .stat__more { opacity: 1; }
     grid-template-columns: 1fr;
     grid-template-areas: "hero" "stats" "ideas" "thinkers" "context";
   }
-  .thinkers-row { grid-auto-flow: row; grid-auto-columns: auto; }
+  .thinkers-row { grid-auto-flow: row; grid-auto-columns: 1fr; }
   .ticker { display: none; }
   .pm__head { grid-template-columns: 1fr; }
   .pm__portrait { min-height: 200px; border-right: 0; border-bottom: 1px solid var(--color-semantic-border); }
   .topbar { flex-wrap: wrap; }
   .tnode__name { display: none; }
   .rail__sub { display: none; }
+  .stats-grid { grid-template-columns: 1fr; }
   /* Hero: on mobile stack image above, text below */
   .hero { flex-direction: column; min-height: unset; }
   .hero__visual { height: 200px; flex: 0 0 200px; }
