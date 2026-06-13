@@ -418,7 +418,7 @@ button.chip:hover { border-color: var(--accent); }
   flex-direction: column;
   justify-content: flex-end;
   padding: var(--panel-pad);
-  flex: 0 0 52%;
+  flex: 0 0 42%;
   background: var(--color-semantic-background);
 }
 
@@ -447,8 +447,8 @@ button.chip:hover { border-color: var(--accent); }
   inset: 0;
   background: linear-gradient(to right,
     var(--color-semantic-background) 0%,
-    color-mix(in oklch, var(--color-semantic-background) 60%, transparent) 30%,
-    transparent 70%
+    color-mix(in oklch, var(--color-semantic-background) 70%, transparent) 50%,
+    transparent 85%
   );
   pointer-events: none;
 }
@@ -1008,16 +1008,16 @@ button.stat:hover .stat__more { opacity: 1; }
   .hero__body { flex: 0 0 auto; justify-content: flex-start; }
   .hero__fade {
     background: linear-gradient(to bottom,
-      transparent 50%,
+      transparent 72%,
       var(--color-semantic-background) 100%
     );
   }
   .sm__hero { flex-direction: column; height: auto; }
   .sm__hero-body { flex: 0 0 auto; }
-  .sm__hero .hero__visual { height: 140px; flex: 0 0 140px; order: -1; }
+  .sm__hero .hero__visual { height: 160px; flex: 0 0 160px; order: -1; }
   .sm__hero .hero__fade {
     background: linear-gradient(to bottom,
-      transparent 50%,
+      transparent 72%,
       var(--color-semantic-background) 100%
     );
   }
