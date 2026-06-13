@@ -439,6 +439,7 @@ button.chip:hover { border-color: var(--accent); }
   position: absolute;
   inset: 0;
   pointer-events: none;
+  display: none;
 }
 /* Fade from panel background on the left to transparent on the right */
 .hero__fade {
