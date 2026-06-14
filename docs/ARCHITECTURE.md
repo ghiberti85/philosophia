@@ -87,16 +87,18 @@ independently.
 The `Accordion` component (`ui.tsx`) keeps an internal `Set<number>` of open
 indices, supporting multiple sections open simultaneously.
 
-## Philosopher figures
+## Philosopher figures — two rendering contexts
 
-Each philosopher can have an AI-generated statue image (`figureImage?: string`
-in `src/data/types.ts`). When present, the dossier renders the image from
-`/public/figures/<slug>.webp` in the diorama art style.
+Philosopher visuals appear in two distinct contexts with different rendering logic:
 
-When `figureImage` is absent the component falls back to the procedural 3D bust.
-When `bust.modelPath` is set it renders a photogrammetry `.glb` scan instead.
+**Dashboard context** (cards, `PhilosopherCard`, modal `Portrait`):
+Renders `figureImage` (DALL-E WebP) when available; falls back to a monogram
+initial letter. All 23 philosophers currently have a `figureImage`.
 
-Priority: `figureImage` > `modelPath` > procedural bust.
+**Detail page context** (`/philosophers/[slug]`):
+Always renders the interactive 3D bust via `BustViewer` → `PhilosopherBust`
+(react-three-fiber). The `bust.modelPath` escape hatch swaps the procedural
+mesh for a scanned `.glb` file. `figureImage` is not shown on this page.
 
 ## Bibliography data
 

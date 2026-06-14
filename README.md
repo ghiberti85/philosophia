@@ -12,14 +12,15 @@
 | --- | --- |
 | 🏛 **8 schools of thought** | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
 | 🗿 **23 philosophers** | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts |
-| 🖼 **AI-generated figure images** | WebP statue images (diorama art style) for all 23 philosophers; falls back to cel-shaded toon 3D busts (react-three-fiber) |
+| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits |
+| 🔄 **Rotatable 3D busts** | react-three-fiber toon busts on each philosopher's detail page (`/philosophers/[slug]`) — procedurally generated from `BustLook` config |
 | 📚 **Bibliography card** | 5 curated essential works per school — bilingual title, author, year and contextual annotation |
 | 🎴 **Accordion dossiers** | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling |
 | 🔍 **Deep-dive ideas** | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read |
 | 🎲 **138-question quiz bank** | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage` |
 | 📜 **Quote of the day** | Deterministic daily rotation across all philosophers' quotes |
 | 🕰 **Interactive timeline rail** | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support |
-| 🖼 **Isometric city scenes** | Hand-crafted isometric illustrations per school (PNG), with a procedural SVG fallback that repaints for light/dark mode |
+| 🏙 **Isometric city scenes** | AI-generated isometric illustrations per school (PNG) displayed in the hero panel; procedural SVG fallback (IsoScene) repaints for light/dark mode |
 | 📱 **PWA** | Installable on desktop and mobile — works offline via Workbox service worker, manifest and native splash screens |
 | 🌗 **Dark / light mode** | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes |
 | 🌍 **i18n (EN / PT-BR)** | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing |
@@ -88,13 +89,11 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for design decisions, and
 [docs/ADDING-CONTENT.md](docs/ADDING-CONTENT.md) for a step-by-step guide to adding
 a new philosopher, school, quiz question or language.
 
-## 🗿 Philosopher figure rendering
+## 🗿 Philosopher rendering — two contexts
 
-Three tiers, in order of priority:
+**Dashboard (main page):** Shows the `figureImage` WebP (DALL-E generated statue) in cards and the modal portrait. All 23 philosophers have one.
 
-1. **`figureImage`** — AI-generated WebP statue image displayed in diorama style (`/public/figures/<slug>.webp`). All 23 philosophers currently have one.
-2. **`bust.modelPath`** — Photogrammetry `.glb` scan rendered in the interactive 3D viewer. Drop files into `public/models/` and point the config at them (see [docs/3D-MODELS.md](docs/3D-MODELS.md)).
-3. **Procedural bust** — Cel-shaded toon character generated from `BustLook` config (skin, hair, cloth, hairstyle, beard, laurel, headband, collar). Each philosopher has a unique character design.
+**Detail page (`/philosophers/[slug]`):** Always renders the interactive 3D bust via react-three-fiber — a procedural toon character built from `BustLook` config (skin, hair, cloth, hairstyle, beard, accessories like laurel or headband). A `modelPath` field can swap the procedural mesh for a scanned `.glb` file (see [docs/3D-MODELS.md](docs/3D-MODELS.md)).
 
 ## 📄 License
 
