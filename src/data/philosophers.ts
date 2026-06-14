@@ -77,7 +77,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#e8e2d4', pedestal: '#c2922f', headWidth: 0.85, beard: 0.9, hair: 0.35 , look: { skin: '#e3a878', hair: '#ebe6da', cloth: '#ece2cc', clothAccent: '#c2922f', hairstyle: 'bald', beard: 'long', mustache: 'normal' } },
-    figureImage: '/figures/socrates-v3.webp',
+    figureImage: '/figures/socrates.webp',
   },
   {
     slug: 'plato',
@@ -154,6 +154,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#ece6da', pedestal: '#5b7fb9', headWidth: 1.0, beard: 0.75, hair: 0.6 , look: { skin: '#eebd92', hair: '#b3aea2', cloth: '#5b7fb9', clothAccent: '#d9ad4f', hairstyle: 'short', beard: 'full', mustache: 'normal' } },
+    figureImage: '/figures/plato.webp',
   },
   {
     slug: 'aristotle',
@@ -230,6 +231,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#eae4d6', pedestal: '#7a9a59', headWidth: 0.92, beard: 0.55, hair: 0.5 , look: { skin: '#e4b083', hair: '#6e5639', cloth: '#7a9a59', clothAccent: '#d9ad4f', hairstyle: 'short', beard: 'trimmed', mustache: 'normal' } },
+    figureImage: '/figures/aristotle.webp',
   },
   {
     slug: 'seneca',
