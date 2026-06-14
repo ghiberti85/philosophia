@@ -603,6 +603,14 @@ button.stat:hover .stat__more { opacity: 1; }
 .statlink:hover { border-color: var(--accent); background: var(--accent-soft); }
 .statlink__sub { font-size: 0.62rem; color: var(--accent); }
 
+/* bibliography list */
+.bib-list { display: flex; flex-direction: column; gap: 0; }
+.bib-item { align-items: flex-start !important; }
+.bib-item__body { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+.bib-item__title { font-size: 0.95rem; font-weight: 600; line-height: 1.3; }
+.bib-item__meta { font-size: 0.68rem; color: var(--accent); }
+.bib-item__note { font-size: 0.78rem; color: var(--color-semantic-foreground-muted); line-height: 1.4; margin-top: 2px; }
+
 /* deep-dive idea modal */
 .idea-deep__title {
   font-family: var(--typography-font-family-display);

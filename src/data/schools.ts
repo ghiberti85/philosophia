@@ -31,6 +31,13 @@ export const schools: School[] = [
     accent: '#c2922f',
     scene: 'agora',
     cityImage: '/scenes/athens-v3.webp',
+    keyWorks: [
+      { title: 'Apology', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 399 BC', note: { en: 'Socrates\' defense speech at trial', pt: 'O discurso de defesa de Sócrates no julgamento' } },
+      { title: 'Meno', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 385 BC', note: { en: 'On virtue and recollection', pt: 'Sobre a virtude e a reminiscência' } },
+      { title: 'Symposium', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 385 BC', note: { en: 'Dialogues on the nature of love', pt: 'Diálogos sobre a natureza do amor' } },
+      { title: 'Memorabilia', author: { en: 'Xenophon', pt: 'Xenofonte' }, year: 'c. 371 BC', note: { en: 'Recollections of Socrates', pt: 'Recordações de Sócrates' } },
+      { title: 'Phaedo', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 380 BC', note: { en: 'Socrates\' final hours and the soul', pt: 'As últimas horas de Sócrates e a alma' } },
+    ],
   },
   {
     slug: 'platonism',
@@ -61,6 +68,13 @@ export const schools: School[] = [
     philosopherSlugs: ['plato', 'plotinus', 'hypatia'],
     accent: '#5b7fb9',
     scene: 'academy',
+    keyWorks: [
+      { title: 'The Republic', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 380 BC', note: { en: 'Justice, the ideal state and the philosopher-king', pt: 'A justiça, o Estado ideal e o rei-filósofo' } },
+      { title: 'Timaeus', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 360 BC', note: { en: 'The origin and nature of the cosmos', pt: 'A origem e natureza do cosmos' } },
+      { title: 'Phaedrus', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 370 BC', note: { en: 'Love, beauty and the soul\'s wings', pt: 'O amor, a beleza e as asas da alma' } },
+      { title: 'Enneads', author: { en: 'Plotinus', pt: 'Plotino' }, year: 'c. 270 AD', note: { en: 'The foundational text of Neoplatonism', pt: 'O texto fundador do neoplatonismo' } },
+      { title: 'Theaetetus', author: { en: 'Plato', pt: 'Platão' }, year: 'c. 369 BC', note: { en: 'What is knowledge?', pt: 'O que é o conhecimento?' } },
+    ],
   },
   {
     slug: 'aristotelianism',
@@ -91,6 +105,13 @@ export const schools: School[] = [
     philosopherSlugs: ['aristotle', 'theophrastus', 'averroes'],
     accent: '#7a9a59',
     scene: 'lyceum',
+    keyWorks: [
+      { title: 'Nicomachean Ethics', author: { en: 'Aristotle', pt: 'Aristóteles' }, year: 'c. 350 BC', note: { en: 'The definitive account of virtue and happiness', pt: 'O tratado definitivo sobre virtude e felicidade' } },
+      { title: 'Politics', author: { en: 'Aristotle', pt: 'Aristóteles' }, year: 'c. 350 BC', note: { en: 'Man as a political animal; forms of government', pt: 'O homem como animal político; formas de governo' } },
+      { title: 'Metaphysics', author: { en: 'Aristotle', pt: 'Aristóteles' }, year: 'c. 350 BC', note: { en: 'Being, substance, and the unmoved mover', pt: 'O ser, a substância e o motor imóvel' } },
+      { title: 'Poetics', author: { en: 'Aristotle', pt: 'Aristóteles' }, year: 'c. 335 BC', note: { en: 'Tragedy, mimesis and catharsis', pt: 'A tragédia, a mimese e a catarse' } },
+      { title: 'The Incoherence of the Incoherence', author: { en: 'Averroes', pt: 'Averróis' }, year: '1180', note: { en: 'Defence of Aristotelian philosophy', pt: 'Defesa da filosofia aristotélica' } },
+    ],
   },
   {
     slug: 'stoicism',
@@ -121,6 +142,13 @@ export const schools: School[] = [
     philosopherSlugs: ['zeno-of-citium', 'seneca', 'epictetus', 'marcus-aurelius'],
     accent: '#a35e3b',
     scene: 'stoa',
+    keyWorks: [
+      { title: 'Meditations', author: { en: 'Marcus Aurelius', pt: 'Marco Aurélio' }, year: 'c. 170 AD', note: { en: 'Private journal of a philosopher-emperor', pt: 'Diário pessoal de um imperador filósofo' } },
+      { title: 'Letters to Lucilius', author: { en: 'Seneca', pt: 'Sêneca' }, year: 'c. 65 AD', note: { en: '124 letters on virtue, time and the good life', pt: '124 cartas sobre virtude, o tempo e a vida boa' } },
+      { title: 'Discourses', author: { en: 'Epictetus', pt: 'Epicteto' }, year: 'c. 108 AD', note: { en: 'Teachings transcribed by Arrian', pt: 'Ensinamentos transcritos por Arriano' } },
+      { title: 'Enchiridion', author: { en: 'Epictetus', pt: 'Epicteto' }, year: 'c. 108 AD', note: { en: 'Handbook of Stoic practice', pt: 'Manual de prática estoica' } },
+      { title: 'On the Shortness of Life', author: { en: 'Seneca', pt: 'Sêneca' }, year: 'c. 49 AD', note: { en: 'On using time well', pt: 'Sobre o bom uso do tempo' } },
+    ],
   },
   {
     slug: 'rationalism',
@@ -151,6 +179,13 @@ export const schools: School[] = [
     philosopherSlugs: ['descartes', 'spinoza', 'leibniz'],
     accent: '#6b5b95',
     scene: 'observatory',
+    keyWorks: [
+      { title: 'Meditations on First Philosophy', author: { en: 'Descartes', pt: 'Descartes' }, year: '1641', note: { en: 'The cogito and the foundations of modern philosophy', pt: 'O cogito e os fundamentos da filosofia moderna' } },
+      { title: 'Ethics', author: { en: 'Spinoza', pt: 'Espinosa' }, year: '1677', note: { en: 'God, mind and human freedom proved geometrically', pt: 'Deus, mente e liberdade humana provados geometricamente' } },
+      { title: 'Discourse on the Method', author: { en: 'Descartes', pt: 'Descartes' }, year: '1637', note: { en: 'How to conduct reason and seek truth', pt: 'Como conduzir a razão e buscar a verdade' } },
+      { title: 'Monadology', author: { en: 'Leibniz', pt: 'Leibniz' }, year: '1714', note: { en: 'The universe as infinite simple substances', pt: 'O universo como substâncias simples infinitas' } },
+      { title: 'Theologico-Political Treatise', author: { en: 'Spinoza', pt: 'Espinosa' }, year: '1670', note: { en: 'Freedom of thought and the secular state', pt: 'Liberdade de pensamento e o Estado secular' } },
+    ],
   },
   {
     slug: 'german-idealism',
@@ -181,6 +216,13 @@ export const schools: School[] = [
     philosopherSlugs: ['kant', 'fichte', 'hegel'],
     accent: '#3f7d75',
     scene: 'library',
+    keyWorks: [
+      { title: 'Critique of Pure Reason', author: { en: 'Kant', pt: 'Kant' }, year: '1781', note: { en: 'The limits and structure of human knowledge', pt: 'Os limites e a estrutura do conhecimento humano' } },
+      { title: 'Groundwork for the Metaphysics of Morals', author: { en: 'Kant', pt: 'Kant' }, year: '1785', note: { en: 'The categorical imperative and human dignity', pt: 'O imperativo categórico e a dignidade humana' } },
+      { title: 'Phenomenology of Spirit', author: { en: 'Hegel', pt: 'Hegel' }, year: '1807', note: { en: 'Consciousness unfolding toward absolute knowledge', pt: 'A consciência desdobrando-se rumo ao saber absoluto' } },
+      { title: 'Science of Logic', author: { en: 'Hegel', pt: 'Hegel' }, year: '1812', note: { en: 'Being, essence and the dialectical method', pt: 'O ser, a essência e o método dialético' } },
+      { title: 'Critique of Practical Reason', author: { en: 'Kant', pt: 'Kant' }, year: '1788', note: { en: 'Moral law and freedom of the will', pt: 'A lei moral e a liberdade da vontade' } },
+    ],
   },
   {
     slug: 'existentialism',
@@ -211,6 +253,13 @@ export const schools: School[] = [
     philosopherSlugs: ['kierkegaard', 'nietzsche', 'sartre', 'simone-de-beauvoir'],
     accent: '#9a4a5a',
     scene: 'cafe',
+    keyWorks: [
+      { title: 'Being and Nothingness', author: { en: 'Sartre', pt: 'Sartre' }, year: '1943', note: { en: 'Consciousness, freedom and bad faith', pt: 'A consciência, a liberdade e a má-fé' } },
+      { title: 'The Second Sex', author: { en: 'Simone de Beauvoir', pt: 'Simone de Beauvoir' }, year: '1949', note: { en: 'The founding text of modern feminist philosophy', pt: 'O texto fundador da filosofia feminista moderna' } },
+      { title: 'Thus Spoke Zarathustra', author: { en: 'Nietzsche', pt: 'Nietzsche' }, year: '1883', note: { en: 'The death of God and the Übermensch', pt: 'A morte de Deus e o Übermensch' } },
+      { title: 'Either/Or', author: { en: 'Kierkegaard', pt: 'Kierkegaard' }, year: '1843', note: { en: 'The aesthetic and ethical stages of existence', pt: 'Os estágios estético e ético da existência' } },
+      { title: 'Beyond Good and Evil', author: { en: 'Nietzsche', pt: 'Nietzsche' }, year: '1886', note: { en: 'Critique of morality and the will to power', pt: 'Crítica da moral e a vontade de potência' } },
+    ],
   },
 ];
 

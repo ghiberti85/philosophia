@@ -114,7 +114,7 @@ function Hero({ school, locale, onDossier }: { school: School; locale: Locale; o
   );
 }
 
-type StatKind = 'sages' | 'tenets' | 'quiz' | 'sequence';
+type StatKind = 'sages' | 'tenets' | 'quiz' | 'bibliography';
 
 function Stats({
   school, idx, locale, poolCount, onOpen,
@@ -125,7 +125,7 @@ function Stats({
     { kind: 'sages', glyph: '◉', label: t(dict.sages, locale), val: roman(school.philosopherSlugs.length), unit: t(dict.thinkers, locale) },
     { kind: 'tenets', glyph: '▣', label: t(dict.coreTenets, locale), val: roman(school.coreIdeas.en.length), unit: t(dict.principles, locale) },
     { kind: 'quiz', glyph: '◈', label: t(dict.quizPool, locale), val: roman(poolCount), unit: t(dict.questionsInPool, locale) },
-    { kind: 'sequence', glyph: '→', label: t(dict.inSequence, locale), val: roman(idx + 1), unit: `${t(dict.of, locale)} ${roman(schools.length)}` },
+    { kind: 'bibliography', glyph: '◧', label: t(dict.bibliography, locale), val: roman(school.keyWorks?.length ?? 0), unit: t(dict.keyWorks, locale) },
   ];
   return (
     <Panel area="stats" glyph="▣" label={t(dict.factionReadout, locale)} className="reveal" style={{ '--d': '80ms' } as CSSProperties}>
@@ -145,7 +145,7 @@ function Stats({
 
 /** Popup behind each faction-readout cell: explanation + the data itself. */
 function StatModal({
-  kind, school, idx, locale, onClose, onThinker, onIdea, onQuiz, onSchool,
+  kind, school, idx, locale, onClose, onThinker, onIdea, onQuiz,
 }: {
   kind: StatKind | null;
   school: School;
@@ -155,7 +155,6 @@ function StatModal({
   onThinker: (p: Philosopher) => void;
   onIdea: (i: number) => void;
   onQuiz: () => void;
-  onSchool: (i: number) => void;
 }) {
   if (!kind) return null;
   const list = school.philosopherSlugs.map(getPhilosopher).filter((p): p is Philosopher => Boolean(p));
@@ -163,13 +162,13 @@ function StatModal({
     sages: t(dict.sages, locale),
     tenets: t(dict.coreTenets, locale),
     quiz: t(dict.quizPool, locale),
-    sequence: t(dict.inSequence, locale),
+    bibliography: t(dict.bibliography, locale),
   };
   const infos: Record<StatKind, string> = {
     sages: t(dict.statSagesInfo, locale),
     tenets: t(dict.statTenetsInfo, locale),
     quiz: t(dict.statQuizInfo, locale),
-    sequence: t(dict.statSequenceInfo, locale),
+    bibliography: t(dict.statBibliographyInfo, locale),
   };
   return (
     <Modal open onClose={onClose} variant="modal--quiz" labelledby="stat-title" closeLabel={t(dict.close, locale)}>
@@ -226,16 +225,16 @@ function StatModal({
             </>
           )}
 
-          {kind === 'sequence' && (
-            <ul className="list-clean">
-              {schools.map((s, i) => (
-                <li key={s.slug}>
-                  <span className="mk">{ERAS[s.slug] ?? roman(i + 1)}</span>
-                  <button className="statlink" onClick={() => { onClose(); onSchool(i); }}
-                    style={i === idx ? { color: 'var(--accent)' } : undefined}>
-                    <span style={{ fontWeight: i === idx ? 700 : 500 }}>{t(s.name, locale)}</span>
-                    <span className="statlink__sub mono">{t(s.period, locale)}</span>
-                  </button>
+          {kind === 'bibliography' && (
+            <ul className="list-clean bib-list">
+              {(school.keyWorks ?? []).map((w, i) => (
+                <li key={i} className="bib-item">
+                  <span className="mk">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="bib-item__body">
+                    <span className="bib-item__title serif">{w.title}</span>
+                    <span className="bib-item__meta mono">{t(w.author, locale)} · {w.year}</span>
+                    {w.note && <span className="bib-item__note">{t(w.note, locale)}</span>}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -507,7 +506,7 @@ export function Dashboard({ locale }: { locale: Locale }) {
       <QuizModal open={quizOpen} onClose={() => setQuizOpen(false)} pool={quizPool} title={quizTitle} scoreKey={quizKey} locale={locale} />
 
       <StatModal kind={statOpen} school={school} idx={idx} locale={locale} onClose={() => setStatOpen(null)}
-        onThinker={setPhilOpen} onIdea={setIdeaOpen} onQuiz={openSchoolQuiz} onSchool={(i) => setIdx(() => i)} />
+        onThinker={setPhilOpen} onIdea={setIdeaOpen} onQuiz={openSchoolQuiz} />
       <IdeaModal ideaIdx={ideaOpen} school={school} locale={locale} onClose={() => setIdeaOpen(null)} />
       <ContextModal open={ctxOpen} school={school} locale={locale} onClose={() => setCtxOpen(false)} />
 
