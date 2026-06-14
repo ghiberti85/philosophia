@@ -1069,7 +1069,7 @@ button.stat:hover .stat__more { opacity: 1; }
   }
   .sm__hero { flex-direction: column; height: auto; }
   .sm__hero-body { flex: 0 0 auto; }
-  .sm__hero .hero__visual { height: 160px; flex: 0 0 160px; order: -1; }
+  .sm__hero .hero__visual { height: auto; flex: 0 0 auto; aspect-ratio: 3 / 2; width: 100%; order: -1; }
   .sm__hero .hero__fade {
     background: linear-gradient(to bottom,
       transparent 72%,
