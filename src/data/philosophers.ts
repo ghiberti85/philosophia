@@ -465,6 +465,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#e9e3d7', pedestal: '#6b5b95', headWidth: 0.88, beard: 0.15, hair: 0.85 , look: { skin: '#f0c8a4', hair: '#2e2a26', cloth: '#2f3542', clothAccent: '#f2efe6', hairstyle: 'long', beard: 'goatee', mustache: 'normal', collar: true } },
+    figureImage: '/figures/descartes.webp',
   },
   {
     slug: 'kant',
@@ -542,6 +543,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#ebe5d9', pedestal: '#3f7d75', headWidth: 0.82, beard: 0, hair: 0.55 , look: { skin: '#f2cead', hair: '#eceae2', cloth: '#3f5d8c', clothAccent: '#f4f0e8', hairstyle: 'wig', beard: 'none', mustache: 'none', collar: true } },
+    figureImage: '/figures/kant.webp',
   },
   {
     slug: 'nietzsche',
