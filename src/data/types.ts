@@ -25,7 +25,7 @@ export interface School {
 
 /** A key work / bibliographic reference. */
 export interface KeyWork {
-  title: string;
+  title: Localized;
   author: Localized;
   year: string;
   note?: Localized;
