@@ -19,6 +19,16 @@ export interface School {
   scene: 'agora' | 'academy' | 'lyceum' | 'stoa' | 'observatory' | 'cafe' | 'library';
   /** Optional pre-rendered isometric city image (public path); preferred over the procedural scene. */
   cityImage?: string;
+  /** Key works / bibliography for this school. */
+  keyWorks?: KeyWork[];
+}
+
+/** A key work / bibliographic reference. */
+export interface KeyWork {
+  title: string;
+  author: Localized;
+  year: string;
+  note?: Localized;
 }
 
 /** A single notable quote with attribution context. */

@@ -123,6 +123,12 @@ export const dict = {
     en: 'Where this school stands on the timeline — twenty-four centuries of ideas, each school answering, refining or rebelling against the ones before it. Jump to any era below.',
     pt: 'Onde esta escola está na linha do tempo — vinte e quatro séculos de ideias, cada escola respondendo, refinando ou se rebelando contra as anteriores. Salte para qualquer era abaixo.',
   },
+  bibliography: { en: 'Bibliography', pt: 'Bibliografia' },
+  keyWorks: { en: 'Key works', pt: 'Obras principais' },
+  statBibliographyInfo: {
+    en: 'The essential texts of this tradition — the works you read to understand where its ideas came from and where they led. Five titles chosen for depth and accessibility.',
+    pt: 'Os textos essenciais desta tradição — as obras que você lê para entender de onde vieram suas ideias e para onde elas conduziram. Cinco títulos escolhidos por profundidade e acessibilidade.',
+  },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;
