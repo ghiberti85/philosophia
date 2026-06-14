@@ -839,8 +839,8 @@ button.stat:hover .stat__more { opacity: 1; }
 .modal--quiz { max-width: 620px; }
 .modal__close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   z-index: 6;
   width: 38px;
   height: 38px;
@@ -855,7 +855,7 @@ button.stat:hover .stat__more { opacity: 1; }
 }
 .modal__close:hover { border-color: var(--accent); background: var(--accent-soft); }
 .modal__scroll { overflow-y: auto; min-height: 0; }
-.modal__scroll .panel__head { padding-right: 52px; }
+.modal__scroll .panel__head { padding-right: 90px; }
 
 /* philosopher modal */
 .pm__head { display: grid; grid-template-columns: 200px 1fr; gap: 0; }
