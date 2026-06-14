@@ -618,6 +618,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#e7e0d2', pedestal: '#9a4a5a', headWidth: 0.86, beard: 0.5, hair: 0.8 , look: { skin: '#eabd92', hair: '#46352a', cloth: '#3a3f4a', clothAccent: '#6b4f3a', hairstyle: 'swept', beard: 'none', mustache: 'grand' } },
+    figureImage: '/figures/nietzsche.webp',
   },
   {
     slug: 'simone-de-beauvoir',
