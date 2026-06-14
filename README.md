@@ -1,8 +1,8 @@
 # Φ Philosophia
 
-> **EN** · A bilingual, interactive encyclopedia of the great schools of philosophy — with AI-generated philosopher figures, rotatable 3D busts, isometric illustrations and quizzes that are different every time you play.
+> **EN** · A bilingual, interactive encyclopedia of the great schools of philosophy — with AI-generated philosopher figures, rotatable 3D busts, isometric city illustrations and quizzes that are different every time you play.
 >
-> **PT-BR** · Uma enciclopédia interativa e bilíngue das grandes escolas da filosofia — com figuras de filósofos geradas por IA, bustos 3D rotacionáveis, ilustrações isométricas e quizzes diferentes a cada rodada.
+> **PT-BR** · Uma enciclopédia interativa e bilíngue das grandes escolas da filosofia — com figuras de filósofos geradas por IA, bustos 3D rotacionáveis, ilustrações isométricas de cidades e quizzes diferentes a cada rodada.
 
 ![CI](https://github.com/ghiberti85/philosophia/actions/workflows/ci.yml/badge.svg)
 
@@ -10,25 +10,28 @@
 
 | Feature | Details |
 | --- | --- |
-| 🏛 **7 schools of thought** | From Socratic philosophy to Existentialism — each with core ideas, key thinkers, and bibliography |
-| 🗿 **23+ philosopher figures** | AI-generated statue images (WebP) displayed in diorama art style; falls back to procedural 3D marble busts (react-three-fiber) when no image is available |
-| 📚 **Bibliography card** | 5 essential works per school with author, year and contextual notes — replacing the old "In Sequence" stat |
-| 🎴 **Accordion dossiers** | Philosopher modals use a collapsible accordion (Biography, Contributions, Quotes, Traits, Facts) instead of tabs — better on mobile |
-| 🖼 **Isometric SVG scenes** | Hand-crafted, theme-aware isometric illustrations (agora, stoa, observatory, café…) that repaint for light/dark mode via CSS custom properties |
-| 🌗 **Dark / light mode** | `next-themes`, system-aware, with artwork that adapts to the selected mode |
-| 🌍 **i18n (EN / PT-BR)** | Type-safe localization layer; missing translations fail at compile time |
-| 🎲 **Randomized quizzes** | Each round draws 5 questions from a larger pool *and* shuffles the options — a unique experience every time, with best score persisted locally |
+| 🏛 **8 schools of thought** | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
+| 🗿 **23 philosopher figures** | AI-generated statue images (WebP, diorama art style) for all 23 philosophers; falls back to cel-shaded toon 3D busts (react-three-fiber) |
+| 📚 **Bibliography card** | 5 curated essential works per school — author, year and contextual annotation, bilingual |
+| 🎴 **Accordion dossiers** | Philosopher modals use a collapsible accordion (Biography, Contributions, Quotes, Traits, Facts) — all sections accessible without horizontal scrolling |
+| 🔍 **Deep-dive ideas** | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read |
+| 🎲 **138-question quiz bank** | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage` |
 | 📜 **Quote of the day** | Deterministic daily rotation across all philosophers' quotes |
-| 🕰 **Interactive timeline** | 24 centuries of thinkers at a glance |
-| ✅ **Tested** | Unit/integration tests with Vitest + Testing Library, including a content-integrity suite that validates every translation and cross-reference |
+| 🕰 **Interactive timeline rail** | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support |
+| 🖼 **Isometric city scenes** | Hand-crafted isometric illustrations per school (PNG), with a procedural SVG fallback that repaints for light/dark mode |
+| 🌗 **Dark / light mode** | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes |
+| 🌍 **i18n (EN / PT-BR)** | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing |
+| ✅ **Content integrity tests** | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness |
 
 ## 🧱 Tech stack
 
-- **[Next.js 14](https://nextjs.org)** (App Router, React 18, TypeScript strict) — pages statically generated per locale
-- **[react-three-fiber](https://docs.pmnd.rs/react-three-fiber) + drei + three.js** — procedural 3D busts (fallback when no figure image)
-- **Custom CSS design system** — "parchment & gold / midnight & candlelight" HUD aesthetic with `color-mix(in oklch)` adaptive tokens
-- **[next-themes](https://github.com/pacocoursey/next-themes)** — dark/light mode
-- **[Vitest](https://vitest.dev) + Testing Library** — tests
+| Layer | Tech |
+| --- | --- |
+| Framework | [Next.js 14](https://nextjs.org) — App Router, React 18, TypeScript strict, static generation per locale |
+| 3D | [react-three-fiber](https://docs.pmnd.rs/react-three-fiber) + drei + three.js — cel-shaded toon busts with volumetric spotlight, gold dust particles, ContactShadows |
+| Styling | Custom CSS design system — "Codex × HUD" skin, `color-mix(in oklch)` adaptive accent tokens, Playfair Display + JetBrains Mono |
+| Theming | [next-themes](https://github.com/pacocoursey/next-themes) — dark/light with artwork that adapts |
+| Testing | [Vitest](https://vitest.dev) + Testing Library — logic, content integrity, full quiz round |
 
 ## 🚀 Getting started
 
@@ -50,44 +53,43 @@ npm start          # serve the production build
 
 ```
 src/
-├── app/[locale]/          # App Router pages, fully localized under /en and /pt
-│   ├── page.tsx           # Home: hero, schools grid, timeline, quote of the day
-│   ├── schools/           # Schools index + detail pages
-│   ├── philosophers/      # Philosophers index + detail (3D bust) pages
-│   └── quiz/              # Quiz index + per-philosopher quiz
+├── app/[locale]/              # App Router — all routes pre-rendered in /en and /pt
+│   ├── page.tsx               # Dashboard (main entry point)
+│   └── (content)/
+│       ├── schools/           # Schools index + [slug] detail pages
+│       ├── philosophers/      # Philosophers index + [slug] detail pages
+│       └── quiz/              # Quiz index + [slug] per-philosopher quiz
 ├── components/
-│   ├── dashboard/         # Main single-page dashboard (Dashboard.tsx, ui.tsx, css)
-│   └── bust/              # 3D bust (react-three-fiber, client-only)
+│   ├── dashboard/             # Dashboard shell: Dashboard.tsx, Philosopher.tsx,
+│   │                          #   QuizModal.tsx, IsoScene.tsx, ui.tsx, dashboard.css
+│   └── bust/                  # Cel-shaded 3D bust (react-three-fiber, client-only)
 ├── data/
-│   ├── types.ts           # School, Philosopher, KeyWork, BustConfig… type definitions
-│   ├── schools.ts         # 7 schools with keyWorks bibliography
-│   ├── philosophers.ts    # 9 core philosophers
-│   ├── philosophers-extra.ts  # Additional philosophers (14+)
-│   ├── dictionary.ts      # All UI strings, EN + PT-BR
-│   └── quizzes-*.ts       # Quiz question pools per philosopher
-├── lib/                   # i18n, random/quiz engine, quote-of-the-day
-└── test/                  # Vitest setup
+│   ├── types.ts               # School, Philosopher, KeyWork, BustConfig, BustLook…
+│   ├── schools.ts             # 8 schools — coreIdeas, keyWorks, philosopherSlugs, accent
+│   ├── school-details.ts      # Per-idea deep-dive essays + long historical context
+│   ├── philosophers.ts        # 9 core philosophers
+│   ├── philosophers-extra.ts  # 14 additional philosophers
+│   ├── dictionary.ts          # All UI strings, EN + PT-BR
+│   └── quizzes-*.ts           # 138 questions across ancient / modern / extra pools
+├── lib/                       # i18n helpers, seeded RNG, quiz engine, quote-of-day
+└── test/                      # Vitest setup
 public/
-├── figures/               # AI-generated philosopher statue images (WebP)
-├── scenes/                # Isometric school illustrations (PNG)
-└── models/                # Optional .glb bust scans (see docs/3D-MODELS.md)
+├── figures/                   # 24 AI-generated philosopher statue images (WebP)
+├── scenes/                    # Isometric city illustrations per school (PNG)
+└── models/                    # Optional .glb photogrammetry scans (see docs/3D-MODELS.md)
 ```
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for design decisions, and
 [docs/ADDING-CONTENT.md](docs/ADDING-CONTENT.md) for a step-by-step guide to adding
-a new philosopher, school, quiz pool or language.
+a new philosopher, school, quiz question or language.
 
-## 🗿 About the philosopher figures
+## 🗿 Philosopher figure rendering
 
-Each philosopher has an AI-generated statue image (`figureImage` field pointing to
-`/public/figures/<slug>.webp`). These are rendered in the card dossiers in a diorama
-art style. When no `figureImage` is set the component falls back to the procedural
-3D bust.
+Three tiers, in order of priority:
 
-For game-grade 3D realism, you can also drop a scanned `.glb` (e.g. from the
-[Scan the World](https://www.myminifactory.com/scantheworld/) museum archive — many
-classical busts are CC-licensed) into `public/models/` and point
-`bust.modelPath` at it. Full instructions in [docs/3D-MODELS.md](docs/3D-MODELS.md).
+1. **`figureImage`** — AI-generated WebP statue image displayed in diorama style (`/public/figures/<slug>.webp`). All 23 philosophers currently have one.
+2. **`bust.modelPath`** — Photogrammetry `.glb` scan rendered in the interactive 3D viewer. Drop files into `public/models/` and point the config at them (see [docs/3D-MODELS.md](docs/3D-MODELS.md)).
+3. **Procedural bust** — Cel-shaded toon character generated from `BustLook` config (skin, hair, cloth, hairstyle, beard, laurel, headband, collar). Each philosopher has a unique character design.
 
 ## 📄 License
 
