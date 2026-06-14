@@ -17,6 +17,18 @@ export interface School {
   accent: string;
   /** Which isometric scene to render for the school. */
   scene: 'agora' | 'academy' | 'lyceum' | 'stoa' | 'observatory' | 'cafe' | 'library';
+  /** Optional pre-rendered isometric city image (public path); preferred over the procedural scene. */
+  cityImage?: string;
+  /** Key works / bibliography for this school. */
+  keyWorks?: KeyWork[];
+}
+
+/** A key work / bibliographic reference. */
+export interface KeyWork {
+  title: Localized;
+  author: Localized;
+  year: string;
+  note?: Localized;
 }
 
 /** A single notable quote with attribution context. */
@@ -45,6 +57,29 @@ export interface Philosopher {
   facts: Localized<string[]>;
   /** Configuration for the procedural 3D bust. */
   bust: BustConfig;
+  /** Optional pre-rendered figurine image (public path) in the diorama art style. */
+  figureImage?: string;
+}
+
+/** Stylized "animated character" look for the 3D bust. */
+export interface BustLook {
+  /** Skin tone, hex. */
+  skin: string;
+  /** Hair / beard / brow color, hex. */
+  hair: string;
+  /** Garment (toga / coat / blouse) color, hex. */
+  cloth: string;
+  /** Sash, collar or trim color, hex. */
+  clothAccent: string;
+  hairstyle: 'bald' | 'short' | 'curly' | 'long' | 'wig' | 'updo' | 'swept';
+  beard: 'none' | 'trimmed' | 'full' | 'long' | 'curly' | 'goatee';
+  mustache: 'none' | 'normal' | 'grand';
+  /** Golden laurel wreath (emperors). */
+  laurel?: boolean;
+  /** Fabric headband (Beauvoir's signature turban). */
+  headband?: boolean;
+  /** Flat white collar / cravat for the moderns. */
+  collar?: boolean;
 }
 
 /** Parameters that differentiate each philosopher's procedurally generated bust. */
@@ -59,6 +94,8 @@ export interface BustConfig {
   beard: number;
   /** 0..1 — hair volume (0 = bald). */
   hair: number;
+  /** Stylized character design; when present the bust renders as a toon character. */
+  look?: BustLook;
   /** Optional path to a scanned GLB model in /public/models. When present it replaces the procedural bust. */
   modelPath?: string;
 }
