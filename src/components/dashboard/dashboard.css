@@ -436,7 +436,7 @@ button.chip:hover { border-color: var(--accent); }
   width: 100%;
   height: 100%;
 }
-.hero__scene img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero__scene img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
 .hero__scene-fallback {
   position: absolute;
   inset: 0;
@@ -1059,7 +1059,7 @@ button.stat:hover .stat__more { opacity: 1; }
   .pcard__quote { margin: 6px 0; font-size: 0.85rem; -webkit-line-clamp: 2; }
   /* Hero: on mobile stack image above, text below */
   .hero { flex-direction: column; min-height: unset; }
-  .hero__visual { height: 200px; flex: 0 0 200px; }
+  .hero__visual { height: auto; flex: 0 0 auto; aspect-ratio: 3 / 2; width: 100%; }
   .hero__body { flex: 0 0 auto; justify-content: flex-start; }
   .hero__fade {
     background: linear-gradient(to bottom,
