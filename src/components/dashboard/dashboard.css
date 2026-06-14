@@ -1060,21 +1060,11 @@ button.stat:hover .stat__more { opacity: 1; }
   .hero { flex-direction: column; }
   .hero__visual { flex: 0 0 auto; width: 100%; }
   .hero__body { flex: 0 0 auto; justify-content: flex-start; min-width: unset; }
-  .hero__fade {
-    background: linear-gradient(to bottom,
-      transparent 72%,
-      var(--color-semantic-background) 100%
-    );
-  }
+  .hero__fade { background: none; }
   .sm__hero { flex-direction: column; height: auto; }
   .sm__hero-body { flex: 0 0 auto; }
   .sm__hero .hero__visual { flex: 0 0 auto; width: 100%; order: -1; }
-  .sm__hero .hero__fade {
-    background: linear-gradient(to bottom,
-      transparent 72%,
-      var(--color-semantic-background) 100%
-    );
-  }
+  .sm__hero .hero__fade { background: none; }
 }
 @media (max-width: 520px) {
   .wordmark .sub { display: none; }
