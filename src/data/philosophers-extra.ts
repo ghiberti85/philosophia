@@ -549,7 +549,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0.6,
     "hair": 0.5
-  }
+  },
+  "figureImage": "/figures/theophrastus.webp"
 },
 {
   "slug": "averroes",
@@ -659,7 +660,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.92,
     "beard": 0.7,
     "hair": 0.3
-  }
+  },
+  "figureImage": "/figures/averroes.webp"
 },
 {
   "slug": "zeno-of-citium",
@@ -1102,7 +1104,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0,
     "hair": 0.95
-  }
+  },
+  "figureImage": "/figures/leibniz.webp"
 },
 {
   "slug": "fichte",
@@ -1212,7 +1215,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0,
     "hair": 0.5
-  }
+  },
+  "figureImage": "/figures/fichte.webp"
 },
 {
   "slug": "hegel",
@@ -1322,7 +1326,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.92,
     "beard": 0,
     "hair": 0.4
-  }
+  },
+  "figureImage": "/figures/hegel.webp"
 },
 {
   "slug": "kierkegaard",
