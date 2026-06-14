@@ -987,7 +987,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.88,
     "beard": 0,
     "hair": 0.75
-  }
+  },
+  "figureImage": "/figures/spinoza.webp"
 },
 {
   "slug": "leibniz",
