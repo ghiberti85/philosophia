@@ -415,7 +415,7 @@ function Rail({ idx, setIdx, locale }: { idx: number; setIdx: (updater: (cur: nu
         </div>
       </div>
       <div className="timeline" role="tablist">
-        <div className="timeline__line" style={{ '--progress': `${(idx / (schools.length - 1)) * 100}%` } as CSSProperties} />
+        <div className="timeline__line" style={{ '--progress': idx === schools.length - 1 ? '100%' : `${((2 * idx + 1) / (2 * schools.length)) * 100}%` } as CSSProperties} />
         {schools.map((s, i) => (
           <button key={s.slug} className="tnode" role="tab" aria-current={i === idx} aria-selected={i === idx}
             style={{ '--tnacc-base': s.accent } as CSSProperties} onClick={() => setIdx(() => i)}>
