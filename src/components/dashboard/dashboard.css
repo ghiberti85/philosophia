@@ -147,8 +147,10 @@
   gap: 8px;
   margin-bottom: 12px;
   flex: 0 0 auto;
+  min-width: 0;
+  overflow: hidden;
 }
-.panel__head .mono { white-space: nowrap; }
+.panel__head .mono { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .panel__head .glyph { color: var(--accent); font-size: 0.85rem; line-height: 1; }
 .panel__head .count {
   margin-left: auto;
@@ -855,7 +857,9 @@ button.stat:hover .stat__more { opacity: 1; }
 }
 .modal__close:hover { border-color: var(--accent); background: var(--accent-soft); }
 .modal__scroll { overflow-y: auto; min-height: 0; }
-.modal__scroll .panel__head { padding-right: 90px; }
+/* Reserve space for the absolute-positioned close button (38px + 16px margin = 54px from right) */
+.modal__scroll .panel__head { padding-right: 60px; }
+.modal__scroll > .tabpanel { padding-right: 60px; }
 
 /* philosopher modal */
 .pm__head { display: grid; grid-template-columns: 200px 1fr; gap: 0; }
@@ -867,7 +871,7 @@ button.stat:hover .stat__more { opacity: 1; }
 }
 .pm__portrait img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
 .pm__portrait .pcard__mono { font-size: 5rem; }
-.pm__intro { padding: clamp(20px, 2.4vw, 30px); display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.pm__intro { padding: clamp(20px, 2.4vw, 30px) 60px clamp(20px, 2.4vw, 30px) clamp(20px, 2.4vw, 30px); display: flex; flex-direction: column; justify-content: center; gap: 6px; }
 .pm__epithet { color: var(--accent); }
 .pm__name { font-family: var(--typography-font-family-display); font-size: clamp(1.9rem, 3vw, 2.7rem); font-weight: 600; line-height: 1; margin: 2px 0 4px; }
 .pm__meta { display: flex; flex-wrap: wrap; gap: 8px 14px; color: var(--color-semantic-foreground-muted); font-size: 0.84rem; font-family: var(--typography-font-family-mono); }
