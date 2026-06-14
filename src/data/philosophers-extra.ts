@@ -1425,7 +1425,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.86,
     "beard": 0,
     "hair": 0.6
-  }
+  },
+  "figureImage": "/figures/kierkegaard.webp"
 },
 {
   "slug": "sartre",
@@ -1535,6 +1536,7 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0,
     "hair": 0.3
-  }
+  },
+  "figureImage": "/figures/sartre.webp"
 }
 ];
