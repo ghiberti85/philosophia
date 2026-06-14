@@ -855,6 +855,7 @@ button.stat:hover .stat__more { opacity: 1; }
 }
 .modal__close:hover { border-color: var(--accent); background: var(--accent-soft); }
 .modal__scroll { overflow-y: auto; min-height: 0; }
+.modal__scroll .panel__head { padding-right: 52px; }
 
 /* philosopher modal */
 .pm__head { display: grid; grid-template-columns: 200px 1fr; gap: 0; }
