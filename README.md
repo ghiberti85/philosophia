@@ -11,14 +11,16 @@
 | Feature | Details |
 | --- | --- |
 | 🏛 **8 schools of thought** | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
-| 🗿 **23 philosopher figures** | AI-generated statue images (WebP, diorama art style) for all 23 philosophers; falls back to cel-shaded toon 3D busts (react-three-fiber) |
-| 📚 **Bibliography card** | 5 curated essential works per school — author, year and contextual annotation, bilingual |
-| 🎴 **Accordion dossiers** | Philosopher modals use a collapsible accordion (Biography, Contributions, Quotes, Traits, Facts) — all sections accessible without horizontal scrolling |
+| 🗿 **23 philosophers** | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts |
+| 🖼 **AI-generated figure images** | WebP statue images (diorama art style) for all 23 philosophers; falls back to cel-shaded toon 3D busts (react-three-fiber) |
+| 📚 **Bibliography card** | 5 curated essential works per school — bilingual title, author, year and contextual annotation |
+| 🎴 **Accordion dossiers** | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling |
 | 🔍 **Deep-dive ideas** | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read |
 | 🎲 **138-question quiz bank** | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage` |
 | 📜 **Quote of the day** | Deterministic daily rotation across all philosophers' quotes |
 | 🕰 **Interactive timeline rail** | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support |
 | 🖼 **Isometric city scenes** | Hand-crafted isometric illustrations per school (PNG), with a procedural SVG fallback that repaints for light/dark mode |
+| 📱 **PWA** | Installable on desktop and mobile — works offline via Workbox service worker, manifest and native splash screens |
 | 🌗 **Dark / light mode** | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes |
 | 🌍 **i18n (EN / PT-BR)** | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing |
 | ✅ **Content integrity tests** | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness |
@@ -29,8 +31,9 @@
 | --- | --- |
 | Framework | [Next.js 14](https://nextjs.org) — App Router, React 18, TypeScript strict, static generation per locale |
 | 3D | [react-three-fiber](https://docs.pmnd.rs/react-three-fiber) + drei + three.js — cel-shaded toon busts with volumetric spotlight, gold dust particles, ContactShadows |
-| Styling | Custom CSS design system — "Codex × HUD" skin, `color-mix(in oklch)` adaptive accent tokens, Playfair Display + JetBrains Mono |
+| Styling | Custom CSS design system ("Codex × HUD" skin, `color-mix(in oklch)` adaptive tokens, Playfair Display + JetBrains Mono) + Tailwind CSS utilities |
 | Theming | [next-themes](https://github.com/pacocoursey/next-themes) — dark/light with artwork that adapts |
+| PWA | [next-pwa](https://github.com/shadowwalker/next-pwa) + Workbox — offline cache, installable, Web App Manifest |
 | Testing | [Vitest](https://vitest.dev) + Testing Library — logic, content integrity, full quiz round |
 
 ## 🚀 Getting started
@@ -67,16 +70,18 @@ src/
 │   ├── types.ts               # School, Philosopher, KeyWork, BustConfig, BustLook…
 │   ├── schools.ts             # 8 schools — coreIdeas, keyWorks, philosopherSlugs, accent
 │   ├── school-details.ts      # Per-idea deep-dive essays + long historical context
-│   ├── philosophers.ts        # 9 core philosophers
-│   ├── philosophers-extra.ts  # 14 additional philosophers
+│   ├── philosophers.ts        # 9 core philosophers (re-exports combined array)
+│   ├── philosophers-extra.ts  # 14 secondary philosophers
 │   ├── dictionary.ts          # All UI strings, EN + PT-BR
 │   └── quizzes-*.ts           # 138 questions across ancient / modern / extra pools
 ├── lib/                       # i18n helpers, seeded RNG, quiz engine, quote-of-day
 └── test/                      # Vitest setup
 public/
-├── figures/                   # 24 AI-generated philosopher statue images (WebP)
+├── figures/                   # AI-generated philosopher figure images (WebP, 23 philosophers)
 ├── scenes/                    # Isometric city illustrations per school (PNG)
-└── models/                    # Optional .glb photogrammetry scans (see docs/3D-MODELS.md)
+├── models/                    # Optional .glb photogrammetry scans (see docs/3D-MODELS.md)
+├── icon-*.png                 # PWA icons (96, 180, 192, 512 px + maskable variants)
+└── manifest.json              # Web App Manifest
 ```
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for design decisions, and

@@ -104,14 +104,14 @@ Each `School` has an optional `keyWorks?: KeyWork[]` field:
 
 ```ts
 interface KeyWork {
-  title: string;
+  title: Localized;        // { en, pt } — bilingual title
   author: Localized;       // { en, pt }
   year: string;
   note?: Localized;        // { en, pt } — short contextual annotation
 }
 ```
 
-All 7 schools ship with 5 curated works each. The data lives in
+All 8 schools ship with 5 curated works each. The data lives in
 `src/data/schools.ts` and renders in the Bibliography stat modal.
 
 ## Isometric scenes

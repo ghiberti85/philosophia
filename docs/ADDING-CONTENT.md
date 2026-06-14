@@ -7,9 +7,9 @@ data-integrity test suite (`npm test`) will catch anything you miss.
 
 ### Core philosophers (`philosophers.ts`)
 
-The file `src/data/philosophers.ts` holds the 9 founding philosophers that appear
+The file `src/data/philosophers.ts` holds the 9 core philosophers that appear
 in every school's main panel. Add a record here if the philosopher is central
-to one of the 7 schools and needs full treatment (bust config, full biography,
+to one of the 8 schools and needs full treatment (bust config, full biography,
 contributions, quotes, traits, facts, quiz pool).
 
 1. **Create the record** following the `Philosopher` type (`src/data/types.ts`).
@@ -78,7 +78,7 @@ Each school has a `keyWorks?: KeyWork[]` field. The `KeyWork` interface is:
 
 ```ts
 interface KeyWork {
-  title: string;       // original title
+  title: Localized;    // { en: 'original title', pt: 'título em português' }
   author: Localized;   // { en: '...', pt: '...' }
   year: string;        // e.g. '380 BC' or '1781'
   note?: Localized;    // short contextual annotation { en, pt }
