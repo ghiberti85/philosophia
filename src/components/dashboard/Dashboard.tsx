@@ -231,7 +231,7 @@ function StatModal({
                 <li key={i} className="bib-item">
                   <span className="mk">{String(i + 1).padStart(2, '0')}</span>
                   <span className="bib-item__body">
-                    <span className="bib-item__title serif">{w.title}</span>
+                    <span className="bib-item__title serif">{t(w.title, locale)}</span>
                     <span className="bib-item__meta mono">{t(w.author, locale)} · {w.year}</span>
                     {w.note && <span className="bib-item__note">{t(w.note, locale)}</span>}
                   </span>
