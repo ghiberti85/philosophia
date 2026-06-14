@@ -309,6 +309,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#e6dfd0', pedestal: '#a35e3b', headWidth: 0.95, beard: 0.3, hair: 0.25 , look: { skin: '#ecbf96', hair: '#a89c8a', cloth: '#a35e3b', clothAccent: '#d9ad4f', hairstyle: 'bald', beard: 'trimmed', mustache: 'normal' } },
+    figureImage: '/figures/seneca.webp',
   },
   {
     slug: 'marcus-aurelius',
