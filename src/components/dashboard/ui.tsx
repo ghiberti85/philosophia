@@ -256,3 +256,47 @@ export function Tabs({ tabs, idBase }: { tabs: TabDef[]; idBase: string }) {
     </div>
   );
 }
+
+/** Accordion — all sections visible, expand/collapse individually. */
+export function Accordion({ tabs, idBase }: { tabs: TabDef[]; idBase: string }) {
+  const [open, setOpen] = useState<Set<number>>(new Set([0]));
+  const toggle = (i: number) =>
+    setOpen((prev) => {
+      const next = new Set(prev);
+      next.has(i) ? next.delete(i) : next.add(i);
+      return next;
+    });
+  return (
+    <div className="accordion">
+      {tabs.map((tab, i) => {
+        const isOpen = open.has(i);
+        return (
+          <div key={i} className={`acrd${isOpen ? ' acrd--open' : ''}`}>
+            <button
+              className="acrd__trigger"
+              aria-expanded={isOpen}
+              aria-controls={`${idBase}-acrd-${i}`}
+              id={`${idBase}-acrd-btn-${i}`}
+              onClick={() => toggle(i)}
+            >
+              <span className="acrd__label">
+                {tab.icon && <Icon name={tab.icon} size={14} />}
+                <span className="mono">{tab.label}</span>
+              </span>
+              <Icon name="chevron" size={14} className="acrd__chevron" />
+            </button>
+            <div
+              id={`${idBase}-acrd-${i}`}
+              role="region"
+              aria-labelledby={`${idBase}-acrd-btn-${i}`}
+              className="acrd__body"
+              hidden={!isOpen}
+            >
+              <div className="acrd__content">{tab.render()}</div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
