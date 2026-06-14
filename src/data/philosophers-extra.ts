@@ -115,7 +115,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0.8,
     "hair": 0.45
-  }
+  },
+  "figureImage": "/figures/antisthenes.webp"
 },
 {
   "slug": "aristippus",
@@ -225,7 +226,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.92,
     "beard": 0.55,
     "hair": 0.6
-  }
+  },
+  "figureImage": "/figures/aristippus.webp"
 },
 {
   "slug": "plotinus",
@@ -335,7 +337,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0.7,
     "hair": 0.35
-  }
+  },
+  "figureImage": "/figures/plotinus.webp"
 },
 {
   "slug": "hypatia",
@@ -435,7 +438,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.86,
     "beard": 0,
     "hair": 0.85
-  }
+  },
+  "figureImage": "/figures/hypatia.webp"
 },
 {
   "slug": "theophrastus",
