@@ -406,13 +406,12 @@ button.chip:hover { border-color: var(--accent); }
   position: relative;
   overflow: hidden;
   padding: 0;
-  min-height: 340px;
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
-/* Left zone: text on panel background */
+/* Left zone: text — fills the remaining space beside the image */
 .hero__body {
   position: relative;
   z-index: 2;
@@ -420,23 +419,23 @@ button.chip:hover { border-color: var(--accent); }
   flex-direction: column;
   justify-content: flex-end;
   padding: var(--panel-pad);
-  flex: 0 0 42%;
+  flex: 1 1 auto;
+  min-width: 220px;
   background: color-mix(in oklch, var(--color-semantic-background) 88%, transparent);
 }
 
-/* Right zone: image with left-to-right fade */
+/* Right zone: image drives the hero height via its natural 3:2 ratio */
 .hero__visual {
   position: relative;
-  flex: 1 1 auto;
+  flex: 0 0 58%;
   overflow: hidden;
 }
 .hero__scene {
-  position: absolute;
-  inset: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 240px; /* fallback if PNG fails to load */
 }
-.hero__scene img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+.hero__scene img { width: 100%; height: auto; display: block; }
 .hero__scene-fallback {
   position: absolute;
   inset: 0;
@@ -1058,9 +1057,9 @@ button.stat:hover .stat__more { opacity: 1; }
   .pcard__years { font-size: 0.7rem; }
   .pcard__quote { margin: 6px 0; font-size: 0.85rem; -webkit-line-clamp: 2; }
   /* Hero: on mobile stack image above, text below */
-  .hero { flex-direction: column; min-height: unset; }
-  .hero__visual { height: auto; flex: 0 0 auto; aspect-ratio: 3 / 2; width: 100%; }
-  .hero__body { flex: 0 0 auto; justify-content: flex-start; }
+  .hero { flex-direction: column; }
+  .hero__visual { flex: 0 0 auto; width: 100%; }
+  .hero__body { flex: 0 0 auto; justify-content: flex-start; min-width: unset; }
   .hero__fade {
     background: linear-gradient(to bottom,
       transparent 72%,
@@ -1069,7 +1068,7 @@ button.stat:hover .stat__more { opacity: 1; }
   }
   .sm__hero { flex-direction: column; height: auto; }
   .sm__hero-body { flex: 0 0 auto; }
-  .sm__hero .hero__visual { height: auto; flex: 0 0 auto; aspect-ratio: 3 / 2; width: 100%; order: -1; }
+  .sm__hero .hero__visual { flex: 0 0 auto; width: 100%; order: -1; }
   .sm__hero .hero__fade {
     background: linear-gradient(to bottom,
       transparent 72%,
