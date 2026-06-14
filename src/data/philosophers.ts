@@ -387,6 +387,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#ece5d8', pedestal: '#a35e3b', headWidth: 0.9, beard: 0.7, hair: 0.75 , look: { skin: '#e0ab7c', hair: '#54422e', cloth: '#6e3f7d', clothAccent: '#d9ad4f', hairstyle: 'curly', beard: 'curly', mustache: 'normal', laurel: true } },
+    figureImage: '/figures/marcus-aurelius.webp',
   },
   {
     slug: 'descartes',
@@ -696,6 +697,7 @@ const corePhilosophers: Philosopher[] = [
       ],
     },
     bust: { marble: '#efe9dd', pedestal: '#9a4a5a', headWidth: 0.78, beard: 0, hair: 0.95 , look: { skin: '#f2c9a8', hair: '#4a3527', cloth: '#9a4a5a', clothAccent: '#d9ad4f', hairstyle: 'updo', beard: 'none', mustache: 'none', headband: true } },
+    figureImage: '/figures/simone-de-beauvoir.webp',
   },
 ];
 
