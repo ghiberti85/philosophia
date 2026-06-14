@@ -105,7 +105,7 @@ function Hero({ school, locale, onDossier }: { school: School; locale: Locale; o
       </div>
       <div className="hero__visual">
         <div className="hero__scene">
-          <img src={`/scenes/${school.slug}.png`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} onError={(e) => { e.currentTarget.style.display = 'none'; const fb = e.currentTarget.nextElementSibling as HTMLElement; if (fb) fb.style.display = 'block'; }} />
+          <img src={`/scenes/${school.slug}.png`} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; const fb = e.currentTarget.nextElementSibling as HTMLElement; if (fb) fb.style.display = 'block'; }} />
           <div className="hero__scene-fallback"><IsoScene scene={school.scene} /></div>
         </div>
         <div className="hero__fade" />
@@ -370,7 +370,7 @@ function SchoolModal({
           </div>
           <div className="hero__visual">
             <div className="hero__scene">
-              <img src={`/scenes/${school.slug}.png`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} onError={(e) => { e.currentTarget.style.display = 'none'; const fb = e.currentTarget.nextElementSibling as HTMLElement; if (fb) fb.style.display = 'block'; }} />
+              <img src={`/scenes/${school.slug}.png`} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; const fb = e.currentTarget.nextElementSibling as HTMLElement; if (fb) fb.style.display = 'block'; }} />
               <div className="hero__scene-fallback"><IsoScene scene={school.scene} /></div>
             </div>
             <div className="hero__fade" />
