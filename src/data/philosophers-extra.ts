@@ -765,7 +765,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.88,
     "beard": 0.85,
     "hair": 0.5
-  }
+  },
+  "figureImage": "/figures/zeno.webp"
 },
 {
   "slug": "epictetus",
@@ -875,7 +876,8 @@ export const philosophersExtra: Philosopher[] = [
     "headWidth": 0.9,
     "beard": 0.7,
     "hair": 0.25
-  }
+  },
+  "figureImage": "/figures/epictetus.webp"
 },
 {
   "slug": "spinoza",
