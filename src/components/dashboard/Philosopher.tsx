@@ -4,7 +4,7 @@ import { dict } from '@/data/dictionary';
 import { getQuestionsFor } from '@/data/quizzes';
 import type { Philosopher } from '@/data/types';
 import { t, type Locale } from '@/lib/i18n';
-import { Icon, Modal, Tabs, type TabDef } from './ui';
+import { Accordion, Icon, Modal, type TabDef } from './ui';
 
 /** Monogram letter shown faintly behind the portrait. */
 export function monogram(name: string): string {
@@ -147,7 +147,7 @@ export function PhilosopherModal({
             )}
           </div>
         </div>
-        <Tabs tabs={tabs} idBase={idBase} />
+        <Accordion tabs={tabs} idBase={idBase} />
       </div>
     </Modal>
   );
