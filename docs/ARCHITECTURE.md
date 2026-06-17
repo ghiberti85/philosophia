@@ -6,16 +6,15 @@ This document explains the main design decisions behind Philosophia.
 
 1. **Portfolio quality** — clean, idiomatic, typed, tested code.
 2. **Performance** — everything that can be static *is* static. The whole site
-   is pre-rendered at build time; the only client-side JavaScript of any weight
-   is the 3D bust canvas and the quiz engine.
-3. **Wow factor on a budget** — no heavy binary assets in the repo (figures are
-   WebP images, scenes are SVG, and 3D busts are procedural meshes).
+   is pre-rendered at build time; the only meaningful client-side JavaScript is
+   the quiz engine and the 3D bust viewer (loaded only on philosopher detail pages).
+3. **Wow factor on a budget** — no heavy binary assets committed to the repo;
+   figures are WebP images, scenes are AI-generated PNGs with a procedural SVG
+   fallback, and 3D busts on detail pages use procedural meshes.
 
 ## Stack choice
 
-The brief asked for React + Node. **Next.js 14 (App Router)** covers both: React
-on the front end, a Node server/runtime for builds and serving, plus static
-generation, routing, metadata and image handling out of the box. Because all
+**Next.js 14 (App Router)** with React 18 and TypeScript strict. Because all
 content is curated (not user-generated), there is no database — content lives in
 typed TypeScript modules under `src/data/`, which gives:
 
@@ -47,10 +46,11 @@ library:
 `next-themes` toggles a `dark` class on `<html>`. Two mechanisms consume it:
 
 1. **CSS custom properties** (`--color-*` tokens in `dashboard.css`) for the
-   main dashboard using `color-mix(in oklch)` for adaptive accent colors.
-2. **SVG `--iso-*` variables** in `globals.css` for isometric artwork — the same
-   SVG markup renders a sunlit marble scene in light mode and a moonlit one in
-   dark mode without shipping two asset sets.
+   main dashboard, using `color-mix(in oklch)` for per-school adaptive accent
+   colors.
+2. **SVG `--iso-*` variables** in `globals.css` for the procedural isometric
+   fallback scenes — the same SVG renders in light or dark mode without shipping
+   two asset sets.
 
 ## Dashboard layout
 
@@ -59,12 +59,25 @@ by `Dashboard.tsx`. It renders six panel areas:
 
 | Area | Component | Description |
 |---|---|---|
-| `hero` | `Hero` | School name, period, tagline, scene image, Read button |
+| `hero` | `Hero` | School name, period, tagline, scene image (no overlay), Read button |
 | `stats` | `Stats` + `StatModal` | 4 stat cards: Sages, Core Tenets, Quiz Pool, Bibliography |
 | `ideas` | `Tenets` + `IdeaModal` | Numbered list of core ideas; clicking opens a deep-dive modal |
 | `thinkers` | `Thinkers` + `PhilosopherModal` | Philosopher cards; clicking opens the dossier accordion |
 | `context` | `ContextQuiz` + `ContextModal` | School description + historical context + quiz CTA |
 | `rail` | `Rail` | Horizontal 24-century timeline navigation |
+
+### Hero image layout
+
+The hero panel is a flex row: text body on the left (`flex: 1 1 auto`) and scene
+image on the right (`flex: 0 0 58%`). The image is rendered in natural flow
+(`position: relative; width: 100%; height: auto`) so its 3:2 aspect ratio
+determines the hero height — no cropping, no letterboxing, no overlay at any
+screen size. On mobile (`≤ 720px`) the layout stacks to a column with the image
+first.
+
+The scene PNG (`/public/scenes/<slug>.png`) loads via a regular `<img>` tag; if
+it fails to load, an `onError` handler reveals the procedural SVG fallback
+(`IsoScene.tsx`).
 
 ### Stat cards
 
@@ -74,7 +87,7 @@ Each of the 4 stat cards (`kind: StatKind`) opens a `StatModal`:
 - **Core Tenets** — clickable list opening individual idea deep-dives
 - **Quiz Pool** — per-philosopher question counts + start quiz button
 - **Bibliography** — 5 key works per school (`school.keyWorks`), rendered as a
-  styled list with title, author, year and contextual note
+  styled list with bilingual title, author, year and contextual note
 
 ### Philosopher dossier (accordion)
 
@@ -89,16 +102,16 @@ indices, supporting multiple sections open simultaneously.
 
 ## Philosopher figures — two rendering contexts
 
-Philosopher visuals appear in two distinct contexts with different rendering logic:
+Philosopher visuals appear in two distinct contexts:
 
-**Dashboard context** (cards, `PhilosopherCard`, modal `Portrait`):
-Renders `figureImage` (DALL-E WebP) when available; falls back to a monogram
+**Dashboard** (cards, `PhilosopherCard`, dossier modal `Portrait`):
+Renders the DALL-E `figureImage` (WebP) when set; falls back to a monogram
 initial letter. All 23 philosophers currently have a `figureImage`.
 
-**Detail page context** (`/philosophers/[slug]`):
-Always renders the interactive 3D bust via `BustViewer` → `PhilosopherBust`
-(react-three-fiber). The `bust.modelPath` escape hatch swaps the procedural
-mesh for a scanned `.glb` file. `figureImage` is not shown on this page.
+**Philosopher detail page** (`/philosophers/[slug]`):
+Always renders an interactive 3D bust via `BustViewer` → `PhilosopherBust`
+(react-three-fiber). The `bust.modelPath` field swaps the procedural mesh for a
+scanned `.glb` file without touching page code. `figureImage` is not shown here.
 
 ## Bibliography data
 
@@ -118,44 +131,46 @@ All 8 schools ship with 5 curated works each. The data lives in
 
 ## Isometric scenes
 
-`IsoScene.tsx` implements a real isometric projection (30° axes) in ~20
-lines and composes scenes (agora, academy, lyceum, stoa, observatory, café,
-library) from a `Box`/`Column` vocabulary. Each school picks a scene + accent
-color in its data record. SVG keeps them crisp at any size (~2 KB each) and
-themable.
+Each school has an AI-generated isometric city illustration at
+`public/scenes/<slug>.png` (1536 × 1024 px, 3:2 ratio). This PNG is the
+primary visual for the hero panel and school modals.
 
-Schools can also have a pre-rendered scene image (`cityImage?: string` / a PNG
-in `public/scenes/<slug>.png`) that takes priority over the procedural SVG.
+`IsoScene.tsx` implements a procedural isometric projection (30° axes) as an SVG
+fallback, composing scenes from a `Box`/`Column` vocabulary. The fallback is
+theme-aware (`--iso-*` CSS variables) and ~2 KB. The `School['scene']` field
+selects which scene to render: `agora | academy | lyceum | stoa | observatory | cafe | library`.
 
-## 3D busts
+## 3D busts (philosopher detail pages)
 
-`PhilosopherBust.tsx` (react-three-fiber) renders a classical herm-style bust
-from a few primitives with a physical "marble" material. Each philosopher's
-`BustConfig` (head width, hair, beard, palette) differentiates the silhouette.
-The `BustLook` sub-config enables a stylized "toon character" rendering path
-with skin, hair, garment and accessory (laurel, headband, collar) options.
+`PhilosopherBust.tsx` (react-three-fiber) renders a stylized bust from
+primitives with a physical material. Each philosopher's `BustConfig` (head width,
+hair, beard, marble palette) differentiates the silhouette. The `BustLook`
+sub-config enables a toon character style with skin, hair, garment and accessories
+(laurel, headband, collar).
 
-Interaction is **rotation only** (OrbitControls with zoom/pan disabled, gentle
-auto-rotate). The component is loaded with `next/dynamic` + `ssr: false` (three.js
-cannot run on the server) behind a Suspense placeholder, so it never blocks first
-paint.
+The component is loaded with `next/dynamic` + `ssr: false` and never blocks first
+paint. A `modelPath` field swaps the mesh for a scanned `.glb`
+(see [3D-MODELS.md](3D-MODELS.md)).
 
-A `modelPath` escape hatch swaps the procedural mesh for a scanned `.glb`
-(see [3D-MODELS.md](3D-MODELS.md)) without touching any page code.
+## PWA
+
+`next-pwa` (Workbox) wraps the Next.js config and generates a service worker at
+build time. `public/manifest.json` declares name, icons, shortcuts and display
+mode. PWA meta tags (`theme-color`, `apple-mobile-web-app-*`) live in the root
+`<head>` via `src/app/[locale]/layout.tsx`. Icons (96, 180, 192, 512 px +
+maskable variants) are in `public/`.
 
 ## Quiz engine
 
-Pure logic lives in `src/lib/quiz.ts` + `src/lib/random.ts`:
+Pure logic in `src/lib/quiz.ts` + `src/lib/random.ts`:
 
-- `sample` draws N distinct questions from the philosopher's pool (each pool has
-  6 questions, rounds use 5).
-- `prepareQuestion` shuffles the four options per question; the data convention
-  is "first option = correct", and the shuffle tracks the correct index.
-- Both accept an injectable RNG (`mulberry32` in tests) so the randomness is
-  fully unit-testable and could power seeded "daily challenge" modes later.
+- `sample` draws N distinct questions from the philosopher's pool.
+- `prepareQuestion` shuffles the four options; the data convention is
+  "first option = correct", tracked through the shuffle.
+- Both accept an injectable RNG (`mulberry32`) for deterministic unit tests.
 
-`QuizModal` is a small state machine (`intro → playing → results`) that
-persists the best score per philosopher in `localStorage`.
+`QuizModal` is a small state machine (`intro → playing → results`) that persists
+the best score per philosopher in `localStorage`.
 
 ## Testing strategy
 
@@ -167,7 +182,7 @@ persists the best score per philosopher in `localStorage`.
 - **Components**: Testing Library drives a full quiz round through the real
   engine (no mocks of the logic).
 - The WebGL canvas is intentionally not unit-tested (jsdom has no GL); its
-  logic surface is kept near zero on purpose.
+  logic surface is kept near zero.
 
 ## CI
 

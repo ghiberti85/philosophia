@@ -9,26 +9,30 @@ data-integrity test suite (`npm test`) will catch anything you miss.
 
 The file `src/data/philosophers.ts` holds the 9 core philosophers that appear
 in every school's main panel. Add a record here if the philosopher is central
-to one of the 8 schools and needs full treatment (bust config, full biography,
-contributions, quotes, traits, facts, quiz pool).
+to one of the 8 schools and needs full treatment (biography, contributions,
+quotes, traits, facts, quiz pool).
 
 1. **Create the record** following the `Philosopher` type (`src/data/types.ts`).
-   Every text field is a `{ en, pt }` record — TypeScript will not let you skip
-   a language.
-2. **Add a figure image** (recommended): place a WebP statue image at
-   `public/figures/<slug>.webp` and set:
+   Every text field is a `{ en, pt }` record — TypeScript will not compile if a
+   language key is missing.
+2. **Add a figure image** (required for dashboard display): generate a statue
+   image with DALL-E, convert to WebP and place it at `public/figures/<slug>.webp`:
+   ```bash
+   python3 -c "from PIL import Image; Image.open('in.png').save('public/figures/<slug>.webp', quality=82)"
+   ```
+   Then set:
    ```ts
    figureImage: '/figures/<slug>.webp',
    ```
-   The dossier will render the image in diorama style. If omitted, the 3D bust
-   is shown instead.
+   If omitted, a monogram letter is shown instead in the dashboard cards and modal.
 3. **Link it to a school**: add the slug to `schoolSlugs` *and* add the
-   philosopher's slug to that school's `philosopherSlugs` in
-   `src/data/schools.ts` (the integrity tests enforce both directions).
-4. **Design the bust** (fallback): pick `marble`/`pedestal` colors and
-   `headWidth`, `beard`, `hair` values in `[0, 1]`. Use the `look` sub-config
-   for the toon character style (skin, hair, cloth, hairstyle, beard, accessories).
-   Optionally set `modelPath` for a real photogrammetry scan (see [3D-MODELS.md](3D-MODELS.md)).
+   philosopher's slug to that school's `philosopherSlugs` in `src/data/schools.ts`
+   (the integrity tests enforce both directions).
+4. **Configure the bust** (used on the `/philosophers/[slug]` detail page):
+   pick `marble`/`pedestal` colors and `headWidth`, `beard`, `hair` values in
+   `[0, 1]`. Use the `look` sub-config for the toon character style (skin, hair,
+   cloth, hairstyle, beard, accessories). Optionally set `modelPath` for a `.glb`
+   photogrammetry scan (see [3D-MODELS.md](3D-MODELS.md)).
 5. **Write the quiz pool**: add at least **6 questions** (rounds use 5; pools
    must be larger than a round) in `quizzes-ancient.ts` or `quizzes-modern.ts`.
    Convention: **`options[0]` is the correct answer** — it is shuffled at
@@ -38,26 +42,29 @@ contributions, quotes, traits, facts, quiz pool).
 
 ### Extra philosophers (`philosophers-extra.ts`)
 
-Secondary and tertiary philosophers (school disciples, heirs, associated thinkers)
-live in `src/data/philosophers-extra.ts`. The structure is identical to `philosophers.ts`
-but the file uses a JSON-style array exported as `philosophersExtra`. Add new
-records here when a philosopher is associated with a school but not one of its
-primary figures.
+Secondary and tertiary philosophers (disciples, heirs, associated thinkers)
+live in `src/data/philosophers-extra.ts`. The structure is identical to
+`philosophers.ts` but the file uses a JSON-style array exported as
+`philosophersExtra`. Add new records here when a philosopher is associated with
+a school but not one of its primary figures.
 
 The `figureImage` field works the same way — place the WebP in `public/figures/`
 and reference it.
 
 ## Add a figure image to an existing philosopher
 
-1. Place the WebP file at `public/figures/<slug>.webp` (convert from PNG with
-   Pillow at quality 82: `python3 -c "from PIL import Image; img = Image.open('in.png'); img.save('out.webp', quality=82)"`).
-2. Open `src/data/philosophers.ts` or `src/data/philosophers-extra.ts`.
-3. Find the philosopher's record and add:
+1. Generate the image with DALL-E (prompt: "antique marble statue of [name],
+   diorama art style, dark background"). Target ~600 × 900 px portrait.
+2. Convert to WebP at quality 82:
+   ```bash
+   python3 -c "from PIL import Image; Image.open('in.png').save('public/figures/<slug>.webp', quality=82)"
+   ```
+3. Open `src/data/philosophers.ts` or `src/data/philosophers-extra.ts` and add:
    ```ts
    figureImage: '/figures/<slug>.webp',
    ```
-4. No further changes needed — the `PhilosopherCard` and modal components
-   detect the field automatically.
+4. No further changes needed — `PhilosopherCard` and the dossier modal detect
+   the field automatically.
 
 ## Add a school
 
@@ -66,11 +73,14 @@ and reference it.
      `cafe`, `library`
    - `accent`: hex color for the school's identity color
    - `keyWorks`: array of 5 `KeyWork` objects (see below)
-2. Optionally add a pre-rendered scene image at `public/scenes/<slug>.png`
-   (takes priority over the procedural SVG).
-3. Want a brand-new illustration? Add a scene function in
-   `src/components/dashboard/IsoScene.tsx`, register it in the `SCENES` map and
-   add the name to the `School['scene']` union in `types.ts`.
+2. **Add a scene image** (strongly recommended): generate an AI isometric city
+   illustration (1536 × 1024 px, 3:2 ratio) and save it to
+   `public/scenes/<slug>.png`. The hero panel renders the image at its natural
+   3:2 ratio — no cropping, no overlay.
+3. If no PNG is provided, the procedural SVG fallback (`IsoScene.tsx`) is shown.
+   To add a brand-new SVG scene type, add a function in `IsoScene.tsx`, register
+   it in the `SCENES` map, and add the name to the `School['scene']` union in
+   `types.ts`.
 
 ## Add or update bibliography (key works)
 

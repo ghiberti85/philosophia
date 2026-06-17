@@ -12,15 +12,15 @@
 | --- | --- |
 | 🏛 **8 schools of thought** | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
 | 🗿 **23 philosophers** | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts |
-| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in cards and modal portraits |
+| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits |
 | 📚 **Bibliography card** | 5 curated essential works per school — bilingual title, author, year and contextual annotation |
 | 🎴 **Accordion dossiers** | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling |
 | 🔍 **Deep-dive ideas** | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read |
 | 🎲 **138-question quiz bank** | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage` |
 | 📜 **Quote of the day** | Deterministic daily rotation across all philosophers' quotes |
 | 🕰 **Interactive timeline rail** | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support |
-| 🏙 **Isometric city scenes** | AI-generated isometric illustrations per school (PNG) displayed in the hero panel; procedural SVG fallback repaints for light/dark mode |
-| 📱 **PWA** | Installable on desktop and mobile — works offline via Workbox service worker, manifest and native splash screens |
+| 🏙 **Isometric city scenes** | AI-generated isometric illustrations per school (PNG) fill the hero panel at natural 3:2 ratio — no cropping, no overlay, procedural SVG fallback for light/dark mode |
+| 📱 **PWA** | Installable on desktop and mobile — works offline via Workbox service worker, Web App Manifest and native splash screens |
 | 🌗 **Dark / light mode** | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes |
 | 🌍 **i18n (EN / PT-BR)** | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing |
 | ✅ **Content integrity tests** | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness |
@@ -64,7 +64,7 @@ src/
 ├── components/
 │   ├── dashboard/             # Dashboard shell: Dashboard.tsx, Philosopher.tsx,
 │   │                          #   QuizModal.tsx, IsoScene.tsx, ui.tsx, dashboard.css
-│   └── bust/                  # 3D bust viewer (react-three-fiber, used on detail pages)
+│   └── bust/                  # 3D bust viewer (react-three-fiber, philosopher detail pages)
 ├── data/
 │   ├── types.ts               # School, Philosopher, KeyWork, BustConfig, BustLook…
 │   ├── schools.ts             # 8 schools — coreIdeas, keyWorks, philosopherSlugs, accent
@@ -77,7 +77,7 @@ src/
 └── test/                      # Vitest setup
 public/
 ├── figures/                   # AI-generated philosopher figure images (WebP, 23 philosophers)
-├── scenes/                    # Isometric city illustrations per school (PNG)
+├── scenes/                    # AI-generated isometric city illustrations per school (PNG)
 ├── models/                    # Optional .glb photogrammetry scans (see docs/3D-MODELS.md)
 ├── icon-*.png                 # PWA icons (96, 180, 192, 512 px + maskable variants)
 └── manifest.json              # Web App Manifest
@@ -89,7 +89,7 @@ a new philosopher, school, quiz question or language.
 
 ## 🗿 Philosopher figures
 
-All 23 philosophers have an AI-generated DALL-E statue image (`figureImage`) in WebP format, displayed in the diorama art style in dashboard cards and modal portraits. Images live in `/public/figures/<slug>.webp`.
+All 23 philosophers have an AI-generated DALL-E statue image (`figureImage`) in WebP format, displayed in diorama art style in dashboard cards and modal portraits. Images live in `/public/figures/<slug>.webp`.
 
 ## 📄 License
 
