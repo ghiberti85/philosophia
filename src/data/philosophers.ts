@@ -4,7 +4,7 @@ import { philosophersExtra } from './philosophers-extra';
 const corePhilosophers: Philosopher[] = [
   {
     slug: 'socrates',
-    name: 'Socrates',
+    name: { en: 'Socrates', pt: 'Sócrates' },
     years: { en: '470–399 BC', pt: '470–399 a.C.' },
     birthplace: { en: 'Athens, Greece', pt: 'Atenas, Grécia' },
     schoolSlugs: ['socratic-philosophy'],
@@ -81,7 +81,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'plato',
-    name: 'Plato',
+    name: { en: 'Plato', pt: 'Platão' },
     years: { en: '428–348 BC', pt: '428–348 a.C.' },
     birthplace: { en: 'Athens, Greece', pt: 'Atenas, Grécia' },
     schoolSlugs: ['platonism'],
@@ -158,7 +158,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'aristotle',
-    name: 'Aristotle',
+    name: { en: 'Aristotle', pt: 'Aristóteles' },
     years: { en: '384–322 BC', pt: '384–322 a.C.' },
     birthplace: { en: 'Stagira, Macedonia', pt: 'Estagira, Macedônia' },
     schoolSlugs: ['aristotelianism'],
@@ -235,7 +235,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'seneca',
-    name: 'Seneca',
+    name: { en: 'Seneca', pt: 'Sêneca' },
     years: { en: '4 BC – 65 AD', pt: '4 a.C. – 65 d.C.' },
     birthplace: { en: 'Córdoba, Hispania (Spain)', pt: 'Córdoba, Hispânia (Espanha)' },
     schoolSlugs: ['stoicism'],
@@ -313,7 +313,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'marcus-aurelius',
-    name: 'Marcus Aurelius',
+    name: { en: 'Marcus Aurelius', pt: 'Marco Aurélio' },
     years: { en: '121–180 AD', pt: '121–180 d.C.' },
     birthplace: { en: 'Rome, Italy', pt: 'Roma, Itália' },
     schoolSlugs: ['stoicism'],
@@ -391,7 +391,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'descartes',
-    name: 'René Descartes',
+    name: { en: 'René Descartes', pt: 'René Descartes' },
     years: { en: '1596–1650', pt: '1596–1650' },
     birthplace: { en: 'La Haye en Touraine, France', pt: 'La Haye en Touraine, França' },
     schoolSlugs: ['rationalism'],
@@ -469,7 +469,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'kant',
-    name: 'Immanuel Kant',
+    name: { en: 'Immanuel Kant', pt: 'Immanuel Kant' },
     years: { en: '1724–1804', pt: '1724–1804' },
     birthplace: { en: 'Königsberg, Prussia', pt: 'Königsberg, Prússia' },
     schoolSlugs: ['german-idealism'],
@@ -547,7 +547,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'nietzsche',
-    name: 'Friedrich Nietzsche',
+    name: { en: 'Friedrich Nietzsche', pt: 'Friedrich Nietzsche' },
     years: { en: '1844–1900', pt: '1844–1900' },
     birthplace: { en: 'Röcken, Prussia (Germany)', pt: 'Röcken, Prússia (Alemanha)' },
     schoolSlugs: ['existentialism'],
@@ -625,7 +625,7 @@ const corePhilosophers: Philosopher[] = [
   },
   {
     slug: 'simone-de-beauvoir',
-    name: 'Simone de Beauvoir',
+    name: { en: 'Simone de Beauvoir', pt: 'Simone de Beauvoir' },
     years: { en: '1908–1986', pt: '1908–1986' },
     birthplace: { en: 'Paris, France', pt: 'Paris, França' },
     schoolSlugs: ['existentialism'],

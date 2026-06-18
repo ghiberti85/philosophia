@@ -9,7 +9,7 @@ import type { Philosopher } from './types';
 export const philosophersExtra: Philosopher[] = [
 {
   "slug": "antisthenes",
-  "name": "Antisthenes",
+  "name": { "en": "Antisthenes", "pt": "Antístenes" },
   "years": {
     "en": "c. 446–366 BC",
     "pt": "c. 446–366 a.C."
@@ -120,7 +120,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "aristippus",
-  "name": "Aristippus",
+  "name": { "en": "Aristippus", "pt": "Aristipo" },
   "years": {
     "en": "c. 435–356 BC",
     "pt": "c. 435–356 a.C."
@@ -231,7 +231,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "plotinus",
-  "name": "Plotinus",
+  "name": { "en": "Plotinus", "pt": "Plotino" },
   "years": {
     "en": "204–270 AD",
     "pt": "204–270 d.C."
@@ -342,7 +342,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "hypatia",
-  "name": "Hypatia",
+  "name": { "en": "Hypatia", "pt": "Hipátia" },
   "years": {
     "en": "c. 360–415 AD",
     "pt": "c. 360–415 d.C."
@@ -443,7 +443,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "theophrastus",
-  "name": "Theophrastus",
+  "name": { "en": "Theophrastus", "pt": "Teofrasto" },
   "years": {
     "en": "c. 371–287 BC",
     "pt": "c. 371–287 a.C."
@@ -554,7 +554,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "averroes",
-  "name": "Averroes",
+  "name": { "en": "Averroes", "pt": "Averróis" },
   "years": {
     "en": "1126–1198",
     "pt": "1126–1198"
@@ -665,7 +665,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "zeno-of-citium",
-  "name": "Zeno of Citium",
+  "name": { "en": "Zeno of Citium", "pt": "Zenão de Cítio" },
   "years": {
     "en": "c. 334–262 BC",
     "pt": "c. 334–262 a.C."
@@ -776,7 +776,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "epictetus",
-  "name": "Epictetus",
+  "name": { "en": "Epictetus", "pt": "Epicteto" },
   "years": {
     "en": "c. 50–135 AD",
     "pt": "c. 50–135 d.C."
@@ -887,7 +887,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "spinoza",
-  "name": "Baruch Spinoza",
+  "name": { "en": "Baruch Spinoza", "pt": "Baruch Spinoza" },
   "years": {
     "en": "1632–1677",
     "pt": "1632–1677"
@@ -998,7 +998,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "leibniz",
-  "name": "Gottfried Wilhelm Leibniz",
+  "name": { "en": "Gottfried Wilhelm Leibniz", "pt": "Gottfried Wilhelm Leibniz" },
   "years": {
     "en": "1646–1716",
     "pt": "1646–1716"
@@ -1109,7 +1109,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "fichte",
-  "name": "Johann Gottlieb Fichte",
+  "name": { "en": "Johann Gottlieb Fichte", "pt": "Johann Gottlieb Fichte" },
   "years": {
     "en": "1762–1814",
     "pt": "1762–1814"
@@ -1220,7 +1220,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "hegel",
-  "name": "G. W. F. Hegel",
+  "name": { "en": "G. W. F. Hegel", "pt": "G. W. F. Hegel" },
   "years": {
     "en": "1770–1831",
     "pt": "1770–1831"
@@ -1331,7 +1331,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "kierkegaard",
-  "name": "Søren Kierkegaard",
+  "name": { "en": "Søren Kierkegaard", "pt": "Søren Kierkegaard" },
   "years": {
     "en": "1813–1855",
     "pt": "1813–1855"
@@ -1442,7 +1442,7 @@ export const philosophersExtra: Philosopher[] = [
 },
 {
   "slug": "sartre",
-  "name": "Jean-Paul Sartre",
+  "name": { "en": "Jean-Paul Sartre", "pt": "Jean-Paul Sartre" },
   "years": {
     "en": "1905–1980",
     "pt": "1905–1980"

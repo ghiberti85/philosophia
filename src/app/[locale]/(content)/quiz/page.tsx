@@ -38,7 +38,7 @@ export default function QuizIndexPage({ params }: { params: { locale: Locale } }
                   href={`/${locale}/philosophers/${p.slug}`}
                   className="hover:text-gold-600 dark:hover:text-gold-300"
                 >
-                  {p.name}
+                  {t(p.name, locale)}
                 </Link>
               </h3>
               <p className="mt-1 text-xs uppercase tracking-widest opacity-60">
@@ -48,7 +48,7 @@ export default function QuizIndexPage({ params }: { params: { locale: Locale } }
                 <QuizModal
                   questions={questions}
                   locale={locale}
-                  philosopherName={p.name}
+                  philosopherName={t(p.name, locale)}
                   storageKey={`philosophia:best:${p.slug}`}
                   triggerLabel={t(dict.startQuiz, locale)}
                 />

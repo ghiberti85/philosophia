@@ -32,11 +32,11 @@ export default function PhilosophersPage({ params }: { params: { locale: Locale 
                 style={{ backgroundColor: p.bust.marble, borderColor: p.bust.pedestal }}
               >
                 <span className="font-display text-2xl sm:text-4xl" style={{ color: p.bust.pedestal }}>
-                  {p.name.charAt(0)}
+                  {t(p.name, locale).charAt(0)}
                 </span>
               </div>
               <h3 className="mt-3 text-center font-display text-lg group-hover:text-gold-600 dark:group-hover:text-gold-300 sm:mt-4 sm:text-2xl">
-                {p.name}
+                {t(p.name, locale)}
               </h3>
               <p className="text-center text-xs uppercase tracking-widest opacity-60">
                 {t(p.years, locale)}

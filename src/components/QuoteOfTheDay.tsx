@@ -28,7 +28,7 @@ export function QuoteOfTheDay({ locale }: { locale: Locale }) {
       <figcaption className="mt-4 text-sm uppercase tracking-widest opacity-70">
         —{' '}
         <Link href={`/${locale}/philosophers/${philosopher.slug}`} className="underline decoration-gold-500/50 underline-offset-4 hover:text-gold-600">
-          {philosopher.name}
+          {t(philosopher.name, locale)}
         </Link>
         {quote.source && <span>, {t(quote.source, locale)}</span>}
       </figcaption>

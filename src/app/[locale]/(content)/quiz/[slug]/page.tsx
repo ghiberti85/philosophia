@@ -17,7 +17,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: Props): Metadata {
   const philosopher = getPhilosopher(params.slug);
-  return { title: philosopher ? `Quiz — ${philosopher.name}` : undefined };
+  return { title: philosopher ? `Quiz — ${philosopher.name.en}` : undefined };
 }
 
 export default function QuizPage({ params }: Props) {
@@ -37,7 +37,7 @@ export default function QuizPage({ params }: Props) {
       <QuizEngine
         questions={questions}
         locale={locale}
-        philosopherName={philosopher.name}
+        philosopherName={t(philosopher.name, locale)}
         storageKey={`philosophia:best:${slug}`}
       />
       <p className="text-center text-sm opacity-60">
@@ -45,7 +45,7 @@ export default function QuizPage({ params }: Props) {
           href={`/${locale}/philosophers/${slug}`}
           className="underline decoration-gold-500/50 underline-offset-4 hover:text-gold-600"
         >
-          {philosopher.name} →
+          {t(philosopher.name, locale)} →
         </Link>
       </p>
     </div>

@@ -39,7 +39,7 @@ export interface Quote {
 
 export interface Philosopher {
   slug: string;
-  name: string;
+  name: Localized;
   /** Years of birth/death, already formatted (e.g. "470–399 BC"). */
   years: Localized;
   birthplace: Localized;

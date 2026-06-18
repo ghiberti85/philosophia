@@ -58,7 +58,7 @@ function useQuoteOfDay(locale: Locale) {
     const all = philosophers.flatMap((p) => p.quotes.map((q) => ({ text: q.text, who: p.name })));
     const day = Math.floor(Date.now() / 86400000) % all.length;
     const q = all[day];
-    return { text: t(q.text, locale), who: q.who };
+    return { text: t(q.text, locale), who: t(q.who, locale) };
   }, [locale]);
 }
 
@@ -189,7 +189,7 @@ function StatModal({
                 <li key={p.slug}>
                   <span className="mk">{String(i + 1).padStart(2, '0')}</span>
                   <button className="statlink" onClick={() => { onClose(); onThinker(p); }}>
-                    <span className="serif" style={{ fontWeight: 700 }}>{p.name}</span>
+                    <span className="serif" style={{ fontWeight: 700 }}>{t(p.name, locale)}</span>
                     <span className="statlink__sub mono">{t(p.epithet, locale)} · {t(p.years, locale)}</span>
                   </button>
                 </li>
@@ -217,7 +217,7 @@ function StatModal({
                 {list.map((p, i) => (
                   <li key={p.slug}>
                     <span className="mk">{String(i + 1).padStart(2, '0')}</span>
-                    <span style={{ flex: 1 }}>{p.name}</span>
+                    <span style={{ flex: 1 }}>{t(p.name, locale)}</span>
                     <span className="mono" style={{ color: 'var(--accent)' }}>{roman(getQuestionsFor(p.slug).length)}</span>
                   </li>
                 ))}
@@ -392,7 +392,7 @@ function SchoolModal({
           <div className="traitwrap">
             {list.map((p) => (
               <button key={p.slug} className="chip" onClick={() => onThinker(p)} style={{ cursor: 'pointer' }}>
-                <Icon name="user" size={14} style={{ color: 'var(--accent)' }} /> {p.name}
+                <Icon name="user" size={14} style={{ color: 'var(--accent)' }} /> {t(p.name, locale)}
               </button>
             ))}
           </div>
@@ -486,7 +486,7 @@ export function Dashboard({ locale }: { locale: Locale }) {
   const openPhilQuiz = (p: Philosopher) => { setPhilOpen(null); setQuizScope(p); setQuizOpen(true); };
 
   const quizPool = quizScope ? getQuestionsFor(quizScope.slug) : pool;
-  const quizTitle = quizScope ? quizScope.name : t(school.name, locale);
+  const quizTitle = quizScope ? t(quizScope.name, locale) : t(school.name, locale);
   const quizKey = quizScope ? quizScope.slug : school.slug;
 
   return (

@@ -68,7 +68,7 @@ export default function SchoolPage({ params }: Props) {
                 href={`#${p.slug}`}
                 className="rounded-full border border-gold-500/40 px-3 py-1 text-[11px] uppercase tracking-wider transition-colors hover:bg-gold-500/10"
               >
-                {p.name}
+                {t(p.name, locale)}
               </a>
             ))}
           </div>
@@ -125,10 +125,10 @@ export default function SchoolPage({ params }: Props) {
                         color: p.bust.pedestal,
                       }}
                     >
-                      {p.name.charAt(0)}
+                      {t(p.name, locale).charAt(0)}
                     </span>
                     <div>
-                      <h3 className="font-display text-2xl leading-none">{p.name}</h3>
+                      <h3 className="font-display text-2xl leading-none">{t(p.name, locale)}</h3>
                       <p className="mt-1 text-[11px] uppercase tracking-widest opacity-60">
                         {t(p.years, locale)} · {t(p.epithet, locale)}
                       </p>
@@ -148,7 +148,7 @@ export default function SchoolPage({ params }: Props) {
                   <QuizModal
                     questions={getQuestionsFor(p.slug)}
                     locale={locale}
-                    philosopherName={p.name}
+                    philosopherName={t(p.name, locale)}
                     storageKey={`philosophia:best:${p.slug}`}
                     variant="outline"
                   />

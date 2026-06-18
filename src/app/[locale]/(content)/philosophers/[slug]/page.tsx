@@ -20,7 +20,7 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: Props): Metadata {
   const philosopher = getPhilosopher(params.slug);
-  return { title: philosopher?.name };
+  return { title: philosopher ? philosopher.name.en : undefined };
 }
 
 export default function PhilosopherPage({ params }: Props) {
@@ -37,7 +37,7 @@ export default function PhilosopherPage({ params }: Props) {
         <div className="animate-fade-in md:order-2">
           <BustViewer
             config={philosopher.bust}
-            label={philosopher.name}
+            label={t(philosopher.name, locale)}
             years={t(philosopher.years, locale)}
             hint={t(dict.dragToRotate, locale)}
           />
@@ -49,7 +49,7 @@ export default function PhilosopherPage({ params }: Props) {
           >
             ← {t(dict.backTo, locale)} {t(dict.philosophers, locale)}
           </Link>
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl">{philosopher.name}</h1>
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl">{t(philosopher.name, locale)}</h1>
           <p className="text-lg italic text-gold-600 dark:text-gold-300 sm:text-xl">
             {t(philosopher.epithet, locale)}
           </p>
@@ -89,7 +89,7 @@ export default function PhilosopherPage({ params }: Props) {
             <QuizModal
               questions={getQuestionsFor(philosopher.slug)}
               locale={locale}
-              philosopherName={philosopher.name}
+              philosopherName={t(philosopher.name, locale)}
               storageKey={`philosophia:best:${philosopher.slug}`}
             />
           </div>

@@ -12,13 +12,14 @@ export function monogram(name: string): string {
   return (parts[parts.length - 1][0] || 'Φ').toUpperCase();
 }
 
-function Portrait({ p, big }: { p: Philosopher; big?: boolean }) {
+function Portrait({ p, big, locale }: { p: Philosopher; big?: boolean; locale?: Locale }) {
+  const name = locale ? t(p.name, locale) : p.name.en;
   return (
     <div className={big ? 'pm__portrait' : 'pcard__portrait'}>
-      <span className="pcard__mono" aria-hidden="true">{monogram(p.name)}</span>
+      <span className="pcard__mono" aria-hidden="true">{monogram(name)}</span>
       {p.figureImage && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={p.figureImage} alt={p.name} loading="lazy" />
+        <img src={p.figureImage} alt={name} loading="lazy" />
       )}
     </div>
   );
@@ -35,13 +36,13 @@ export function PhilosopherCard({
 }) {
   return (
     <button className="pcard reveal" style={{ '--d': '120ms' } as React.CSSProperties} onClick={() => onOpen(p)}
-      aria-label={`${p.name} — ${t(dict.about, locale)}`}>
-      <Portrait p={p} />
+      aria-label={`${t(p.name, locale)} — ${t(dict.about, locale)}`}>
+      <Portrait p={p} locale={locale} />
       <span className="pcard__body">
         <span className="mono pcard__epithet">{t(p.epithet, locale)}</span>
-        <span className="pcard__name serif">{p.name}</span>
+        <span className="pcard__name serif">{t(p.name, locale)}</span>
         <span className="pcard__years">{t(p.years, locale)}</span>
-        <span className="pcard__quote serif">“{t(p.quotes[0].text, locale)}”</span>
+        <span className="pcard__quote serif">"{t(p.quotes[0].text, locale)}"</span>
         <span className="pcard__open">
           {t(dict.about, locale)} <Icon name="arrow" className="arr" stroke={1.8} size={14} />
         </span>
@@ -94,7 +95,7 @@ export function PhilosopherModal({
         <div>
           {p.quotes.map((q, i) => (
             <blockquote className="quoteblock" key={i}>
-              <p>“{t(q.text, locale)}”</p>
+              <p>"{t(q.text, locale)}"</p>
               {q.source && <cite>— {t(q.source, locale)}</cite>}
             </blockquote>
           ))}
@@ -133,7 +134,7 @@ export function PhilosopherModal({
           <Portrait p={p} big />
           <div className="pm__intro">
             <span className="mono pm__epithet">{t(p.epithet, locale)}</span>
-            <h2 className="pm__name" id={`${idBase}-name`}>{p.name}</h2>
+            <h2 className="pm__name" id={`${idBase}-name`}>{t(p.name, locale)}</h2>
             <div className="pm__meta">
               <span>{t(p.years, locale)}</span>
               <span><b>{t(dict.born, locale)}</b> {t(p.birthplace, locale)}</span>
@@ -141,7 +142,7 @@ export function PhilosopherModal({
             {getQuestionsFor(p.slug).length > 0 && (
               <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 <button className="btn-primary" onClick={() => onQuiz(p)} style={{ padding: '9px 16px', fontSize: '0.85rem' }}>
-                  <Icon name="target" size={16} /> {t(dict.quizFor, locale)} {p.name.split(' ')[0]}
+                  <Icon name="target" size={16} /> {t(dict.quizFor, locale)} {t(p.name, locale).split(' ')[0]}
                 </button>
               </div>
             )}
