@@ -332,11 +332,12 @@ button.chip:hover { border-color: var(--accent); }
 /* layout variant: "stacked" — hero on top, panels in a 3-col band under */
 .dash[data-layout="stacked"] {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto auto;
   grid-template-areas:
     "hero hero hero"
     "stats ideas context"
-    "thinkers thinkers thinkers";
+    "thinkers thinkers thinkers"
+    "events events events";
 }
 
 /* layout variant: "focus" — hero dominant left, single scroll column right */
@@ -346,7 +347,8 @@ button.chip:hover { border-color: var(--accent); }
     "hero stats"
     "hero ideas"
     "hero context"
-    "thinkers thinkers";
+    "thinkers thinkers"
+    "events events";
 }
 
 /* entrance animation — base style is the visible end-state. The animation is
@@ -1026,21 +1028,22 @@ button.stat:hover .stat__more { opacity: 1; }
 /* ── Historical events panel ────────────────────────────────────────── */
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
+  width: 100%;
 }
 
 .event-badge {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 12px 10px;
+  padding: 10px 8px;
   border-radius: var(--border-radius-md);
   border: 1px solid var(--color-semantic-border);
   background: var(--color-semantic-background-subtle);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   text-align: center;
   transition: all 150ms ease;
   cursor: pointer;
@@ -1049,6 +1052,8 @@ button.stat:hover .stat__more { opacity: 1; }
   overflow: hidden;
   text-decoration: none;
   color: var(--color-semantic-foreground);
+  width: 100%;
+  min-height: 100px;
 }
 
 .event-badge:hover {
@@ -1110,14 +1115,15 @@ button.stat:hover .stat__more { opacity: 1; }
       "hero hero"
       "stats ideas"
       "thinkers thinkers"
-      "context context";
+      "context context"
+      "events events";
   }
   .hero { min-height: 300px; }
 }
 @media (max-width: 720px) {
   .dash, .dash[data-layout="focus"], .dash[data-layout="stacked"] {
     grid-template-columns: 1fr;
-    grid-template-areas: "hero" "stats" "ideas" "thinkers" "context";
+    grid-template-areas: "hero" "stats" "ideas" "thinkers" "context" "events";
   }
   .thinkers-row { grid-auto-flow: row; grid-auto-columns: 1fr; }
   .ticker { display: none; }
@@ -1143,7 +1149,39 @@ button.stat:hover .stat__more { opacity: 1; }
   .sm__hero-body { flex: 0 0 auto; }
   .sm__hero .hero__visual { flex: 0 0 auto; width: 100%; order: -1; }
   .sm__hero .hero__fade { background: none; }
+  /* Historical events: adjust for mobile */
+  .events-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+  }
+  .event-badge {
+    padding: 8px 6px;
+    font-size: 0.7rem;
+    min-height: 90px;
+    gap: 4px;
+  }
+  .event-badge__icon {
+    font-size: 1.4rem;
+  }
+  .event-badge__name {
+    -webkit-line-clamp: 2;
+  }
+  .event-badge__year {
+    font-size: 0.6rem;
+  }
 }
 @media (max-width: 520px) {
   .wordmark .sub { display: none; }
+  .events-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px;
+  }
+  .event-badge {
+    padding: 6px 4px;
+    font-size: 0.65rem;
+    min-height: 80px;
+  }
+  .event-badge__icon {
+    font-size: 1.2rem;
+  }
 }
