@@ -19,7 +19,8 @@ export function roman(num: number): string {
 
 export type IconName =
   | 'close' | 'chevron' | 'arrow' | 'prev' | 'next' | 'sun' | 'moon' | 'scroll'
-  | 'quote' | 'spark' | 'user' | 'target' | 'map' | 'check' | 'refresh' | 'info' | 'sliders';
+  | 'quote' | 'spark' | 'user' | 'target' | 'map' | 'check' | 'refresh' | 'info' | 'sliders'
+  | 'sword' | 'flame' | 'lightbulb' | 'hammer' | 'alert' | 'layers';
 
 const ICON_PATHS: Record<IconName, string> = {
   close: 'M18 6 6 18M6 6l12 12',
@@ -39,6 +40,12 @@ const ICON_PATHS: Record<IconName, string> = {
   refresh: 'M21 12a9 9 0 1 1-3-6.7M21 4v4h-4',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 11v5M12 8h.01',
   sliders: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+  sword: 'M12 2l3 3-2 8-1 7-2-7-2-8 3-3M12 2v16',
+  flame: 'M12 2c0 2-1 3-1 5 0 3 2 5 1 8-1-3 1-5 1-8 0-2-1-3-1-5ZM10 15c0 2 1 3 2 4 1-1 2-2 2-4',
+  lightbulb: 'M12 2a5 5 0 0 0-5 5c0 2 1 3 1 5 0 1-1 2-1 2h10c0 0-1-1-1-2 0-2 1-3 1-5a5 5 0 0 0-5-5ZM9 16h6M10 20h4',
+  hammer: 'M7 17v3h3M7 17l4-11 2 2 4-4-1-1 4 4-2 2 11-4v-1M7 17v3',
+  alert: 'M12 2L2 20h20L12 2ZM12 9v4M12 15h.01',
+  layers: 'M12 2L2 6v5l10 4 10-4V6L12 2ZM2 11l10 4 10-4M2 16l10 4 10-4',
 };
 
 /** Inline icon set (geometric, Lucide-flavoured, self-contained). */

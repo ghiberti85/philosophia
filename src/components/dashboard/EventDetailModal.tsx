@@ -3,7 +3,7 @@
 import { dict } from '@/data/dictionary';
 import type { HistoricalEvent } from '@/data/types';
 import { t, type Locale } from '@/lib/i18n';
-import { Modal } from './ui';
+import { Modal, Icon, type IconName } from './ui';
 
 const CATEGORY_LABELS: Record<HistoricalEvent['category'], keyof typeof dict> = {
   war: 'eventWar',
@@ -14,13 +14,13 @@ const CATEGORY_LABELS: Record<HistoricalEvent['category'], keyof typeof dict> = 
   disaster: 'eventDisaster',
 };
 
-const CATEGORY_ICONS: Record<HistoricalEvent['category'], string> = {
-  war: '⚔️',
-  revolution: '🔥',
-  discovery: '⚡',
-  art: '🎭',
-  construction: '🏛️',
-  disaster: '💀',
+const CATEGORY_ICONS: Record<HistoricalEvent['category'], IconName> = {
+  war: 'sword',
+  revolution: 'flame',
+  discovery: 'spark',
+  art: 'layers',
+  construction: 'hammer',
+  disaster: 'alert',
 };
 
 interface EventDetailModalProps {
@@ -33,7 +33,7 @@ export function EventDetailModal({ event, locale, onClose }: EventDetailModalPro
   if (!event) return null;
 
   const categoryLabel = t(dict[CATEGORY_LABELS[event.category]], locale);
-  const categoryIcon = CATEGORY_ICONS[event.category];
+  const iconName = CATEGORY_ICONS[event.category];
 
   const significanceStars = Array.from({ length: 5 }, (_, i) => i < event.significance ? '★' : '☆').join('');
 
@@ -42,7 +42,7 @@ export function EventDetailModal({ event, locale, onClose }: EventDetailModalPro
       <div className="modal__scroll">
         <div className="tabpanel">
           <div className="panel__head">
-            <span className="glyph">{categoryIcon}</span>
+            <Icon name={iconName} size={16} style={{ color: 'var(--accent)' }} />
             <span className="mono" id="event-title">
               {categoryLabel} · {event.year}
             </span>

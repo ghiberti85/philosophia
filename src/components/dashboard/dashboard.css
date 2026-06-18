@@ -1064,9 +1064,8 @@ button.stat:hover .stat__more { opacity: 1; }
 }
 
 .event-badge__icon {
-  font-size: 1.6rem;
-  line-height: 1;
   display: block;
+  color: var(--accent);
 }
 
 .event-badge__name {
@@ -1161,7 +1160,8 @@ button.stat:hover .stat__more { opacity: 1; }
     gap: 4px;
   }
   .event-badge__icon {
-    font-size: 1.4rem;
+    width: 18px;
+    height: 18px;
   }
   .event-badge__name {
     -webkit-line-clamp: 2;
@@ -1182,6 +1182,7 @@ button.stat:hover .stat__more { opacity: 1; }
     min-height: 80px;
   }
   .event-badge__icon {
-    font-size: 1.2rem;
+    width: 16px;
+    height: 16px;
   }
 }
