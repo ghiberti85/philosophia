@@ -98,6 +98,38 @@ interface KeyWork {
 Aim for **5 works per school** — a mix of primary sources and influential
 secondary works. The bibliography renders in the "Bibliography" stat card modal.
 
+## Add historical events
+
+Each school has associated historical events drawn from `src/data/historical-events.ts`.
+The `HistoricalEvent` interface is:
+
+```ts
+interface HistoricalEvent {
+  slug: string;                          // unique identifier
+  name: Localized;                       // { en: '...', pt: '...' }
+  description: Localized;                // short tooltip, 1–2 sentences
+  year: string;                          // e.g. '399 BC' or 'c. 1776' or '1642–1651'
+  category: 'war' | 'revolution' | 'discovery' | 'art' | 'construction' | 'disaster';
+  schoolSlugs: string[];                 // associated schools
+  significance: 1 | 2 | 3 | 4 | 5;      // visual weight (stars shown in modal)
+  context?: Localized;                   // optional deep-dive context for modal
+  iconName?: 'war' | 'book' | 'bolt' | 'landmark';  // optional icon override
+}
+```
+
+**Adding an event:**
+
+1. Open `src/data/historical-events.ts`.
+2. Add a new entry to the `historicalEvents` array with all required fields bilingual.
+3. Set `schoolSlugs` to the school(s) that overlap this event's time period.
+4. For significance: 5 = transformative (e.g., WWI, Scientific Revolution), 1 = contextual.
+5. **No further changes needed** — `HistoricalEventsPanel` queries `getEventsFor(schoolSlug)`
+   and renders the top 6 events automatically; clicking opens `EventDetailModal` with
+   the full context.
+
+**Convention:** `options[0]` is significant (shown prominently in the panel); aim for
+**6–10 events per school** to ensure good coverage without cluttering the dashboard.
+
 ## Add a language
 
 1. Extend the tuple in `src/lib/i18n.ts`:

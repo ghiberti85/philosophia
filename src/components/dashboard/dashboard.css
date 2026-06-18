@@ -1023,6 +1023,84 @@ button.stat:hover .stat__more { opacity: 1; }
 .quiz__score { font-family: var(--typography-font-family-display); font-size: 4.5rem; line-height: 1; color: var(--accent); font-weight: 600; }
 .quiz__verdict { font-family: var(--typography-font-family-serif); font-size: 1.3rem; font-style: italic; margin: 0; }
 
+/* ── Historical events panel ────────────────────────────────────────── */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.event-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 10px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-semantic-border);
+  background: var(--color-semantic-background-subtle);
+  font-size: 0.78rem;
+  text-align: center;
+  transition: all 150ms ease;
+  cursor: pointer;
+  line-height: 1.2;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-semantic-foreground);
+}
+
+.event-badge:hover {
+  border-color: var(--accent);
+  background: color-mix(in oklch, var(--accent) 8%, var(--color-semantic-background-subtle));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.event-badge__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  display: block;
+}
+
+.event-badge__name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.event-badge__year {
+  font-family: var(--typography-font-family-mono);
+  font-size: 0.65rem;
+  color: var(--color-semantic-foreground-muted);
+}
+
+.event-badge__tooltip {
+  display: none;
+}
+
+.event-badge--war {
+  border-left: 3px solid #e74c3c;
+}
+.event-badge--revolution {
+  border-left: 3px solid #c0392b;
+}
+.event-badge--discovery {
+  border-left: 3px solid #3498db;
+}
+.event-badge--art {
+  border-left: 3px solid #9b59b6;
+}
+.event-badge--construction {
+  border-left: 3px solid #f39c12;
+}
+.event-badge--disaster {
+  border-left: 3px solid #95a5a6;
+}
 
 /* ── Responsive ─────────────────────────────────────────────────────── */
 @media (max-width: 1080px) {

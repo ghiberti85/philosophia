@@ -11,11 +11,14 @@ import { getQuestionsFor } from '@/data/quizzes';
 import { schools } from '@/data/schools';
 import { getPhilosopher } from '@/data/philosophers';
 import { schoolDetails } from '@/data/school-details';
-import type { Philosopher, School } from '@/data/types';
+import type { Philosopher, School, HistoricalEvent } from '@/data/types';
+import { getEventsFor } from '@/data/historical-events';
 import { t, type Locale } from '@/lib/i18n';
 import { IsoScene } from './IsoScene';
 import { PhilosopherCard, PhilosopherModal } from './Philosopher';
 import { QuizModal } from './QuizModal';
+import { HistoricalEventsPanel } from './HistoricalEventsPanel';
+import { EventDetailModal } from './EventDetailModal';
 import { Brackets, Icon, Modal, Panel, roman } from './ui';
 
 const LS = {
@@ -443,6 +446,7 @@ export function Dashboard({ locale }: { locale: Locale }) {
   const [statOpen, setStatOpen] = useState<StatKind | null>(null);
   const [ideaOpen, setIdeaOpen] = useState<number | null>(null);
   const [ctxOpen, setCtxOpen] = useState(false);
+  const [eventOpen, setEventOpen] = useState<HistoricalEvent | null>(null);
 
   // hydrate persisted state on the client only (SSR markup stays deterministic)
   useEffect(() => {
@@ -470,13 +474,13 @@ export function Dashboard({ locale }: { locale: Locale }) {
   // keyboard nav for the timeline (when no modal open)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (philOpen || quizOpen || schoolOpen || statOpen || ideaOpen != null || ctxOpen) return;
+      if (philOpen || quizOpen || schoolOpen || statOpen || ideaOpen != null || ctxOpen || eventOpen) return;
       if (e.key === 'ArrowRight') setIdx((i) => (i + 1) % schools.length);
       if (e.key === 'ArrowLeft') setIdx((i) => (i - 1 + schools.length) % schools.length);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [philOpen, quizOpen, schoolOpen, statOpen, ideaOpen, ctxOpen]);
+  }, [philOpen, quizOpen, schoolOpen, statOpen, ideaOpen, ctxOpen, eventOpen]);
 
   const openSchoolQuiz = () => { setQuizScope(null); setQuizOpen(true); };
   const openPhilQuiz = (p: Philosopher) => { setPhilOpen(null); setQuizScope(p); setQuizOpen(true); };
@@ -496,6 +500,7 @@ export function Dashboard({ locale }: { locale: Locale }) {
         <Tenets school={school} locale={locale} onIdea={setIdeaOpen} />
         <Thinkers school={school} locale={locale} cardStyle="plaque" onOpen={setPhilOpen} />
         <ContextQuiz school={school} locale={locale} onQuiz={openSchoolQuiz} onContext={() => setCtxOpen(true)} />
+        <HistoricalEventsPanel school={school} locale={locale} onEventClick={setEventOpen} />
       </main>
 
       <Rail idx={idx} setIdx={setIdx} locale={locale} />
@@ -509,6 +514,7 @@ export function Dashboard({ locale }: { locale: Locale }) {
         onThinker={setPhilOpen} onIdea={setIdeaOpen} onQuiz={openSchoolQuiz} />
       <IdeaModal ideaIdx={ideaOpen} school={school} locale={locale} onClose={() => setIdeaOpen(null)} />
       <ContextModal open={ctxOpen} school={school} locale={locale} onClose={() => setCtxOpen(false)} />
+      <EventDetailModal event={eventOpen} locale={locale} onClose={() => setEventOpen(null)} />
 
     </div>
   );

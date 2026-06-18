@@ -110,3 +110,20 @@ export interface QuizQuestion {
   /** Shown after answering. */
   explanation: Localized;
 }
+
+/** A historical event concurrent with a school of thought. */
+export interface HistoricalEvent {
+  slug: string;
+  name: Localized;
+  description: Localized;
+  year: string;
+  category: 'war' | 'revolution' | 'discovery' | 'art' | 'construction' | 'disaster';
+  /** Slugs of schools this event relates to. */
+  schoolSlugs: string[];
+  /** Significance 1–5 for visual weighting. */
+  significance: 1 | 2 | 3 | 4 | 5;
+  /** Optional deep-dive context shown in modal. */
+  context?: Localized;
+  /** Optional icon name. */
+  iconName?: 'war' | 'book' | 'bolt' | 'landmark';
+}

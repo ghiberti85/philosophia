@@ -129,6 +129,19 @@ export const dict = {
     en: 'The essential texts of this tradition — the works you read to understand where its ideas came from and where they led. Five titles chosen for depth and accessibility.',
     pt: 'Os textos essenciais desta tradição — as obras que você lê para entender de onde vieram suas ideias e para onde elas conduziram. Cinco títulos escolhidos por profundidade e acessibilidade.',
   },
+  historicalEvents: { en: 'Historical events', pt: 'Eventos históricos' },
+  eventsPanel: {
+    en: 'Parallel events during this era — wars, revolutions, discoveries, and cultural milestones that shaped the world these thinkers inhabited.',
+    pt: 'Eventos paralelos durante essa época — guerras, revoluções, descobertas e marcos culturais que moldaram o mundo onde esses pensadores viveram.',
+  },
+  eventWar: { en: 'War', pt: 'Guerra' },
+  eventRevolution: { en: 'Revolution', pt: 'Revolução' },
+  eventDiscovery: { en: 'Discovery', pt: 'Descoberta' },
+  eventArt: { en: 'Art & Culture', pt: 'Arte e Cultura' },
+  eventConstruction: { en: 'Construction', pt: 'Construção' },
+  eventDisaster: { en: 'Disaster', pt: 'Desastre' },
+  learnMore: { en: 'Learn more', pt: 'Saiba mais' },
+  significance: { en: 'Significance', pt: 'Significância' },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;
