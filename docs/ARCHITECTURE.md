@@ -55,7 +55,7 @@ library:
 ## Dashboard layout
 
 The main UI is a single-page **dashboard** (`src/components/dashboard/`) driven
-by `Dashboard.tsx`. It renders six panel areas:
+by `Dashboard.tsx`. It renders seven panel areas:
 
 | Area | Component | Description |
 |---|---|---|
@@ -64,6 +64,7 @@ by `Dashboard.tsx`. It renders six panel areas:
 | `ideas` | `Tenets` + `IdeaModal` | Numbered list of core ideas; clicking opens a deep-dive modal |
 | `thinkers` | `Thinkers` + `PhilosopherModal` | Philosopher cards; clicking opens the dossier accordion |
 | `context` | `ContextQuiz` + `ContextModal` | School description + historical context + quiz CTA |
+| `events` | `HistoricalEventsPanel` + `EventDetailModal` | Parallel historical events (wars, revolutions, discoveries, art, disasters) |
 | `rail` | `Rail` | Horizontal 24-century timeline navigation |
 
 ### Hero image layout
@@ -128,6 +129,31 @@ interface KeyWork {
 
 All 8 schools ship with 5 curated works each. The data lives in
 `src/data/schools.ts` and renders in the Bibliography stat modal.
+
+## Historical events panel
+
+Each school has associated historical events drawn from `src/data/historical-events.ts`.
+The `HistoricalEvent` interface captures:
+
+```ts
+interface HistoricalEvent {
+  slug: string;                          // unique identifier
+  name: Localized;                       // bilingual name
+  description: Localized;                // short tooltip text
+  year: string;                          // formatted year(s), e.g. "431–404 BC"
+  category: 'war' | 'revolution' | 'discovery' | 'art' | 'construction' | 'disaster';
+  schoolSlugs: string[];                 // associated schools
+  significance: 1 | 2 | 3 | 4 | 5;      // visual weight indicator
+  context?: Localized;                   // optional deep-dive context
+  iconName?: 'war' | 'book' | 'bolt' | 'landmark';  // optional icon override
+}
+```
+
+`HistoricalEventsPanel` renders the top 6 events for the current school as a grid
+of badges; clicking any badge opens `EventDetailModal` for a deep-dive. Events are
+sorted by year and colored by category (red for wars, blue for discoveries, etc.).
+The panel leverages the same `Localized<T>` pattern for bilingual support and appears
+in the dashboard just before the timeline navigation.
 
 ## Isometric scenes
 

@@ -18,6 +18,7 @@
 | 🔍 **Deep-dive ideas** | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read |
 | 🎲 **138-question quiz bank** | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage` |
 | 📜 **Quote of the day** | Deterministic daily rotation across all philosophers' quotes |
+| ⚔️ **Parallel historical events** | Wars, revolutions, discoveries, and cultural milestones shown alongside each school's timeline period — click to explore context and significance |
 | 🕰 **Interactive timeline rail** | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support |
 | 🏙 **Isometric city scenes** | AI-generated isometric illustrations per school (PNG) fill the hero panel at natural 3:2 ratio — no cropping, no overlay, procedural SVG fallback for light/dark mode |
 | 📱 **PWA** | Installable on desktop and mobile — works offline via Workbox service worker, Web App Manifest and native splash screens |
