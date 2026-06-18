@@ -26,3 +26,7 @@ next-env.d.ts
 
 # coverage
 /coverage
+
+# pwa (next-pwa generated files)
+/public/sw.js
+/public/workbox-*.js
