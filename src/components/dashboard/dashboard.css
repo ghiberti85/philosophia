@@ -1042,6 +1042,7 @@ button.stat:hover .stat__more { opacity: 1; }
   padding: 10px 8px;
   border-radius: var(--border-radius-md);
   border: 1px solid var(--color-semantic-border);
+  border-left: 3px solid var(--accent);
   background: var(--color-semantic-background-subtle);
   font-size: 0.75rem;
   text-align: center;
@@ -1087,24 +1088,6 @@ button.stat:hover .stat__more { opacity: 1; }
   display: none;
 }
 
-.event-badge--war {
-  border-left: 3px solid #e74c3c;
-}
-.event-badge--revolution {
-  border-left: 3px solid #c0392b;
-}
-.event-badge--discovery {
-  border-left: 3px solid #3498db;
-}
-.event-badge--art {
-  border-left: 3px solid #9b59b6;
-}
-.event-badge--construction {
-  border-left: 3px solid #f39c12;
-}
-.event-badge--disaster {
-  border-left: 3px solid #95a5a6;
-}
 
 /* ── Responsive ─────────────────────────────────────────────────────── */
 @media (max-width: 1080px) {
