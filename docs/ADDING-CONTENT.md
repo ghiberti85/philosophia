@@ -14,7 +14,11 @@ quotes, traits, facts, quiz pool).
 
 1. **Create the record** following the `Philosopher` type (`src/data/types.ts`).
    Every text field is a `{ en, pt }` record — TypeScript will not compile if a
-   language key is missing.
+   language key is missing. **Important**: `Philosopher.name` is now `Localized`,
+   so you must provide both English and Portuguese versions:
+   ```ts
+   name: { en: 'Socrates', pt: 'Sócrates' }
+   ```
 2. **Add a figure image** (required for dashboard display): generate a statue
    image with DALL-E, convert to WebP and place it at `public/figures/<slug>.webp`:
    ```bash
