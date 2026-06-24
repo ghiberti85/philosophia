@@ -1,8 +1,8 @@
 # Φ Philosophia
 
-> **EN** · A bilingual, interactive encyclopedia of the great schools of philosophy — with AI-generated philosopher figures, isometric city illustrations and quizzes that are different every time you play.
+> **EN** · A bilingual, interactive encyclopedia of the great schools of philosophy with AI-generated philosopher figures, isometric city illustrations and quizzes that are different every time you play.
 >
-> **PT-BR** · Uma enciclopédia interativa e bilíngue das grandes escolas da filosofia — com figuras de filósofos geradas por IA, ilustrações isométricas de cidades e quizzes diferentes a cada rodada.
+> **PT-BR** · Uma enciclopédia interativa e bilíngue das grandes escolas da filosofia com figuras de filósofos geradas por IA, ilustrações isométricas de cidades e quizzes diferentes a cada rodada.
 
 ![CI](https://github.com/ghiberti85/philosophia/actions/workflows/ci.yml/badge.svg)
 
