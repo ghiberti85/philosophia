@@ -41,8 +41,6 @@ function getGradientMap(): THREE.DataTexture {
   return gradient;
 }
 
-const OUTLINE = '#2b2117';
-
 function Toon({ color }: { color: string; outline?: boolean }) {
   const gradientMap = useMemo(getGradientMap, []);
   return <meshToonMaterial color={color} gradientMap={gradientMap} />;

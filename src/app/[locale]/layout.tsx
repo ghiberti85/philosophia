@@ -1,9 +1,39 @@
 import type { Metadata } from 'next';
+import { Cormorant_Garamond, JetBrains_Mono, Playfair_Display, Source_Sans_3 } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import '../globals.css';
 import { Providers } from '@/components/Providers';
 import { dict } from '@/data/dictionary';
 import { isLocale, LOCALES, LOCALE_HTML_LANG, t, type Locale } from '@/lib/i18n';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+  weight: ['400', '500', '700', '900'],
+  style: ['normal', 'italic'],
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+  weight: ['400', '500', '700'],
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ['latin'],
+  variable: '--font-source-sans',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -44,16 +74,16 @@ export default function LocaleLayout({
   const locale = params.locale;
 
   return (
-    <html lang={LOCALE_HTML_LANG[locale]} suppressHydrationWarning>
+    <html
+      lang={LOCALE_HTML_LANG[locale]}
+      className={`${playfair.variable} ${cormorant.variable} ${jetbrainsMono.variable} ${sourceSans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1a1208" media="(prefers-color-scheme: dark)" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Philosophia" />
         <link rel="apple-touch-icon" href="/icon-180.png" />
-        <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
         <Providers>

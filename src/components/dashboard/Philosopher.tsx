@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { dict } from '@/data/dictionary';
 import { getQuestionsFor } from '@/data/quizzes';
 import type { Philosopher } from '@/data/types';
@@ -18,8 +19,11 @@ function Portrait({ p, big, locale }: { p: Philosopher; big?: boolean; locale?: 
     <div className={big ? 'pm__portrait' : 'pcard__portrait'}>
       <span className="pcard__mono" aria-hidden="true">{monogram(name)}</span>
       {p.figureImage && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={p.figureImage} alt={name} loading="lazy" />
+        big ? (
+          <Image src={p.figureImage} alt={name} width={200} height={260} sizes="(max-width: 640px) 100vw, 200px" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+        ) : (
+          <Image src={p.figureImage} alt={name} width={92} height={116} sizes="(max-width: 640px) 64px, 92px" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+        )
       )}
     </div>
   );
@@ -42,7 +46,7 @@ export function PhilosopherCard({
         <span className="mono pcard__epithet">{t(p.epithet, locale)}</span>
         <span className="pcard__name serif">{t(p.name, locale)}</span>
         <span className="pcard__years">{t(p.years, locale)}</span>
-        <span className="pcard__quote serif">"{t(p.quotes[0].text, locale)}"</span>
+        <span className="pcard__quote serif">&ldquo;{t(p.quotes[0].text, locale)}&rdquo;</span>
         <span className="pcard__open">
           {t(dict.about, locale)} <Icon name="arrow" className="arr" stroke={1.8} size={14} />
         </span>
@@ -95,7 +99,7 @@ export function PhilosopherModal({
         <div>
           {p.quotes.map((q, i) => (
             <blockquote className="quoteblock" key={i}>
-              <p>"{t(q.text, locale)}"</p>
+              <p>&ldquo;{t(q.text, locale)}&rdquo;</p>
               {q.source && <cite>— {t(q.source, locale)}</cite>}
             </blockquote>
           ))}

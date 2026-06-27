@@ -34,7 +34,7 @@ interface HistoricalEventMarkerProps {
 export function HistoricalEventMarker({
   event,
   locale,
-  compact = false,
+  compact: _compact = false,
   onClick,
 }: HistoricalEventMarkerProps) {
   const [hovering, setHovering] = useState(false);
