@@ -27,6 +27,7 @@ next-env.d.ts
 # coverage
 /coverage
 
-# pwa (next-pwa generated files)
+# pwa (serwist generated files)
 /public/sw.js
+/public/swe-worker-*.js
 /public/workbox-*.js
