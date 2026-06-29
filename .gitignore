@@ -30,3 +30,4 @@ next-env.d.ts
 # pwa (serwist generated files)
 /public/sw.js
 /public/swe-worker-*.js
+/public/workbox-*.js
