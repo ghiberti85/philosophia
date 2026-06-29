@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import type { BustConfig } from '@/data/types';
+import { BustErrorBoundary } from './BustErrorBoundary';
 
 /**
  * Client wrapper that loads the WebGL canvas only in the browser.
@@ -31,7 +32,9 @@ export function BustViewer({
   return (
     <figure className="w-full">
       <div className="bust-stage relative h-[300px] w-full overflow-hidden rounded-t-2xl border border-b-0 border-gold-500/25 sm:h-[380px] md:h-[480px] lg:h-[540px]">
-        <PhilosopherBust config={config} label={label} />
+        <BustErrorBoundary>
+          <PhilosopherBust config={config} label={label} />
+        </BustErrorBoundary>
         <p className="pointer-events-none absolute bottom-3 left-0 right-0 text-center text-[10px] uppercase tracking-[0.25em] text-parchment-100/50">
           {hint}
         </p>

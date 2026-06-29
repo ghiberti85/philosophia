@@ -1,4 +1,13 @@
-import withPWA from 'next-pwa';
+import withSerwistInit from '@serwist/next';
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
+
+const withSerwist = withSerwistInit({
+  swSrc: 'src/sw.ts',
+  swDest: 'public/sw.js',
+  disable: process.env.NODE_ENV === 'development',
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -25,7 +34,4 @@ const nextConfig = {
   },
 };
 
-export default withPWA({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-})(nextConfig);
+export default withBundleAnalyzer(withSerwist(nextConfig));
