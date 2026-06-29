@@ -76,9 +76,12 @@ determines the hero height — no cropping, no letterboxing, no overlay at any
 screen size. On mobile (`≤ 720px`) the layout stacks to a column with the image
 first.
 
-The scene PNG (`/public/scenes/<slug>.png`) loads via a regular `<img>` tag; if
-it fails to load, an `onError` handler reveals the procedural SVG fallback
-(`IsoScene.tsx`).
+The scene PNG (`/public/scenes/<slug>.png`) loads via a `<SceneImage>` component
+(defined inside `Dashboard.tsx`) that wraps `next/image`. If the image fails to
+load, a React `useState` error flag switches the render to the procedural SVG
+fallback (`IsoScene.tsx`). Using `next/image` enables automatic size optimization
+and lazy loading; the `key={school.slug}` prop resets the error state on school
+change.
 
 ### Stat cards
 
@@ -182,9 +185,45 @@ paint. A `modelPath` field swaps the mesh for a scanned `.glb`
 
 `next-pwa` (Workbox) wraps the Next.js config and generates a service worker at
 build time. `public/manifest.json` declares name, icons, shortcuts and display
-mode. PWA meta tags (`theme-color`, `apple-mobile-web-app-*`) live in the root
-`<head>` via `src/app/[locale]/layout.tsx`. Icons (96, 180, 192, 512 px +
-maskable variants) are in `public/`.
+mode. PWA capability meta tags (`apple-mobile-web-app-capable`,
+`apple-mobile-web-app-status-bar-style`, `apple-mobile-web-app-title`, `manifest`)
+are declared once via `generateMetadata()` in `src/app/[locale]/layout.tsx`.
+The `<head>` in the layout JSX only keeps tags that `generateMetadata` cannot
+express: dual `theme-color` (light/dark media queries), `viewport` with
+`viewport-fit=cover`, and the `apple-touch-icon` link. Icons (96, 180, 192,
+512 px + maskable variants) are in `public/`.
+
+## Security
+
+HTTP security headers are set globally in `next.config.mjs` via `headers()`:
+
+| Header | Value |
+|---|---|
+| `X-Frame-Options` | `DENY` — prevents clickjacking |
+| `X-Content-Type-Options` | `nosniff` — prevents MIME-type sniffing |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` |
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload` |
+
+The root redirect (`/` → `/en`) is `permanent: true` (HTTP 301) since the
+default locale is fixed.
+
+## Fonts
+
+All typefaces are loaded via `next/font/google` in `src/app/[locale]/layout.tsx`,
+which self-hosts the font files at build time and injects CSS variables on `<html>`:
+
+| Variable | Font |
+|---|---|
+| `--font-playfair` | Playfair Display (display serif, cards and headings) |
+| `--font-cormorant` | Cormorant Garamond (editorial display, modal titles) |
+| `--font-jetbrains` | JetBrains Mono (monospace readouts, stat glyph labels) |
+| `--font-source-sans` | Source Sans 3 (body copy, UI chrome) |
+
+`dashboard.css` consumes these via `var(--font-*)` in the typography token
+definitions. The previous `@import url("https://fonts.googleapis.com/...")` in
+`dashboard.css` has been removed — it was a render-blocking external request that
+caused layout shift before fonts loaded.
 
 ## Quiz engine
 
@@ -212,5 +251,12 @@ the best score per philosopher in `localStorage`.
 
 ## CI
 
-`.github/workflows/ci.yml` runs typecheck-equivalent build + tests on every
-push/PR, so the badge in the README reflects real health.
+`.github/workflows/ci.yml` runs on every push/PR with four sequential steps:
+
+1. `npm run lint` — ESLint with `next/core-web-vitals` + `next/typescript` rules
+2. `npm test` — Vitest suite (43 tests across logic, content integrity and components)
+3. `npm run build` — full Next.js production build, which also runs the TypeScript compiler
+
+The CI badge in the README reflects real health. Dependency updates are automated
+via Dependabot (`.github/dependabot.yml`), grouped by ecosystem (Next.js, React
+Three Fiber, testing tools), running weekly.
