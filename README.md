@@ -31,10 +31,14 @@
 | Layer | Tech |
 | --- | --- |
 | Framework | [Next.js 14](https://nextjs.org) — App Router, React 18, TypeScript strict, static generation per locale |
-| Styling | Custom CSS design system ("Codex × HUD" skin, `color-mix(in oklch)` adaptive tokens, Playfair Display + JetBrains Mono) + Tailwind CSS utilities |
+| Styling | Custom CSS design system ("Codex × HUD" skin, `color-mix(in oklch)` adaptive tokens) + Tailwind CSS utilities |
+| Fonts | `next/font/google` — Playfair Display, Cormorant Garamond, JetBrains Mono, Source Sans 3 (self-hosted at build time, no render-blocking CDN request) |
 | Theming | [next-themes](https://github.com/pacocoursey/next-themes) — dark/light with artwork that adapts |
 | PWA | [next-pwa](https://github.com/shadowwalker/next-pwa) + Workbox — offline cache, installable, Web App Manifest |
 | Testing | [Vitest](https://vitest.dev) + Testing Library — logic, content integrity, full quiz round |
+| Quality | ESLint (`next/core-web-vitals` + `next/typescript`) + Prettier — enforced in CI |
+| SEO | Native Next.js `sitemap.xml` + `robots.txt` generators (`src/app/sitemap.ts`, `src/app/robots.ts`) |
+| Security | HTTP security headers via `next.config.mjs`: `X-Frame-Options`, `X-Content-Type-Options`, `HSTS`, `Referrer-Policy`, `Permissions-Policy` |
 
 ## 🚀 Getting started
 
@@ -46,9 +50,10 @@ npm run dev        # http://localhost:3000 (redirects to /en; /pt for Portuguese
 Other scripts:
 
 ```bash
+npm run lint       # ESLint (next/core-web-vitals + typescript)
 npm test           # run the test suite once
 npm run test:watch # watch mode
-npm run build      # production build (static)
+npm run build      # production build (static) — also runs typecheck
 npm start          # serve the production build
 ```
 
@@ -58,6 +63,8 @@ npm start          # serve the production build
 src/
 ├── app/[locale]/              # App Router — all routes pre-rendered in /en and /pt
 │   ├── page.tsx               # Dashboard (main entry point)
+│   ├── sitemap.ts             # /sitemap.xml — all school + philosopher routes in EN + PT
+│   ├── robots.ts              # /robots.txt
 │   └── (content)/
 │       ├── schools/           # Schools index + [slug] detail pages
 │       ├── philosophers/      # Philosophers index + [slug] detail pages

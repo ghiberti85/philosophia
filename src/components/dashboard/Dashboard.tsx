@@ -2,6 +2,7 @@
 
 import './dashboard.css';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
@@ -12,7 +13,6 @@ import { schools } from '@/data/schools';
 import { getPhilosopher } from '@/data/philosophers';
 import { schoolDetails } from '@/data/school-details';
 import type { Philosopher, School, HistoricalEvent } from '@/data/types';
-import { getEventsFor } from '@/data/historical-events';
 import { t, type Locale } from '@/lib/i18n';
 import { IsoScene } from './IsoScene';
 import { PhilosopherCard, PhilosopherModal } from './Philosopher';
@@ -93,6 +93,23 @@ function Topbar({ locale }: { locale: Locale }) {
   );
 }
 
+/* ── Scene image with SVG fallback ─────────────────────────────────── */
+
+function SceneImage({ slug, scene }: { slug: string; scene: School['scene'] }) {
+  const [imgError, setImgError] = useState(false);
+  if (imgError) return <IsoScene scene={scene} />;
+  return (
+    <Image
+      src={`/scenes/${slug}.png`}
+      alt=""
+      width={600}
+      height={600}
+      onError={() => setImgError(true)}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+  );
+}
+
 /* ── Dashboard panels ───────────────────────────────────────────────── */
 
 function Hero({ school, locale, onDossier }: { school: School; locale: Locale; onDossier: () => void }) {
@@ -108,8 +125,7 @@ function Hero({ school, locale, onDossier }: { school: School; locale: Locale; o
       </div>
       <div className="hero__visual">
         <div className="hero__scene">
-          <img src={`/scenes/${school.slug}.png`} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; const fb = e.currentTarget.nextElementSibling as HTMLElement; if (fb) fb.style.display = 'block'; }} />
-          <div className="hero__scene-fallback"><IsoScene scene={school.scene} /></div>
+          <SceneImage key={school.slug} slug={school.slug} scene={school.scene} />
         </div>
         <div className="hero__fade" />
       </div>
@@ -120,7 +136,7 @@ function Hero({ school, locale, onDossier }: { school: School; locale: Locale; o
 type StatKind = 'sages' | 'tenets' | 'quiz' | 'bibliography';
 
 function Stats({
-  school, idx, locale, poolCount, onOpen,
+  school, idx: _idx, locale, poolCount, onOpen,
 }: {
   school: School; idx: number; locale: Locale; poolCount: number; onOpen: (kind: StatKind) => void;
 }) {
@@ -148,7 +164,7 @@ function Stats({
 
 /** Popup behind each faction-readout cell: explanation + the data itself. */
 function StatModal({
-  kind, school, idx, locale, onClose, onThinker, onIdea, onQuiz,
+  kind, school, idx: _idx, locale, onClose, onThinker, onIdea, onQuiz,
 }: {
   kind: StatKind | null;
   school: School;
@@ -373,8 +389,7 @@ function SchoolModal({
           </div>
           <div className="hero__visual">
             <div className="hero__scene">
-              <img src={`/scenes/${school.slug}.png`} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; const fb = e.currentTarget.nextElementSibling as HTMLElement; if (fb) fb.style.display = 'block'; }} />
-              <div className="hero__scene-fallback"><IsoScene scene={school.scene} /></div>
+              <SceneImage key={school.slug} slug={school.slug} scene={school.scene} />
             </div>
             <div className="hero__fade" />
           </div>

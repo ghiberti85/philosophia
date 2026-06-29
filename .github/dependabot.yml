@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      react-three:
+        patterns:
+          - "@react-three/*"
+          - "three"
+          - "@types/three"
+      next-ecosystem:
+        patterns:
+          - "next"
+          - "next-*"
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitejs/*"
+          - "@testing-library/*"
