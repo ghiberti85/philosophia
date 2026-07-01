@@ -5,7 +5,7 @@ This document explains the main design decisions behind Philosophia.
 ## Goals
 
 1. **Portfolio quality** — clean, idiomatic, typed, tested code.
-2. **Performance** — everything that can be static *is* static. The whole site
+2. **Performance** — everything that can be static _is_ static. The whole site
    is pre-rendered at build time; the only meaningful client-side JavaScript is
    the quiz engine and the 3D bust viewer (loaded only on philosopher detail pages).
 3. **Wow factor on a budget** — no heavy binary assets committed to the repo;
@@ -57,15 +57,15 @@ library:
 The main UI is a single-page **dashboard** (`src/components/dashboard/`) driven
 by `Dashboard.tsx`. It renders seven panel areas:
 
-| Area | Component | Description |
-|---|---|---|
-| `hero` | `Hero` | School name, period, tagline, scene image (no overlay), Read button |
-| `stats` | `Stats` + `StatModal` | 4 stat cards: Sages, Core Tenets, Quiz Pool, Bibliography |
-| `ideas` | `Tenets` + `IdeaModal` | Numbered list of core ideas; clicking opens a deep-dive modal |
-| `thinkers` | `Thinkers` + `PhilosopherModal` | Philosopher cards; clicking opens the dossier accordion |
-| `context` | `ContextQuiz` + `ContextModal` | School description + historical context + quiz CTA |
-| `events` | `HistoricalEventsPanel` + `EventDetailModal` | Parallel historical events (wars, revolutions, discoveries, art, disasters) |
-| `rail` | `Rail` | Horizontal 24-century timeline navigation |
+| Area       | Component                                    | Description                                                                 |
+| ---------- | -------------------------------------------- | --------------------------------------------------------------------------- |
+| `hero`     | `Hero`                                       | School name, period, tagline, scene image (no overlay), Read button         |
+| `stats`    | `Stats` + `StatModal`                        | 4 stat cards: Sages, Core Tenets, Quiz Pool, Bibliography                   |
+| `ideas`    | `Tenets` + `IdeaModal`                       | Numbered list of core ideas; clicking opens a deep-dive modal               |
+| `thinkers` | `Thinkers` + `PhilosopherModal`              | Philosopher cards; clicking opens the dossier accordion                     |
+| `context`  | `ContextQuiz` + `ContextModal`               | School description + historical context + quiz CTA                          |
+| `events`   | `HistoricalEventsPanel` + `EventDetailModal` | Parallel historical events (wars, revolutions, discoveries, art, disasters) |
+| `rail`     | `Rail`                                       | Horizontal 24-century timeline navigation                                   |
 
 ### Hero image layout
 
@@ -123,10 +123,10 @@ Each `School` has an optional `keyWorks?: KeyWork[]` field:
 
 ```ts
 interface KeyWork {
-  title: Localized;        // { en, pt } — bilingual title
-  author: Localized;       // { en, pt }
+  title: Localized; // { en, pt } — bilingual title
+  author: Localized; // { en, pt }
   year: string;
-  note?: Localized;        // { en, pt } — short contextual annotation
+  note?: Localized; // { en, pt } — short contextual annotation
 }
 ```
 
@@ -140,15 +140,15 @@ The `HistoricalEvent` interface captures:
 
 ```ts
 interface HistoricalEvent {
-  slug: string;                          // unique identifier
-  name: Localized;                       // bilingual name
-  description: Localized;                // short tooltip text
-  year: string;                          // formatted year(s), e.g. "431–404 BC"
+  slug: string; // unique identifier
+  name: Localized; // bilingual name
+  description: Localized; // short tooltip text
+  year: string; // formatted year(s), e.g. "431–404 BC"
   category: 'war' | 'revolution' | 'discovery' | 'art' | 'construction' | 'disaster';
-  schoolSlugs: string[];                 // associated schools
-  significance: 1 | 2 | 3 | 4 | 5;      // visual weight indicator
-  context?: Localized;                   // optional deep-dive context
-  iconName?: 'war' | 'book' | 'bolt' | 'landmark';  // optional icon override
+  schoolSlugs: string[]; // associated schools
+  significance: 1 | 2 | 3 | 4 | 5; // visual weight indicator
+  context?: Localized; // optional deep-dive context
+  iconName?: 'war' | 'book' | 'bolt' | 'landmark'; // optional icon override
 }
 ```
 
@@ -197,12 +197,12 @@ express: dual `theme-color` (light/dark media queries), `viewport` with
 
 HTTP security headers are set globally in `next.config.mjs` via `headers()`:
 
-| Header | Value |
-|---|---|
-| `X-Frame-Options` | `DENY` — prevents clickjacking |
-| `X-Content-Type-Options` | `nosniff` — prevents MIME-type sniffing |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` |
+| Header                      | Value                                          |
+| --------------------------- | ---------------------------------------------- |
+| `X-Frame-Options`           | `DENY` — prevents clickjacking                 |
+| `X-Content-Type-Options`    | `nosniff` — prevents MIME-type sniffing        |
+| `Referrer-Policy`           | `strict-origin-when-cross-origin`              |
+| `Permissions-Policy`        | `camera=(), microphone=(), geolocation=()`     |
 | `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload` |
 
 The root redirect (`/` → `/en`) is `permanent: true` (HTTP 301) since the
@@ -213,12 +213,12 @@ default locale is fixed.
 All typefaces are loaded via `next/font/google` in `src/app/[locale]/layout.tsx`,
 which self-hosts the font files at build time and injects CSS variables on `<html>`:
 
-| Variable | Font |
-|---|---|
-| `--font-playfair` | Playfair Display (display serif, cards and headings) |
-| `--font-cormorant` | Cormorant Garamond (editorial display, modal titles) |
-| `--font-jetbrains` | JetBrains Mono (monospace readouts, stat glyph labels) |
-| `--font-source-sans` | Source Sans 3 (body copy, UI chrome) |
+| Variable             | Font                                                   |
+| -------------------- | ------------------------------------------------------ |
+| `--font-playfair`    | Playfair Display (display serif, cards and headings)   |
+| `--font-cormorant`   | Cormorant Garamond (editorial display, modal titles)   |
+| `--font-jetbrains`   | JetBrains Mono (monospace readouts, stat glyph labels) |
+| `--font-source-sans` | Source Sans 3 (body copy, UI chrome)                   |
 
 `dashboard.css` consumes these via `var(--font-*)` in the typography token
 definitions. The previous `@import url("https://fonts.googleapis.com/...")` in
@@ -249,13 +249,72 @@ the best score per philosopher in `localStorage`.
 - The WebGL canvas is intentionally not unit-tested (jsdom has no GL); its
   logic surface is kept near zero.
 
+## Animation system
+
+All motion is governed by a single accessibility gate: `MotionConfig reducedMotion="user"` wraps the entire React tree in `src/components/Providers.tsx`, so Framer Motion automatically disables animations when the OS `prefers-reduced-motion: reduce` flag is set. Custom hooks mirror this gate with `useReducedMotion()`.
+
+### View Transitions API (school switching)
+
+`Dashboard.tsx` wraps `setIdx` in `document.startViewTransition()` so the browser can morph named elements between paints. The key constraint is that React state changes must be synchronous inside the callback — solved with `flushSync`:
+
+```ts
+const doUpdate = () => flushSync(() => setIdxState(next));
+if (typeof document !== 'undefined' && 'startViewTransition' in document) {
+  (document as any).startViewTransition(doUpdate);
+} else {
+  doUpdate();
+}
+```
+
+CSS assigns `view-transition-name` to three hero elements (`.hero__title`, `.hero__visual`, `.hero__period`) and custom `@keyframes` (`vt-slide-out-up`, `vt-slide-in-up`, `vt-fade-scale-out`, `vt-fade-scale-in`) control the morph animation. All rules are gated inside `@media (prefers-reduced-motion: no-preference)`.
+
+### Shared-element transitions (philosopher card → modal)
+
+Framer Motion `layoutId` moves the philosopher portrait from `PhilosopherCard` to `PhilosopherModal` in a continuous animated arc. Both components wrap `<Portrait>` with `<motion.div layoutId={\`portrait-${p.slug}\`}>`. A `<LayoutGroup>` at the Dashboard root scopes the shared elements so layout IDs remain unique across concurrent modals.
+
+Modal enter/exit is handled by `AnimatePresence` in `ui.tsx` with spring physics (`stiffness: 380, damping: 30, mass: 0.8`). The `AnimatePresence` approach required removing the previous CSS `opacity`/`transform` transitions from `.modal` and `.modal-backdrop` to prevent conflicts.
+
+### Snapshot ref pattern
+
+When a modal closes, its data prop becomes `null` before the exit animation ends — which would flash blank content. The fix is a snapshot ref:
+
+```ts
+const snapshot = useRef<T | null>(null);
+if (data) snapshot.current = data;
+const active = snapshot.current; // always the last non-null value
+```
+
+Used in `PhilosopherModal`, `StatModal`, `IdeaModal`, `ContextModal`, and `EventDetailModal`.
+
+### Typewriter hook (`useTypewriter`)
+
+`src/components/dashboard/hooks.ts` exports `useTypewriter(text, speed)` which advances one character per `speed` ms via `setInterval`. Resets to empty string when `text` changes. Returns `{ display, done }`. The hero tagline renders the cursor span via CSS with a `tw-blink` animation; `aria-live="polite"` + `aria-atomic="true"` ensures screen-readers announce the completed phrase, not each character.
+
+### Count-up hook (`useCountUp`)
+
+`useCountUp(target, duration)` animates a numeric value from 0 to `target` using `requestAnimationFrame` and an ease-out cubic function (`1 - (1-t)^3`). Resets to 0 immediately when `target` changes. Stat panel numbers render as Roman numerals via a `roman()` helper wrapped in `AnimatedRoman`.
+
+Both hooks skip animation and return the final value immediately when `useReducedMotion()` is true.
+
+### Staggered card entrance
+
+`PhilosopherCard` accepts a `delay` prop (ms). Cards in the `Thinkers` section render with `delay={200 + i * 55}` creating a cascade. The delay drives a CSS `--d` custom property on the `.reveal` class, which is gated in `@media (prefers-reduced-motion: no-preference)`.
+
 ## CI
 
-`.github/workflows/ci.yml` runs on every push/PR with four sequential steps:
+`.github/workflows/ci.yml` runs on every push/PR with two jobs:
+
+**`test-and-build`** (sequential):
 
 1. `npm run lint` — ESLint with `next/core-web-vitals` + `next/typescript` rules
-2. `npm test` — Vitest suite (43 tests across logic, content integrity and components)
+2. `npm test` — Vitest suite (50 tests across logic, content integrity, hooks and components)
 3. `npm run build` — full Next.js production build, which also runs the TypeScript compiler
+
+**`e2e`** (depends on `test-and-build`):
+
+1. Installs Chromium via Playwright
+2. Builds Next.js and starts the production server
+3. Runs `npx playwright test` — browser smoke tests for navigation, school switching, quiz flow
 
 The CI badge in the README reflects real health. Dependency updates are automated
 via Dependabot (`.github/dependabot.yml`), grouped by ecosystem (Next.js, React
