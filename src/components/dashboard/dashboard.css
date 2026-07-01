@@ -335,7 +335,7 @@ button.chip:hover {
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 14px clamp(16px, 3vw, 40px);
+  padding: calc(14px + env(safe-area-inset-top)) clamp(16px, 3vw, 40px) 14px;
   border-bottom: 1px solid var(--color-semantic-border);
   background: color-mix(in oklch, var(--color-semantic-background) 88%, transparent);
   backdrop-filter: blur(6px);
