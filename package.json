@@ -24,9 +24,9 @@
     ]
   },
   "dependencies": {
-    "@react-three/drei": "^9.114.0",
-    "@react-three/fiber": "^8.17.10",
-    "@react-three/postprocessing": "^2.19.1",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/postprocessing": "^3.0.4",
     "@serwist/next": "^9.5.11",
     "framer-motion": "^12.42.2",
     "next": "^14.2.15",
@@ -34,7 +34,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "serwist": "^9.5.11",
-    "three": "^0.169.0"
+    "three": "^0.185.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^16.2.9",
@@ -44,7 +44,7 @@
     "@types/node": "^22.0.0",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
-    "@types/three": "^0.169.0",
+    "@types/three": "^0.185.0",
     "@vitejs/plugin-react": "^4.3.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
