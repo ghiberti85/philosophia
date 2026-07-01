@@ -1,6 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useRef } from 'react';
 import { dict } from '@/data/dictionary';
 import { getQuestionsFor } from '@/data/quizzes';
 import type { Philosopher } from '@/data/types';
@@ -17,14 +19,29 @@ function Portrait({ p, big, locale }: { p: Philosopher; big?: boolean; locale?: 
   const name = locale ? t(p.name, locale) : p.name.en;
   return (
     <div className={big ? 'pm__portrait' : 'pcard__portrait'}>
-      <span className="pcard__mono" aria-hidden="true">{monogram(name)}</span>
-      {p.figureImage && (
-        big ? (
-          <Image src={p.figureImage} alt={name} width={200} height={260} sizes="(max-width: 640px) 100vw, 200px" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+      <span className="pcard__mono" aria-hidden="true">
+        {monogram(name)}
+      </span>
+      {p.figureImage &&
+        (big ? (
+          <Image
+            src={p.figureImage}
+            alt={name}
+            width={200}
+            height={260}
+            sizes="(max-width: 640px) 100vw, 200px"
+            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          />
         ) : (
-          <Image src={p.figureImage} alt={name} width={92} height={116} sizes="(max-width: 640px) 64px, 92px" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
-        )
-      )}
+          <Image
+            src={p.figureImage}
+            alt={name}
+            width={92}
+            height={116}
+            sizes="(max-width: 640px) 64px, 92px"
+            style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+          />
+        ))}
     </div>
   );
 }
@@ -33,15 +50,23 @@ export function PhilosopherCard({
   p,
   locale,
   onOpen,
+  delay = 120,
 }: {
   p: Philosopher;
   locale: Locale;
   onOpen: (p: Philosopher) => void;
+  delay?: number;
 }) {
   return (
-    <button className="pcard reveal" style={{ '--d': '120ms' } as React.CSSProperties} onClick={() => onOpen(p)}
-      aria-label={`${t(p.name, locale)} — ${t(dict.about, locale)}`}>
-      <Portrait p={p} locale={locale} />
+    <button
+      className="pcard reveal"
+      style={{ '--d': `${delay}ms` } as React.CSSProperties}
+      onClick={() => onOpen(p)}
+      aria-label={`${t(p.name, locale)} — ${t(dict.about, locale)}`}
+    >
+      <motion.div layoutId={`portrait-${p.slug}`} style={{ display: 'contents' }}>
+        <Portrait p={p} locale={locale} />
+      </motion.div>
       <span className="pcard__body">
         <span className="mono pcard__epithet">{t(p.epithet, locale)}</span>
         <span className="pcard__name serif">{t(p.name, locale)}</span>
@@ -68,8 +93,13 @@ export function PhilosopherModal({
   onQuiz: (p: Philosopher) => void;
   locale: Locale;
 }) {
-  if (!p) return null;
-  const idBase = `pm-${p.slug}`;
+  // Keep last philosopher alive during the exit animation
+  const snapshot = useRef<Philosopher | null>(null);
+  if (p) snapshot.current = p;
+  const philosopher = snapshot.current;
+
+  if (!philosopher) return null;
+  const idBase = `pm-${philosopher.slug}`;
 
   const tabs: TabDef[] = [
     {
@@ -77,7 +107,9 @@ export function PhilosopherModal({
       icon: 'scroll',
       render: () => (
         <div className="prose dropcap">
-          {t(p.biography, locale).map((para, i) => <p key={i}>{para}</p>)}
+          {t(philosopher.biography, locale).map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
         </div>
       ),
     },
@@ -86,8 +118,11 @@ export function PhilosopherModal({
       icon: 'spark',
       render: () => (
         <ul className="list-clean">
-          {t(p.contributions, locale).map((c, i) => (
-            <li key={i}><span className="mk">{String(i + 1).padStart(2, '0')}</span><span>{c}</span></li>
+          {t(philosopher.contributions, locale).map((c, i) => (
+            <li key={i}>
+              <span className="mk">{String(i + 1).padStart(2, '0')}</span>
+              <span>{c}</span>
+            </li>
           ))}
         </ul>
       ),
@@ -97,7 +132,7 @@ export function PhilosopherModal({
       icon: 'quote',
       render: () => (
         <div>
-          {p.quotes.map((q, i) => (
+          {philosopher.quotes.map((q, i) => (
             <blockquote className="quoteblock" key={i}>
               <p>&ldquo;{t(q.text, locale)}&rdquo;</p>
               {q.source && <cite>— {t(q.source, locale)}</cite>}
@@ -111,7 +146,11 @@ export function PhilosopherModal({
       icon: 'user',
       render: () => (
         <div className="traitwrap">
-          {t(p.traits, locale).map((trait, i) => <span className="chip chip--accent" key={i}>{trait}</span>)}
+          {t(philosopher.traits, locale).map((trait, i) => (
+            <span className="chip chip--accent" key={i}>
+              {trait}
+            </span>
+          ))}
         </div>
       ),
     },
@@ -120,7 +159,7 @@ export function PhilosopherModal({
       icon: 'info',
       render: () => (
         <div className="factgrid">
-          {t(p.facts, locale).map((f, i) => (
+          {t(philosopher.facts, locale).map((f, i) => (
             <div className="fact" key={i}>
               <span className="fact__n display">{String(i + 1).padStart(2, '0')}</span>
               <p>{f}</p>
@@ -132,21 +171,37 @@ export function PhilosopherModal({
   ];
 
   return (
-    <Modal open={open} onClose={onClose} labelledby={`${idBase}-name`} closeLabel={t(dict.close, locale)}>
+    <Modal
+      open={open}
+      onClose={onClose}
+      labelledby={`${idBase}-name`}
+      closeLabel={t(dict.close, locale)}
+    >
       <div className="modal__scroll">
         <div className="pm__head">
-          <Portrait p={p} big />
+          <motion.div layoutId={`portrait-${philosopher.slug}`} style={{ display: 'contents' }}>
+            <Portrait p={philosopher} big />
+          </motion.div>
           <div className="pm__intro">
-            <span className="mono pm__epithet">{t(p.epithet, locale)}</span>
-            <h2 className="pm__name" id={`${idBase}-name`}>{t(p.name, locale)}</h2>
+            <span className="mono pm__epithet">{t(philosopher.epithet, locale)}</span>
+            <h2 className="pm__name" id={`${idBase}-name`}>
+              {t(philosopher.name, locale)}
+            </h2>
             <div className="pm__meta">
-              <span>{t(p.years, locale)}</span>
-              <span><b>{t(dict.born, locale)}</b> {t(p.birthplace, locale)}</span>
+              <span>{t(philosopher.years, locale)}</span>
+              <span>
+                <b>{t(dict.born, locale)}</b> {t(philosopher.birthplace, locale)}
+              </span>
             </div>
-            {getQuestionsFor(p.slug).length > 0 && (
+            {getQuestionsFor(philosopher.slug).length > 0 && (
               <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                <button className="btn-primary" onClick={() => onQuiz(p)} style={{ padding: '9px 16px', fontSize: '0.85rem' }}>
-                  <Icon name="target" size={16} /> {t(dict.quizFor, locale)} {t(p.name, locale).split(' ')[0]}
+                <button
+                  className="btn-primary"
+                  onClick={() => onQuiz(philosopher)}
+                  style={{ padding: '9px 16px', fontSize: '0.85rem' }}
+                >
+                  <Icon name="target" size={16} /> {t(dict.quizFor, locale)}{' '}
+                  {t(philosopher.name, locale).split(' ')[0]}
                 </button>
               </div>
             )}

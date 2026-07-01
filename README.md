@@ -8,37 +8,42 @@
 
 ## ✨ Features
 
-| Feature | Details |
-| --- | --- |
-| 🏛 **8 schools of thought** | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
-| 🗿 **23 philosophers** | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts |
-| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits |
-| 📚 **Bibliography card** | 5 curated essential works per school — bilingual title, author, year and contextual annotation |
-| 🎴 **Accordion dossiers** | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling |
-| 🔍 **Deep-dive ideas** | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read |
-| 🎲 **138-question quiz bank** | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage` |
-| 📜 **Quote of the day** | Deterministic daily rotation across all philosophers' quotes |
-| ⚔️ **Parallel historical events** | Wars, revolutions, discoveries, and cultural milestones shown alongside each school's timeline period — click to explore context and significance |
-| 🕰 **Interactive timeline rail** | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support |
-| 🏙 **Isometric city scenes** | AI-generated isometric illustrations per school (PNG) fill the hero panel at natural 3:2 ratio — no cropping, no overlay, procedural SVG fallback for light/dark mode |
-| 📱 **PWA** | Installable on desktop and mobile — works offline via Workbox service worker, Web App Manifest and native splash screens |
-| 🌗 **Dark / light mode** | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes |
-| 🌍 **i18n (EN / PT-BR)** | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing |
-| ✅ **Content integrity tests** | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness |
+| Feature                           | Details                                                                                                                                                                                       |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🏛 **8 schools of thought**       | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
+| 🗿 **23 philosophers**            | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts                                                                                       |
+| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits                                                                          |
+| 📚 **Bibliography card**          | 5 curated essential works per school — bilingual title, author, year and contextual annotation                                                                                                |
+| 🎴 **Accordion dossiers**         | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling                                                |
+| 🔍 **Deep-dive ideas**            | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read                                                                                          |
+| 🎲 **138-question quiz bank**     | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage`                                                      |
+| 📜 **Quote of the day**           | Deterministic daily rotation across all philosophers' quotes                                                                                                                                  |
+| ⚔️ **Parallel historical events** | Wars, revolutions, discoveries, and cultural milestones shown alongside each school's timeline period — click to explore context and significance                                             |
+| 🕰 **Interactive timeline rail**  | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support                                                                                                  |
+| 🏙 **Isometric city scenes**      | AI-generated isometric illustrations per school (PNG) fill the hero panel at natural 3:2 ratio — no cropping, no overlay, procedural SVG fallback for light/dark mode                         |
+| 📱 **PWA**                        | Installable on desktop and mobile — works offline via Workbox service worker, Web App Manifest and native splash screens                                                                      |
+| 🌗 **Dark / light mode**          | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes                                                                                       |
+| 🌍 **i18n (EN / PT-BR)**          | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing                                                                                        |
+| ✅ **Content integrity tests**    | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness                                                                         |
+| ✨ **View Transitions API**       | Morphing hero transitions between schools using `document.startViewTransition()` + `flushSync` for React state sync                                                                           |
+| 🎭 **Shared-element animations**  | Framer Motion `layoutId` moves the philosopher portrait from card to modal in a continuous arc                                                                                                |
+| ⌨️ **Typewriter taglines**        | School tagline types character-by-character when switching schools, with `aria-live` for screen-readers                                                                                       |
+| 🔢 **Animated Roman numerals**    | Stat counters count up from zero on school change using an ease-out cubic rAF loop                                                                                                            |
 
 ## 🧱 Tech stack
 
-| Layer | Tech |
-| --- | --- |
-| Framework | [Next.js 14](https://nextjs.org) — App Router, React 18, TypeScript strict, static generation per locale |
-| Styling | Custom CSS design system ("Codex × HUD" skin, `color-mix(in oklch)` adaptive tokens) + Tailwind CSS utilities |
-| Fonts | `next/font/google` — Playfair Display, Cormorant Garamond, JetBrains Mono, Source Sans 3 (self-hosted at build time, no render-blocking CDN request) |
-| Theming | [next-themes](https://github.com/pacocoursey/next-themes) — dark/light with artwork that adapts |
-| PWA | [next-pwa](https://github.com/shadowwalker/next-pwa) + Workbox — offline cache, installable, Web App Manifest |
-| Testing | [Vitest](https://vitest.dev) + Testing Library — logic, content integrity, full quiz round |
-| Quality | ESLint (`next/core-web-vitals` + `next/typescript`) + Prettier — enforced in CI |
-| SEO | Native Next.js `sitemap.xml` + `robots.txt` generators (`src/app/sitemap.ts`, `src/app/robots.ts`) |
-| Security | HTTP security headers via `next.config.mjs`: `X-Frame-Options`, `X-Content-Type-Options`, `HSTS`, `Referrer-Policy`, `Permissions-Policy` |
+| Layer      | Tech                                                                                                                                                       |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework  | [Next.js 14](https://nextjs.org) — App Router, React 18, TypeScript strict, static generation per locale                                                   |
+| Styling    | Custom CSS design system ("Codex × HUD" skin, `color-mix(in oklch)` adaptive tokens) + Tailwind CSS utilities                                              |
+| Fonts      | `next/font/google` — Playfair Display, Cormorant Garamond, JetBrains Mono, Source Sans 3 (self-hosted at build time, no render-blocking CDN request)       |
+| Theming    | [next-themes](https://github.com/pacocoursey/next-themes) — dark/light with artwork that adapts                                                            |
+| Animations | [Framer Motion v12](https://www.framer.com/motion/) — shared-element via `layoutId`, `AnimatePresence` exits, `MotionConfig reducedMotion="user"`          |
+| PWA        | [@serwist/next](https://serwist.pages.dev) + Workbox — offline cache, installable, Web App Manifest                                                        |
+| Testing    | [Vitest](https://vitest.dev) + Testing Library + [Playwright](https://playwright.dev) E2E — logic, content integrity, full quiz round, browser smoke tests |
+| Quality    | ESLint (`next/core-web-vitals` + `next/typescript`) + Prettier + Husky + lint-staged — enforced in CI                                                      |
+| SEO        | Native Next.js `sitemap.xml` + `robots.txt` generators + JSON-LD structured data (Organization, WebSite)                                                   |
+| Security   | HTTP security headers via `next.config.mjs`: `X-Frame-Options`, `X-Content-Type-Options`, `HSTS`, `Referrer-Policy`, `Permissions-Policy`                  |
 
 ## 🚀 Getting started
 
