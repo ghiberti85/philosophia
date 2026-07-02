@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { ShareScoreButton } from '@/components/ShareScoreButton';
 import { dict } from '@/data/dictionary';
 import type { QuizQuestion } from '@/data/types';
 import { t, type Locale } from '@/lib/i18n';
@@ -118,13 +119,27 @@ export function QuizModal({
   };
 
   return (
-    <Modal open={open} onClose={onClose} variant="modal--quiz" labelledby="quiz-title" closeLabel={t(dict.close, locale)}>
+    <Modal
+      open={open}
+      onClose={onClose}
+      variant="modal--quiz"
+      labelledby="quiz-title"
+      closeLabel={t(dict.close, locale)}
+    >
       <div className="quiz">
         <header>
           <div className="panel__head" style={{ margin: 0 }}>
-            <span className="glyph" aria-hidden="true" style={{ color: 'var(--accent)' }}>◈</span>
-            <span className="mono" id="quiz-title">{t(dict.quizFor, locale)} · {title}</span>
-            {!done && <span className="count">{roman(idx + 1)} / {roman(total)}</span>}
+            <span className="glyph" aria-hidden="true" style={{ color: 'var(--accent)' }}>
+              ◈
+            </span>
+            <span className="mono" id="quiz-title">
+              {t(dict.quizFor, locale)} · {title}
+            </span>
+            {!done && (
+              <span className="count">
+                {roman(idx + 1)} / {roman(total)}
+              </span>
+            )}
           </div>
         </header>
 
@@ -142,10 +157,20 @@ export function QuizModal({
                   else if (i === chosen) state = 'wrong';
                 }
                 return (
-                  <button key={i} className="qopt" data-state={state} disabled={answered} onClick={() => pick(i)}
-                    data-autofocus={i === 0 ? '' : undefined}>
+                  <button
+                    key={i}
+                    className="qopt"
+                    data-state={state}
+                    disabled={answered}
+                    onClick={() => pick(i)}
+                    data-autofocus={i === 0 ? '' : undefined}
+                  >
                     <span className="qopt__key">
-                      {answered && state === 'correct' ? <Icon name="check" size={15} /> : String.fromCharCode(65 + i)}
+                      {answered && state === 'correct' ? (
+                        <Icon name="check" size={15} />
+                      ) : (
+                        String.fromCharCode(65 + i)
+                      )}
                     </span>
                     <span>{o.text}</span>
                   </button>
@@ -154,15 +179,28 @@ export function QuizModal({
             </div>
             {answered && (
               <div className="quiz__explain">
-                <strong style={{ color: chosen === q.correctIndex ? 'var(--color-state-success)' : 'var(--color-state-error)' }}>
+                <strong
+                  style={{
+                    color:
+                      chosen === q.correctIndex
+                        ? 'var(--color-state-success)'
+                        : 'var(--color-state-error)',
+                  }}
+                >
                   {chosen === q.correctIndex ? t(dict.correct, locale) : t(dict.incorrect, locale)}
                 </strong>{' '}
                 {q.explanation}
               </div>
             )}
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <button className="btn-primary" disabled={!answered} onClick={next} style={{ opacity: answered ? 1 : 0.5 }}>
-                {idx + 1 < total ? t(dict.nextQuestion, locale) : t(dict.seeResults, locale)} <Icon name="arrow" size={16} />
+              <button
+                className="btn-primary"
+                disabled={!answered}
+                onClick={next}
+                style={{ opacity: answered ? 1 : 0.5 }}
+              >
+                {idx + 1 < total ? t(dict.nextQuestion, locale) : t(dict.seeResults, locale)}{' '}
+                <Icon name="arrow" size={16} />
               </button>
             </div>
           </>
@@ -171,14 +209,36 @@ export function QuizModal({
         {done && (
           <div className="quiz__result">
             <span className="mono">{t(dict.yourScore, locale)}</span>
-            <div className="quiz__score">{score}<span style={{ fontSize: '2rem', opacity: 0.5 }}>/{total}</span></div>
+            <div className="quiz__score">
+              {score}
+              <span style={{ fontSize: '2rem', opacity: 0.5 }}>/{total}</span>
+            </div>
             <p className="quiz__verdict">{verdict(score, total)}</p>
-            <span className="mono">{t(dict.bestScore, locale)}: {Math.max(best, score)} / {total}</span>
-            <div style={{ display: 'flex', gap: 10, marginTop: 6 }}>
+            <span className="mono">
+              {t(dict.bestScore, locale)}: {Math.max(best, score)} / {total}
+            </span>
+            <div
+              style={{
+                display: 'flex',
+                gap: 10,
+                marginTop: 6,
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
+            >
               <button className="btn-primary" onClick={reset}>
                 <Icon name="refresh" size={16} /> {t(dict.playAgain, locale)}
               </button>
-              <button className="btn-ghost" onClick={onClose}>{t(dict.close, locale)}</button>
+              <ShareScoreButton
+                locale={locale}
+                score={score}
+                total={total}
+                quizName={title}
+                className="btn-ghost"
+              />
+              <button className="btn-ghost" onClick={onClose}>
+                {t(dict.close, locale)}
+              </button>
             </div>
           </div>
         )}

@@ -8,27 +8,30 @@
 
 ## ✨ Features
 
-| Feature                           | Details                                                                                                                                                                                       |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🏛 **8 schools of thought**       | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography |
-| 🗿 **23 philosophers**            | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts                                                                                       |
-| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits                                                                          |
-| 📚 **Bibliography card**          | 5 curated essential works per school — bilingual title, author, year and contextual annotation                                                                                                |
-| 🎴 **Accordion dossiers**         | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling                                                |
-| 🔍 **Deep-dive ideas**            | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read                                                                                          |
-| 🎲 **138-question quiz bank**     | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage`                                                      |
-| 📜 **Quote of the day**           | Deterministic daily rotation across all philosophers' quotes                                                                                                                                  |
-| ⚔️ **Parallel historical events** | Wars, revolutions, discoveries, and cultural milestones shown alongside each school's timeline period — click to explore context and significance                                             |
-| 🕰 **Interactive timeline rail**  | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support                                                                                                  |
-| 🏙 **Isometric city scenes**      | AI-generated isometric illustrations per school (PNG) fill the hero panel at natural 3:2 ratio — no cropping, no overlay, procedural SVG fallback for light/dark mode                         |
-| 📱 **PWA**                        | Installable on desktop and mobile — works offline via Workbox service worker, Web App Manifest and native splash screens                                                                      |
-| 🌗 **Dark / light mode**          | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes                                                                                       |
-| 🌍 **i18n (EN / PT-BR)**          | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing                                                                                        |
-| ✅ **Content integrity tests**    | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness                                                                         |
-| ✨ **View Transitions API**       | Morphing hero transitions between schools using `document.startViewTransition()` + `flushSync` for React state sync                                                                           |
-| 🎭 **Shared-element animations**  | Framer Motion `layoutId` moves the philosopher portrait from card to modal in a continuous arc                                                                                                |
-| ⌨️ **Typewriter taglines**        | School tagline types character-by-character when switching schools, with `aria-live` for screen-readers                                                                                       |
-| 🔢 **Animated Roman numerals**    | Stat counters count up from zero on school change using an ease-out cubic rAF loop                                                                                                            |
+| Feature                           | Details                                                                                                                                                                                                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 🏛 **8 schools of thought**       | Socratic Philosophy, Platonism, Aristotelianism, Stoicism, Epicureanism, Rationalism, German Idealism, Existentialism — each with core ideas, key thinkers, deep-dive essays and bibliography                                                                      |
+| 🗿 **23 philosophers**            | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts                                                                                                                                                            |
+| 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits                                                                                                                                               |
+| 📚 **Bibliography card**          | 5 curated essential works per school — bilingual title, author, year and contextual annotation                                                                                                                                                                     |
+| 🎴 **Accordion dossiers**         | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling                                                                                                                     |
+| 🔍 **Deep-dive ideas**            | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read                                                                                                                                                               |
+| 🎲 **138-question quiz bank**     | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage`                                                                                                                           |
+| 📜 **Quote of the day**           | Deterministic daily rotation across all philosophers' quotes                                                                                                                                                                                                       |
+| ⚔️ **Parallel historical events** | Wars, revolutions, discoveries, and cultural milestones shown alongside each school's timeline period — click to explore context and significance                                                                                                                  |
+| 🕸 **Influence map**              | Force-directed canvas graph at `/graph` (zero dependencies): 23 philosophers as nodes coloured by school, arrows meaning "shaped the thought of" — hover traces a full lineage, click opens a dossier card, drag rearranges; mirrored as a crawlable lineage index |
+| 🔗 **Dynamic OG images**          | Per-philosopher, per-school and per-locale Open Graph cards generated at build time with `ImageResponse` (name, epithet, quote, school accent) — every shared link becomes a poster                                                                                |
+| 📲 **Score sharing**              | Web Share API button on quiz results (clipboard fallback on desktop) — "I scored 5/5 on the Socrates quiz, can you beat me?"                                                                                                                                       |
+| 🕰 **Interactive timeline rail**  | Navigate all 8 schools across 24 centuries with prev/next buttons and keyboard arrow support                                                                                                                                                                       |
+| 🏙 **Isometric city scenes**      | AI-generated isometric illustrations per school (PNG) fill the hero panel at natural 3:2 ratio — no cropping, no overlay, procedural SVG fallback for light/dark mode                                                                                              |
+| 📱 **PWA**                        | Installable on desktop and mobile — works offline via Workbox service worker, Web App Manifest and native splash screens                                                                                                                                           |
+| 🌗 **Dark / light mode**          | `next-themes`, system-aware, with "parchment & gold" (light) and "midnight & candlelight" (dark) themes                                                                                                                                                            |
+| 🌍 **i18n (EN / PT-BR)**          | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing                                                                                                                                                             |
+| ✅ **Content integrity tests**    | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness                                                                                                                                              |
+| ✨ **View Transitions API**       | Morphing hero transitions between schools using `document.startViewTransition()` + `flushSync` for React state sync                                                                                                                                                |
+| 🎭 **Shared-element animations**  | Framer Motion `layoutId` moves the philosopher portrait from card to modal in a continuous arc                                                                                                                                                                     |
+| ⌨️ **Typewriter taglines**        | School tagline types character-by-character when switching schools, with `aria-live` for screen-readers                                                                                                                                                            |
+| 🔢 **Animated Roman numerals**    | Stat counters count up from zero on school change using an ease-out cubic rAF loop                                                                                                                                                                                 |
 
 ## 🧱 Tech stack
 
@@ -71,12 +74,14 @@ src/
 │   ├── sitemap.ts             # /sitemap.xml — all school + philosopher routes in EN + PT
 │   ├── robots.ts              # /robots.txt
 │   └── (content)/
-│       ├── schools/           # Schools index + [slug] detail pages
-│       ├── philosophers/      # Philosophers index + [slug] detail pages
+│       ├── schools/           # Schools index + [slug] detail pages (+ dynamic OG images)
+│       ├── philosophers/      # Philosophers index + [slug] detail pages (+ dynamic OG images)
+│       ├── graph/             # Influence map (force-directed canvas graph)
 │       └── quiz/              # Quiz index + [slug] per-philosopher quiz
 ├── components/
 │   ├── dashboard/             # Dashboard shell: Dashboard.tsx, Philosopher.tsx,
 │   │                          #   QuizModal.tsx, IsoScene.tsx, ui.tsx, dashboard.css
+│   ├── graph/                 # InfluenceGraph.tsx — canvas force simulation, no graph lib
 │   └── bust/                  # 3D bust viewer (react-three-fiber, philosopher detail pages)
 ├── data/
 │   ├── types.ts               # School, Philosopher, KeyWork, BustConfig, BustLook…

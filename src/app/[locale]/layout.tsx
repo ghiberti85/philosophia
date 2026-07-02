@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, JetBrains_Mono, Playfair_Display, Source_Sans_3 } from 'next/font/google';
+import {
+  Cormorant_Garamond,
+  JetBrains_Mono,
+  Playfair_Display,
+  Source_Sans_3,
+} from 'next/font/google';
 import { notFound } from 'next/navigation';
 import '../globals.css';
 import { Providers } from '@/components/Providers';
@@ -39,9 +44,12 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://philosophia.app';
+
 export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
   return {
+    metadataBase: new URL(BASE_URL),
     title: {
       default: `${t(dict.appName, locale)} — ${t(dict.tagline, locale)}`,
       template: `%s — ${t(dict.appName, locale)}`,
@@ -82,13 +90,14 @@ export default function LocaleLayout({
       <head>
         <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1a1208" media="(prefers-color-scheme: dark)" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+        />
         <link rel="apple-touch-icon" href="/icon-180.png" />
       </head>
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

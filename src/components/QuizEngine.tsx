@@ -5,6 +5,7 @@ import type { QuizQuestion } from '@/data/types';
 import { dict } from '@/data/dictionary';
 import { t, type Locale } from '@/lib/i18n';
 import { buildQuiz, scoreFeedbackKey, type PreparedQuestion, QUESTIONS_PER_QUIZ } from '@/lib/quiz';
+import { ShareScoreButton } from './ShareScoreButton';
 
 interface QuizEngineProps {
   questions: QuizQuestion[];
@@ -100,13 +101,22 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
             {t(dict.bestScore, locale)}: {Math.max(best, score)}/{round.length}
           </p>
         )}
-        <button
-          type="button"
-          onClick={start}
-          className="mt-6 rounded-full bg-gold-500 px-8 py-3 font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
-        >
-          {t(dict.playAgain, locale)}
-        </button>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={start}
+            className="rounded-full bg-gold-500 px-8 py-3 font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
+          >
+            {t(dict.playAgain, locale)}
+          </button>
+          <ShareScoreButton
+            locale={locale}
+            score={score}
+            total={round.length}
+            quizName={philosopherName}
+            className="rounded-full border border-gold-500/50 px-6 py-3 text-sm font-semibold uppercase tracking-wider transition-colors hover:bg-gold-500/10"
+          />
+        </div>
       </div>
     );
   }
@@ -117,9 +127,7 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
         <span>
           {t(dict.question, locale)} {current + 1} {t(dict.of, locale)} {round.length}
         </span>
-        <span>
-          {score} ✓
-        </span>
+        <span>{score} ✓</span>
       </div>
       {/* Progress bar */}
       <div className="mt-3 h-1 overflow-hidden rounded-full bg-gold-500/15">
@@ -128,7 +136,9 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
           style={{ width: `${((current + (answered ? 1 : 0)) / round.length) * 100}%` }}
         />
       </div>
-      <h3 className="mt-5 font-display text-lg sm:mt-6 sm:text-xl md:text-2xl">{question.prompt}</h3>
+      <h3 className="mt-5 font-display text-lg sm:mt-6 sm:text-xl md:text-2xl">
+        {question.prompt}
+      </h3>
       <div className="mt-6 grid gap-3">
         {question.options.map((option, i) => {
           const isCorrect = i === question.correctIndex;
@@ -153,7 +163,9 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
       {answered && (
         <div className="animate-fade-up mt-6 rounded-xl bg-gold-500/10 p-4">
           <p className="font-semibold">
-            {selected === question.correctIndex ? t(dict.correct, locale) : t(dict.incorrect, locale)}
+            {selected === question.correctIndex
+              ? t(dict.correct, locale)
+              : t(dict.incorrect, locale)}
           </p>
           <p className="mt-1 text-sm opacity-80">{question.explanation}</p>
           <button
