@@ -142,6 +142,42 @@ export const dict = {
   eventDisaster: { en: 'Disaster', pt: 'Desastre' },
   learnMore: { en: 'Learn more', pt: 'Saiba mais' },
   significance: { en: 'Significance', pt: 'Significância' },
+  influenceMap: { en: 'Influence Map', pt: 'Mapa de Influências' },
+  influenceMapNav: { en: 'Influences', pt: 'Influências' },
+  influenceMapSubtitle: {
+    en: 'Twenty-four centuries of ideas passing from mind to mind — every arrow reads "shaped the thought of". Trace how Socrates\' questions echo all the way to Sartre and Beauvoir.',
+    pt: 'Vinte e quatro séculos de ideias passando de mente em mente — cada seta significa "moldou o pensamento de". Veja como as perguntas de Sócrates ecoam até Sartre e Beauvoir.',
+  },
+  graphHint: {
+    en: 'Hover to trace a lineage · click for details · drag to rearrange',
+    pt: 'Passe o mouse para traçar a linhagem · clique para detalhes · arraste para reorganizar',
+  },
+  graphHintMobile: {
+    en: 'Tap a philosopher to trace their lineage',
+    pt: 'Toque em um filósofo para traçar sua linhagem',
+  },
+  graphCanvasAlt: {
+    en: 'Interactive map of influence between philosophers; the same relations are listed below.',
+    pt: 'Mapa interativo de influências entre filósofos; as mesmas relações estão listadas abaixo.',
+  },
+  influencedByLabel: { en: 'Influenced by', pt: 'Recebeu influência de' },
+  influencedLabel: { en: 'Influenced', pt: 'Influenciou' },
+  noInfluences: {
+    en: 'No recorded predecessor in this collection',
+    pt: 'Sem predecessor registrado nesta coleção',
+  },
+  viewProfile: { en: 'View profile', pt: 'Ver perfil' },
+  lineageIndex: { en: 'Lineage index', pt: 'Índice de linhagens' },
+  exploreInfluenceMap: {
+    en: 'See their place on the influence map',
+    pt: 'Veja seu lugar no mapa de influências',
+  },
+  shareScore: { en: 'Share score', pt: 'Compartilhar' },
+  shareCopied: { en: 'Copied to clipboard!', pt: 'Copiado!' },
+  shareScoreMessage: {
+    en: 'I scored {score} on the {name} quiz at Philosophia — can you beat me?',
+    pt: 'Fiz {score} no quiz sobre {name} na Philosophia — consegue superar?',
+  },
 } satisfies Record<string, Localized>;
 
 export type DictKey = keyof typeof dict;

@@ -9,6 +9,7 @@ import { getPhilosopher, philosophers } from '@/data/philosophers';
 import { getQuestionsFor } from '@/data/quizzes';
 import { getSchool } from '@/data/schools';
 import { t, type Locale } from '@/lib/i18n';
+import { influencedList } from '@/lib/influence-graph';
 
 interface Props {
   params: { locale: Locale; slug: string };
@@ -94,6 +95,56 @@ export default function PhilosopherPage({ params }: Props) {
                   </dd>
                 </div>
               )}
+              {philosopher.influencedBy.length > 0 && (
+                <div>
+                  <dt className="inline">{t(dict.influencedByLabel, locale)}: </dt>
+                  <dd className="inline">
+                    {philosopher.influencedBy.map((s, i) => {
+                      const other = getPhilosopher(s);
+                      if (!other) return null;
+                      return (
+                        <span key={s}>
+                          {i > 0 && ', '}
+                          <Link
+                            href={`/${locale}/philosophers/${s}`}
+                            className="underline decoration-gold-500/50 underline-offset-4 hover:text-gold-600"
+                          >
+                            {t(other.name, locale)}
+                          </Link>
+                        </span>
+                      );
+                    })}
+                  </dd>
+                </div>
+              )}
+              {influencedList(slug).length > 0 && (
+                <div>
+                  <dt className="inline">{t(dict.influencedLabel, locale)}: </dt>
+                  <dd className="inline">
+                    {influencedList(slug).map((other, i) => (
+                      <span key={other.slug}>
+                        {i > 0 && ', '}
+                        <Link
+                          href={`/${locale}/philosophers/${other.slug}`}
+                          className="underline decoration-gold-500/50 underline-offset-4 hover:text-gold-600"
+                        >
+                          {t(other.name, locale)}
+                        </Link>
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              )}
+              <div>
+                <dd className="inline">
+                  <Link
+                    href={`/${locale}/graph`}
+                    className="text-gold-600 underline decoration-gold-500/50 underline-offset-4 hover:opacity-80 dark:text-gold-300"
+                  >
+                    {t(dict.exploreInfluenceMap, locale)} →
+                  </Link>
+                </dd>
+              </div>
             </dl>
             <div className="flex flex-wrap gap-2 pt-2">
               {t(philosopher.traits, locale).map((trait) => (
