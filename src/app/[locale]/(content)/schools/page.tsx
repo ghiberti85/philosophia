@@ -16,7 +16,7 @@ export default function SchoolsPage({ params }: { params: { locale: Locale } }) 
 
   return (
     <div className="space-y-8 pt-8 sm:space-y-12 sm:pt-12">
-      <SectionHeading>{t(dict.schools, locale)}</SectionHeading>
+      <SectionHeading as="h1">{t(dict.schools, locale)}</SectionHeading>
       <div className="space-y-5 sm:space-y-8">
         {schools.map((school, i) => (
           <Link
@@ -27,13 +27,19 @@ export default function SchoolsPage({ params }: { params: { locale: Locale } }) 
             }`}
             style={{ animationDelay: `${i * 90}ms` }}
           >
-            <div className={`transition-transform duration-500 group-hover:scale-105 ${i % 2 ? 'md:order-2' : ''}`}>
+            <div
+              className={`transition-transform duration-500 group-hover:scale-105 ${i % 2 ? 'md:order-2' : ''}`}
+            >
               <IsometricScene scene={school.scene} accent={school.accent} />
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest opacity-60">{t(school.period, locale)}</p>
+              <p className="text-xs uppercase tracking-widest opacity-60">
+                {t(school.period, locale)}
+              </p>
               <h2 className="mt-1 font-display text-2xl sm:text-3xl">{t(school.name, locale)}</h2>
-              <p className="mt-1 italic text-gold-600 dark:text-gold-300">“{t(school.tagline, locale)}”</p>
+              <p className="mt-1 italic text-gold-600 dark:text-gold-300">
+                “{t(school.tagline, locale)}”
+              </p>
               <p className="mt-3 line-clamp-3 opacity-80">{t(school.description, locale)}</p>
               <p className="mt-3 text-sm uppercase tracking-widest opacity-60">
                 {t(dict.keyThinkers, locale)}:{' '}

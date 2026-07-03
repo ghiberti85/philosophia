@@ -16,7 +16,7 @@ export default function QuizIndexPage({ params }: { params: { locale: Locale } }
 
   return (
     <div className="space-y-8 pt-8 sm:space-y-12 sm:pt-12">
-      <SectionHeading>{t(dict.quizzes, locale)}</SectionHeading>
+      <SectionHeading as="h1">{t(dict.quizzes, locale)}</SectionHeading>
       <p className="text-center opacity-70">{t(dict.chooseThinker, locale)}</p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {philosophers.map((p, i) => {

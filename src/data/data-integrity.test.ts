@@ -79,6 +79,26 @@ describe('philosophers', () => {
     }
   });
 
+  it('only lists existing philosophers as influences, never itself', () => {
+    for (const p of philosophers) {
+      for (const slug of p.influencedBy) {
+        expect(philosopherSlugs.has(slug), `${p.slug} influencedBy → ${slug}`).toBe(true);
+        expect(slug, `${p.slug} cannot influence itself`).not.toBe(p.slug);
+      }
+      expect(new Set(p.influencedBy).size, `${p.slug} has duplicate influences`).toBe(
+        p.influencedBy.length,
+      );
+    }
+  });
+
+  it('leaves no philosopher isolated in the influence graph', () => {
+    const referenced = new Set(philosophers.flatMap((p) => p.influencedBy));
+    for (const p of philosophers) {
+      const connected = p.influencedBy.length > 0 || referenced.has(p.slug);
+      expect(connected, `${p.slug} has no influence links`).toBe(true);
+    }
+  });
+
   it('has a valid bust configuration', () => {
     for (const p of philosophers) {
       expect(p.bust.marble).toMatch(/^#[0-9a-f]{6}$/i);

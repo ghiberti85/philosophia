@@ -16,16 +16,16 @@ test.describe('Quiz', () => {
 
     // Answer 5 questions
     for (let i = 0; i < 5; i++) {
-      const options = page.getByRole('button', { name: /^[A-D]\)/i });
-      // Wait for options to be visible
-      await expect(options.first()).toBeVisible({ timeout: 5000 });
-      await options.first().click();
-      // Wait for next question or results
-      await page.waitForTimeout(400);
+      // Gate on the question counter so each iteration acts on the right question.
+      await expect(page.getByText(`Question ${i + 1} of 5`)).toBeVisible({ timeout: 10000 });
+      await page.getByTestId('quiz-option').first().click();
+      // Confirm the answer to move to the next question (or the results)
+      const advance = i < 4 ? /next question/i : /see results/i;
+      await page.getByRole('button', { name: advance }).click();
     }
 
     // Results screen should appear
-    await expect(page.getByText(/score|resultado|pontos/i)).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(/your score/i)).toBeVisible({ timeout: 10000 });
   });
 
   test('quiz modal closes on Escape', async ({ page }) => {

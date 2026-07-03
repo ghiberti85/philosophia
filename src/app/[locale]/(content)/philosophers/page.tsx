@@ -15,7 +15,7 @@ export default function PhilosophersPage({ params }: { params: { locale: Locale 
 
   return (
     <div className="space-y-8 pt-8 sm:space-y-12 sm:pt-12">
-      <SectionHeading>{t(dict.philosophers, locale)}</SectionHeading>
+      <SectionHeading as="h1">{t(dict.philosophers, locale)}</SectionHeading>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {philosophers.map((p, i) => {
           const school = getSchool(p.schoolSlugs[0]);
@@ -31,7 +31,10 @@ export default function PhilosophersPage({ params }: { params: { locale: Locale 
                 className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border-4 shadow-inner sm:h-24 sm:w-24"
                 style={{ backgroundColor: p.bust.marble, borderColor: p.bust.pedestal }}
               >
-                <span className="font-display text-2xl sm:text-4xl" style={{ color: p.bust.pedestal }}>
+                <span
+                  className="font-display text-2xl sm:text-4xl"
+                  style={{ color: p.bust.pedestal }}
+                >
                   {t(p.name, locale).charAt(0)}
                 </span>
               </div>

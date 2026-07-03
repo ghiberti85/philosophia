@@ -8,6 +8,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '470–399 BC', pt: '470–399 a.C.' },
     birthplace: { en: 'Athens, Greece', pt: 'Atenas, Grécia' },
     schoolSlugs: ['socratic-philosophy'],
+    influencedBy: [],
     epithet: {
       en: 'The Gadfly of Athens',
       pt: 'O Moscardo de Atenas',
@@ -76,7 +77,22 @@ const corePhilosophers: Philosopher[] = [
         'Em seu julgamento, propôs como "punição" receber refeições gratuitas e vitalícias às custas do Estado.',
       ],
     },
-    bust: { marble: '#e8e2d4', pedestal: '#c2922f', headWidth: 0.85, beard: 0.9, hair: 0.35 , look: { skin: '#e3a878', hair: '#ebe6da', cloth: '#ece2cc', clothAccent: '#c2922f', hairstyle: 'bald', beard: 'long', mustache: 'normal' } },
+    bust: {
+      marble: '#e8e2d4',
+      pedestal: '#c2922f',
+      headWidth: 0.85,
+      beard: 0.9,
+      hair: 0.35,
+      look: {
+        skin: '#e3a878',
+        hair: '#ebe6da',
+        cloth: '#ece2cc',
+        clothAccent: '#c2922f',
+        hairstyle: 'bald',
+        beard: 'long',
+        mustache: 'normal',
+      },
+    },
     figureImage: '/figures/socrates.webp',
   },
   {
@@ -85,13 +101,14 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '428–348 BC', pt: '428–348 a.C.' },
     birthplace: { en: 'Athens, Greece', pt: 'Atenas, Grécia' },
     schoolSlugs: ['platonism'],
+    influencedBy: ['socrates'],
     epithet: {
       en: 'Architect of the World of Forms',
       pt: 'Arquiteto do Mundo das Ideias',
     },
     biography: {
       en: [
-        'Born into one of the noblest families of Athens, Plato seemed destined for politics until, at twenty, he met Socrates. The master\'s execution in 399 BC shattered his faith in Athenian democracy and turned him into philosophy\'s greatest writer. After years of travel through Egypt and Italy — where he absorbed Pythagorean mathematics — he founded the Academy around 387 BC, an institution that would operate for over 900 years.',
+        "Born into one of the noblest families of Athens, Plato seemed destined for politics until, at twenty, he met Socrates. The master's execution in 399 BC shattered his faith in Athenian democracy and turned him into philosophy's greatest writer. After years of travel through Egypt and Italy — where he absorbed Pythagorean mathematics — he founded the Academy around 387 BC, an institution that would operate for over 900 years.",
         'His dialogues, with Socrates as protagonist, range from the nature of justice (Republic) to love (Symposium), knowledge (Theaetetus) and the origin of the cosmos (Timaeus). He famously attempted to turn the tyrant of Syracuse into a philosopher-king — and was nearly sold into slavery for his trouble. He died at around eighty, reportedly at a wedding feast, leaving a body of work that Whitehead called the footnotes-source of all Western philosophy.',
       ],
       pt: [
@@ -153,7 +170,22 @@ const corePhilosophers: Philosopher[] = [
         'Sua história de Atlântida, contada no Timeu e no Crítias, alimenta expedições e teorias conspiratórias até hoje.',
       ],
     },
-    bust: { marble: '#ece6da', pedestal: '#5b7fb9', headWidth: 1.0, beard: 0.75, hair: 0.6 , look: { skin: '#eebd92', hair: '#b3aea2', cloth: '#5b7fb9', clothAccent: '#d9ad4f', hairstyle: 'short', beard: 'full', mustache: 'normal' } },
+    bust: {
+      marble: '#ece6da',
+      pedestal: '#5b7fb9',
+      headWidth: 1.0,
+      beard: 0.75,
+      hair: 0.6,
+      look: {
+        skin: '#eebd92',
+        hair: '#b3aea2',
+        cloth: '#5b7fb9',
+        clothAccent: '#d9ad4f',
+        hairstyle: 'short',
+        beard: 'full',
+        mustache: 'normal',
+      },
+    },
     figureImage: '/figures/plato.webp',
   },
   {
@@ -162,6 +194,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '384–322 BC', pt: '384–322 a.C.' },
     birthplace: { en: 'Stagira, Macedonia', pt: 'Estagira, Macedônia' },
     schoolSlugs: ['aristotelianism'],
+    influencedBy: ['plato'],
     epithet: {
       en: 'The Philosopher',
       pt: 'O Filósofo',
@@ -196,7 +229,10 @@ const corePhilosophers: Philosopher[] = [
           en: 'We are what we repeatedly do. Excellence, then, is not an act, but a habit.',
           pt: 'Somos o que fazemos repetidamente. A excelência, portanto, não é um ato, mas um hábito.',
         },
-        source: { en: 'After Nicomachean Ethics (Will Durant)', pt: 'A partir da Ética a Nicômaco (Will Durant)' },
+        source: {
+          en: 'After Nicomachean Ethics (Will Durant)',
+          pt: 'A partir da Ética a Nicômaco (Will Durant)',
+        },
       },
       {
         text: {
@@ -230,7 +266,22 @@ const corePhilosophers: Philosopher[] = [
         'Passou dois anos em Lesbos estudando a vida marinha; Darwin disse que seus próprios heróis eram "meros colegiais diante do velho Aristóteles".',
       ],
     },
-    bust: { marble: '#eae4d6', pedestal: '#7a9a59', headWidth: 0.92, beard: 0.55, hair: 0.5 , look: { skin: '#e4b083', hair: '#6e5639', cloth: '#7a9a59', clothAccent: '#d9ad4f', hairstyle: 'short', beard: 'trimmed', mustache: 'normal' } },
+    bust: {
+      marble: '#eae4d6',
+      pedestal: '#7a9a59',
+      headWidth: 0.92,
+      beard: 0.55,
+      hair: 0.5,
+      look: {
+        skin: '#e4b083',
+        hair: '#6e5639',
+        cloth: '#7a9a59',
+        clothAccent: '#d9ad4f',
+        hairstyle: 'short',
+        beard: 'trimmed',
+        mustache: 'normal',
+      },
+    },
     figureImage: '/figures/aristotle.webp',
   },
   {
@@ -239,6 +290,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '4 BC – 65 AD', pt: '4 a.C. – 65 d.C.' },
     birthplace: { en: 'Córdoba, Hispania (Spain)', pt: 'Córdoba, Hispânia (Espanha)' },
     schoolSlugs: ['stoicism'],
+    influencedBy: ['zeno-of-citium'],
     epithet: {
       en: 'The Stoic at the Court of Nero',
       pt: 'O Estoico na Corte de Nero',
@@ -308,7 +360,22 @@ const corePhilosophers: Philosopher[] = [
         'Os cristãos medievais o admiravam tanto que forjaram uma correspondência entre Sêneca e São Paulo.',
       ],
     },
-    bust: { marble: '#e6dfd0', pedestal: '#a35e3b', headWidth: 0.95, beard: 0.3, hair: 0.25 , look: { skin: '#ecbf96', hair: '#a89c8a', cloth: '#a35e3b', clothAccent: '#d9ad4f', hairstyle: 'bald', beard: 'trimmed', mustache: 'normal' } },
+    bust: {
+      marble: '#e6dfd0',
+      pedestal: '#a35e3b',
+      headWidth: 0.95,
+      beard: 0.3,
+      hair: 0.25,
+      look: {
+        skin: '#ecbf96',
+        hair: '#a89c8a',
+        cloth: '#a35e3b',
+        clothAccent: '#d9ad4f',
+        hairstyle: 'bald',
+        beard: 'trimmed',
+        mustache: 'normal',
+      },
+    },
     figureImage: '/figures/seneca.webp',
   },
   {
@@ -317,13 +384,14 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '121–180 AD', pt: '121–180 d.C.' },
     birthplace: { en: 'Rome, Italy', pt: 'Roma, Itália' },
     schoolSlugs: ['stoicism'],
+    influencedBy: ['epictetus', 'seneca'],
     epithet: {
       en: 'The Philosopher Emperor',
       pt: 'O Imperador Filósofo',
     },
     biography: {
       en: [
-        'Marcus Aurelius is history\'s closest approximation of Plato\'s philosopher-king. Adopted into the imperial succession as a boy, he was trained by the finest tutors of the empire and embraced Stoicism at twelve, sleeping on the floor against his mother\'s wishes. He ruled Rome from 161 to 180 AD through a relentless series of catastrophes: floods, the Antonine plague, betrayal by his most trusted general, and endless wars on the Danube frontier.',
+        "Marcus Aurelius is history's closest approximation of Plato's philosopher-king. Adopted into the imperial succession as a boy, he was trained by the finest tutors of the empire and embraced Stoicism at twelve, sleeping on the floor against his mother's wishes. He ruled Rome from 161 to 180 AD through a relentless series of catastrophes: floods, the Antonine plague, betrayal by his most trusted general, and endless wars on the Danube frontier.",
         'It was there, in military camps by candlelight, that he wrote a private notebook in Greek he called "To Himself" — known to us as the Meditations. Never intended for publication, it records an emperor reminding himself to be patient, just and undisturbed by fortune. He died on campaign near Vienna in 180 AD; the Meditations survived to become perhaps the most beloved book of practical philosophy ever written.',
       ],
       pt: [
@@ -377,7 +445,7 @@ const corePhilosophers: Philosopher[] = [
         'The Meditations were a private diary — he would likely be horrified to know millions have read them.',
         'He sold imperial palace furnishings to fund the war effort rather than raise taxes during the plague.',
         'He was the last of the "Five Good Emperors"; his reign marked the end of the Pax Romana.',
-        'Despite Stoic warnings about anger, he pardoned the rebel general Avidius Cassius\'s family and burned the conspirators\' letters unread.',
+        "Despite Stoic warnings about anger, he pardoned the rebel general Avidius Cassius's family and burned the conspirators' letters unread.",
       ],
       pt: [
         'As Meditações eram um diário privado — ele provavelmente ficaria horrorizado ao saber que milhões as leram.',
@@ -386,7 +454,23 @@ const corePhilosophers: Philosopher[] = [
         'Apesar dos alertas estoicos sobre a ira, perdoou a família do general rebelde Avídio Cássio e queimou as cartas dos conspiradores sem lê-las.',
       ],
     },
-    bust: { marble: '#ece5d8', pedestal: '#a35e3b', headWidth: 0.9, beard: 0.7, hair: 0.75 , look: { skin: '#e0ab7c', hair: '#54422e', cloth: '#6e3f7d', clothAccent: '#d9ad4f', hairstyle: 'curly', beard: 'curly', mustache: 'normal', laurel: true } },
+    bust: {
+      marble: '#ece5d8',
+      pedestal: '#a35e3b',
+      headWidth: 0.9,
+      beard: 0.7,
+      hair: 0.75,
+      look: {
+        skin: '#e0ab7c',
+        hair: '#54422e',
+        cloth: '#6e3f7d',
+        clothAccent: '#d9ad4f',
+        hairstyle: 'curly',
+        beard: 'curly',
+        mustache: 'normal',
+        laurel: true,
+      },
+    },
     figureImage: '/figures/marcus-aurelius.webp',
   },
   {
@@ -395,6 +479,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '1596–1650', pt: '1596–1650' },
     birthplace: { en: 'La Haye en Touraine, France', pt: 'La Haye en Touraine, França' },
     schoolSlugs: ['rationalism'],
+    influencedBy: ['plato', 'aristotle'],
     epithet: {
       en: 'The Father of Modern Philosophy',
       pt: 'O Pai da Filosofia Moderna',
@@ -402,7 +487,7 @@ const corePhilosophers: Philosopher[] = [
     biography: {
       en: [
         'A sickly child educated by Jesuits, Descartes was granted the lifelong habit of meditating in bed until late morning — where, he claimed, he did his best thinking. As a young man he sought experience over books, enlisting in two armies. On the night of 10 November 1619, shut in a stove-heated room in Germany, he had three visions that revealed his mission: to rebuild all knowledge on indubitable foundations, unified by the method of mathematics.',
-        'Settling in the tolerant Netherlands for twenty years, he published the Discourse on Method (1637) and Meditations on First Philosophy (1641), demolishing received opinion with methodical doubt and rebuilding from the famous cogito: I think, therefore I am. In 1649 Queen Christina of Sweden summoned him to tutor her in philosophy — at five o\'clock in the morning, in a Scandinavian winter. The cold broke his lifelong routine and his health; he died of pneumonia within months.',
+        "Settling in the tolerant Netherlands for twenty years, he published the Discourse on Method (1637) and Meditations on First Philosophy (1641), demolishing received opinion with methodical doubt and rebuilding from the famous cogito: I think, therefore I am. In 1649 Queen Christina of Sweden summoned him to tutor her in philosophy — at five o'clock in the morning, in a Scandinavian winter. The cold broke his lifelong routine and his health; he died of pneumonia within months.",
       ],
       pt: [
         'Criança doente educada por jesuítas, Descartes ganhou o hábito vitalício de meditar na cama até o fim da manhã — onde, afirmava, fazia suas melhores reflexões. Jovem, buscou a experiência em vez dos livros, alistando-se em dois exércitos. Na noite de 10 de novembro de 1619, fechado em um quarto aquecido por uma estufa na Alemanha, teve três sonhos que lhe revelaram sua missão: reconstruir todo o conhecimento sobre fundamentos indubitáveis, unificados pelo método da matemática.',
@@ -453,18 +538,34 @@ const corePhilosophers: Philosopher[] = [
     facts: {
       en: [
         'Legend says he conceived coordinate geometry watching a fly walk across his bedroom ceiling.',
-        'After Galileo\'s condemnation, he suppressed his own treatise The World, fearing the Church.',
+        "After Galileo's condemnation, he suppressed his own treatise The World, fearing the Church.",
         'He moved house at least 24 times in 20 years in the Netherlands, guarding his solitude.',
-        'His skull was separated from his body after death and is displayed at the Musée de l\'Homme in Paris.',
+        "His skull was separated from his body after death and is displayed at the Musée de l'Homme in Paris.",
       ],
       pt: [
         'Diz a lenda que ele concebeu a geometria de coordenadas observando uma mosca andar pelo teto do quarto.',
         'Após a condenação de Galileu, suprimiu seu próprio tratado O Mundo, temendo a Igreja.',
         'Mudou de casa pelo menos 24 vezes em 20 anos na Holanda, protegendo sua solidão.',
-        'Seu crânio foi separado do corpo após a morte e está exposto no Musée de l\'Homme, em Paris.',
+        "Seu crânio foi separado do corpo após a morte e está exposto no Musée de l'Homme, em Paris.",
       ],
     },
-    bust: { marble: '#e9e3d7', pedestal: '#6b5b95', headWidth: 0.88, beard: 0.15, hair: 0.85 , look: { skin: '#f0c8a4', hair: '#2e2a26', cloth: '#2f3542', clothAccent: '#f2efe6', hairstyle: 'long', beard: 'goatee', mustache: 'normal', collar: true } },
+    bust: {
+      marble: '#e9e3d7',
+      pedestal: '#6b5b95',
+      headWidth: 0.88,
+      beard: 0.15,
+      hair: 0.85,
+      look: {
+        skin: '#f0c8a4',
+        hair: '#2e2a26',
+        cloth: '#2f3542',
+        clothAccent: '#f2efe6',
+        hairstyle: 'long',
+        beard: 'goatee',
+        mustache: 'normal',
+        collar: true,
+      },
+    },
     figureImage: '/figures/descartes.webp',
   },
   {
@@ -473,6 +574,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '1724–1804', pt: '1724–1804' },
     birthplace: { en: 'Königsberg, Prussia', pt: 'Königsberg, Prússia' },
     schoolSlugs: ['german-idealism'],
+    influencedBy: ['leibniz', 'descartes'],
     epithet: {
       en: 'The Clockwork Revolutionary',
       pt: 'O Revolucionário Pontual',
@@ -507,7 +609,10 @@ const corePhilosophers: Philosopher[] = [
           en: 'Act only according to that maxim whereby you can at the same time will that it should become a universal law.',
           pt: 'Aja apenas segundo uma máxima tal que possas ao mesmo tempo querer que ela se torne lei universal.',
         },
-        source: { en: 'Groundwork of the Metaphysics of Morals', pt: 'Fundamentação da Metafísica dos Costumes' },
+        source: {
+          en: 'Groundwork of the Metaphysics of Morals',
+          pt: 'Fundamentação da Metafísica dos Costumes',
+        },
       },
       {
         text: {
@@ -518,7 +623,7 @@ const corePhilosophers: Philosopher[] = [
       },
       {
         text: {
-          en: 'Enlightenment is man\'s emergence from his self-imposed immaturity. Sapere aude! Dare to know!',
+          en: "Enlightenment is man's emergence from his self-imposed immaturity. Sapere aude! Dare to know!",
           pt: 'Esclarecimento é a saída do homem de sua menoridade autoimposta. Sapere aude! Ousa saber!',
         },
         source: { en: 'What is Enlightenment?', pt: 'O que é o Esclarecimento?' },
@@ -531,7 +636,7 @@ const corePhilosophers: Philosopher[] = [
     facts: {
       en: [
         'Königsberg residents reportedly set their watches by his 3:30 pm walk.',
-        'He first proposed the nebular hypothesis of the solar system\'s formation — forty years before Laplace.',
+        "He first proposed the nebular hypothesis of the solar system's formation — forty years before Laplace.",
         'The Critique of Pure Reason was published when he was 57, after an eleven-year silence.',
         'His tomb bears the line about "the starry heavens above me and the moral law within me".',
       ],
@@ -542,7 +647,23 @@ const corePhilosophers: Philosopher[] = [
         'Seu túmulo traz a frase sobre "o céu estrelado sobre mim e a lei moral em mim".',
       ],
     },
-    bust: { marble: '#ebe5d9', pedestal: '#3f7d75', headWidth: 0.82, beard: 0, hair: 0.55 , look: { skin: '#f2cead', hair: '#eceae2', cloth: '#3f5d8c', clothAccent: '#f4f0e8', hairstyle: 'wig', beard: 'none', mustache: 'none', collar: true } },
+    bust: {
+      marble: '#ebe5d9',
+      pedestal: '#3f7d75',
+      headWidth: 0.82,
+      beard: 0,
+      hair: 0.55,
+      look: {
+        skin: '#f2cead',
+        hair: '#eceae2',
+        cloth: '#3f5d8c',
+        clothAccent: '#f4f0e8',
+        hairstyle: 'wig',
+        beard: 'none',
+        mustache: 'none',
+        collar: true,
+      },
+    },
     figureImage: '/figures/kant.webp',
   },
   {
@@ -551,6 +672,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '1844–1900', pt: '1844–1900' },
     birthplace: { en: 'Röcken, Prussia (Germany)', pt: 'Röcken, Prússia (Alemanha)' },
     schoolSlugs: ['existentialism'],
+    influencedBy: ['plato', 'spinoza'],
     epithet: {
       en: 'The Philosopher with a Hammer',
       pt: 'O Filósofo do Martelo',
@@ -610,7 +732,7 @@ const corePhilosophers: Philosopher[] = [
       en: [
         'He composed music throughout his life — Wagner privately found it embarrassing.',
         'His sister Elisabeth edited his unpublished notes to please German nationalists, distorting his legacy for decades; he himself despised antisemitism.',
-        'His books sold so poorly he paid to print Zarathustra\'s fourth part — only 40 copies.',
+        "His books sold so poorly he paid to print Zarathustra's fourth part — only 40 copies.",
         'He renounced his Prussian citizenship in 1869 and remained officially stateless for the rest of his life.',
       ],
       pt: [
@@ -620,7 +742,22 @@ const corePhilosophers: Philosopher[] = [
         'Renunciou à cidadania prussiana em 1869 e permaneceu oficialmente apátrida pelo resto da vida.',
       ],
     },
-    bust: { marble: '#e7e0d2', pedestal: '#9a4a5a', headWidth: 0.86, beard: 0.5, hair: 0.8 , look: { skin: '#eabd92', hair: '#46352a', cloth: '#3a3f4a', clothAccent: '#6b4f3a', hairstyle: 'swept', beard: 'none', mustache: 'grand' } },
+    bust: {
+      marble: '#e7e0d2',
+      pedestal: '#9a4a5a',
+      headWidth: 0.86,
+      beard: 0.5,
+      hair: 0.8,
+      look: {
+        skin: '#eabd92',
+        hair: '#46352a',
+        cloth: '#3a3f4a',
+        clothAccent: '#6b4f3a',
+        hairstyle: 'swept',
+        beard: 'none',
+        mustache: 'grand',
+      },
+    },
     figureImage: '/figures/nietzsche.webp',
   },
   {
@@ -629,6 +766,7 @@ const corePhilosophers: Philosopher[] = [
     years: { en: '1908–1986', pt: '1908–1986' },
     birthplace: { en: 'Paris, France', pt: 'Paris, França' },
     schoolSlugs: ['existentialism'],
+    influencedBy: ['hegel', 'kierkegaard', 'sartre'],
     epithet: {
       en: 'Mother of Modern Feminism',
       pt: 'Mãe do Feminismo Moderno',
@@ -674,20 +812,32 @@ const corePhilosophers: Philosopher[] = [
       },
       {
         text: {
-          en: 'Change your life today. Don\'t gamble on the future, act now, without delay.',
+          en: "Change your life today. Don't gamble on the future, act now, without delay.",
           pt: 'Mude sua vida hoje. Não aposte no futuro, aja agora, sem demora.',
         },
         source: { en: 'Attributed', pt: 'Atribuída' },
       },
     ],
     traits: {
-      en: ['Fiercely independent', 'Disciplined writer', 'Politically engaged', 'Unsentimental', 'Voraciously curious'],
-      pt: ['Ferozmente independente', 'Escritora disciplinada', 'Politicamente engajada', 'Antissentimental', 'Vorazmente curiosa'],
+      en: [
+        'Fiercely independent',
+        'Disciplined writer',
+        'Politically engaged',
+        'Unsentimental',
+        'Voraciously curious',
+      ],
+      pt: [
+        'Ferozmente independente',
+        'Escritora disciplinada',
+        'Politicamente engajada',
+        'Antissentimental',
+        'Vorazmente curiosa',
+      ],
     },
     facts: {
       en: [
         'At 21 she was the youngest agrégée in philosophy in French history.',
-        'The Second Sex was placed on the Vatican\'s Index of Forbidden Books.',
+        "The Second Sex was placed on the Vatican's Index of Forbidden Books.",
         'She and Sartre never married or lived together, calling theirs an "essential love" with "contingent" others.',
         'She kept a meticulous schedule, writing every day from 10 to 1 and 5 to 9 — in cafés, not at home.',
       ],
@@ -698,7 +848,23 @@ const corePhilosophers: Philosopher[] = [
         'Mantinha uma rotina meticulosa: escrevia todos os dias das 10h à 13h e das 17h às 21h — em cafés, não em casa.',
       ],
     },
-    bust: { marble: '#efe9dd', pedestal: '#9a4a5a', headWidth: 0.78, beard: 0, hair: 0.95 , look: { skin: '#f2c9a8', hair: '#4a3527', cloth: '#9a4a5a', clothAccent: '#d9ad4f', hairstyle: 'updo', beard: 'none', mustache: 'none', headband: true } },
+    bust: {
+      marble: '#efe9dd',
+      pedestal: '#9a4a5a',
+      headWidth: 0.78,
+      beard: 0,
+      hair: 0.95,
+      look: {
+        skin: '#f2c9a8',
+        hair: '#4a3527',
+        cloth: '#9a4a5a',
+        clothAccent: '#d9ad4f',
+        hairstyle: 'updo',
+        beard: 'none',
+        mustache: 'none',
+        headband: true,
+      },
+    },
     figureImage: '/figures/simone-de-beauvoir.webp',
   },
 ];

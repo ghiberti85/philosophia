@@ -8,6 +8,7 @@ export function Header({ locale }: { locale: Locale }) {
   const nav = [
     { href: `/${locale}/schools`, label: t(dict.schools, locale) },
     { href: `/${locale}/philosophers`, label: t(dict.philosophers, locale) },
+    { href: `/${locale}/graph`, label: t(dict.influenceMapNav, locale) },
     { href: `/${locale}/quiz`, label: t(dict.quizzes, locale) },
   ];
 
@@ -41,11 +42,7 @@ export function Header({ locale }: { locale: Locale }) {
       {/* Mobile nav — compact row with shorter labels */}
       <nav className="flex items-center justify-around border-t border-gold-500/10 px-2 py-2 text-[10px] uppercase tracking-wider md:hidden">
         {nav.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="px-2 py-1 hover:text-gold-600"
-          >
+          <Link key={item.href} href={item.href} className="px-2 py-1 hover:text-gold-600">
             {item.label}
           </Link>
         ))}

@@ -2,6 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
+  // The full quiz round walks 5 questions through the UI; on slow runners it
+  // does not fit in the default 30s per-test budget.
+  timeout: 60000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
@@ -13,7 +16,9 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'mobile', use: { ...devices['iPhone 13'] } },
+    // Chromium-based mobile device: CI only installs Chromium, and iPhone
+    // presets require WebKit — which made the whole mobile suite fail to launch.
+    { name: 'mobile', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
     command: 'npm start',

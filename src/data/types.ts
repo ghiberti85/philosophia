@@ -44,6 +44,13 @@ export interface Philosopher {
   years: Localized;
   birthplace: Localized;
   schoolSlugs: string[];
+  /**
+   * Slugs of philosophers (within this encyclopedia) whose thought shaped this
+   * one — teachers, intellectual ancestors, or figures engaged with critically.
+   * Empty for thinkers with no predecessor in the collection (e.g. Socrates).
+   * Powers the influence graph at /graph.
+   */
+  influencedBy: string[];
   /** Epithet shown under the name (e.g. "The Father of Western Philosophy"). */
   epithet: Localized;
   /** Short biography, one paragraph per array entry. */
