@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BustViewer } from '@/components/bust/BustViewer';
+import { FigureViewer } from '@/components/bust/FigureViewer';
 import { QuizModal } from '@/components/QuizModal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { dict } from '@/data/dictionary';
@@ -54,12 +55,20 @@ export default function PhilosopherPage({ params }: Props) {
         {/* Hero: 3D bust + identity */}
         <section className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-10">
           <div className="animate-fade-in md:order-2">
-            <BustViewer
-              config={philosopher.bust}
-              label={t(philosopher.name, locale)}
-              years={t(philosopher.years, locale)}
-              hint={t(dict.dragToRotate, locale)}
-            />
+            {philosopher.figureImage ? (
+              <FigureViewer
+                src={philosopher.figureImage}
+                label={t(philosopher.name, locale)}
+                years={t(philosopher.years, locale)}
+              />
+            ) : (
+              <BustViewer
+                config={philosopher.bust}
+                label={t(philosopher.name, locale)}
+                years={t(philosopher.years, locale)}
+                hint={t(dict.dragToRotate, locale)}
+              />
+            )}
           </div>
           <div className="animate-fade-up space-y-4">
             <Link
