@@ -153,6 +153,7 @@ export function QuizEngine({ questions, locale, philosopherName, storageKey }: Q
               type="button"
               disabled={answered}
               onClick={() => answer(i)}
+              data-testid="quiz-option"
               className={`rounded-xl border px-3 py-2.5 text-left text-sm transition-all sm:px-5 sm:py-3 sm:text-base ${style}`}
             >
               {option}

@@ -22,7 +22,7 @@ export default function GraphPage({ params }: { params: { locale: Locale } }) {
   return (
     <div className="space-y-10 pt-8 sm:space-y-14 sm:pt-12">
       <header className="space-y-3 text-center">
-        <SectionHeading>{t(dict.influenceMap, locale)}</SectionHeading>
+        <SectionHeading as="h1">{t(dict.influenceMap, locale)}</SectionHeading>
         <p className="mx-auto max-w-2xl opacity-80">{t(dict.influenceMapSubtitle, locale)}</p>
       </header>
 
