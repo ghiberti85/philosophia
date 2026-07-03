@@ -641,6 +641,11 @@ button.chip:hover {
   max-width: 36ch;
   margin: 0 0 14px;
 }
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 .hero__desc-btn {
   align-self: flex-start;
   display: inline-flex;

@@ -31,3 +31,8 @@ next-env.d.ts
 /public/sw.js
 /public/swe-worker-*.js
 /public/workbox-*.js
+
+# Playwright
+test-results/
+playwright-report/
+playwright.local.config.ts

@@ -156,9 +156,14 @@ function Hero({
             </span>
           )}
         </p>
-        <button className="btn-ghost hero__desc-btn" onClick={onDossier}>
-          <Icon name="scroll" size={16} /> {t(dict.readSchool, locale)}
-        </button>
+        <div className="hero__actions">
+          <button className="btn-ghost hero__desc-btn" onClick={onDossier}>
+            <Icon name="scroll" size={16} /> {t(dict.readSchool, locale)}
+          </button>
+          <Link className="btn-ghost hero__desc-btn" href={`/${locale}/graph`}>
+            <Icon name="spark" size={16} /> {t(dict.influenceMap, locale)}
+          </Link>
+        </div>
       </div>
       <div className="hero__visual">
         <div className="hero__scene">
@@ -741,6 +746,7 @@ function Rail({
 export function Dashboard({ locale }: { locale: Locale }) {
   const [idx, setIdxState] = useState(DEFAULT_SCHOOL);
   const [entered, setEntered] = useState(false);
+  const vtBusy = useRef(false);
 
   const [philOpen, setPhilOpen] = useState<Philosopher | null>(null);
   const [quizOpen, setQuizOpen] = useState(false);
@@ -768,10 +774,24 @@ export function Dashboard({ locale }: { locale: Locale }) {
         });
       });
     };
-    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
-      (
-        document as Document & { startViewTransition: (cb: () => void) => void }
-      ).startViewTransition(doUpdate);
+    // View transitions snapshot the whole page and block rendering while they
+    // run — fine for a pointer hover on desktop, but on phones each tap costs
+    // several hundred ms and rapid timeline taps queue up transitions, which
+    // reads as the UI freezing. Morph only on wide screens, when the user
+    // accepts motion, and never while a previous transition is still running.
+    const vtDocument = document as Document & {
+      startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+    };
+    const canTransition =
+      typeof vtDocument.startViewTransition === 'function' &&
+      !vtBusy.current &&
+      window.matchMedia('(min-width: 900px)').matches &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (canTransition) {
+      vtBusy.current = true;
+      vtDocument.startViewTransition!(doUpdate).finished.finally(() => {
+        vtBusy.current = false;
+      });
     } else {
       doUpdate();
     }
