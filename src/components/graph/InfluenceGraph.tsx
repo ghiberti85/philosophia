@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Icon } from '@/components/dashboard/ui';
 import { dict } from '@/data/dictionary';
 import { schools } from '@/data/schools';
 import type { GraphLink, GraphNode } from '@/lib/influence-graph';
@@ -16,8 +15,9 @@ import { t, type Locale } from '@/lib/i18n';
  * Visual language mirrors the rest of the app: nodes are the philosophers'
  * AI-generated figure images (the same WebP used on cards, modals and detail
  * pages) ringed in their school's accent; the school filter uses the
- * isometric scene art; the frame carries the HUD corner brackets and mono
- * labels of the dashboard panels.
+ * isometric scene art; the frame, hint caption and controls reuse the same
+ * rounded panel, glyphs and label styles as the philosopher/school pages —
+ * no new icon set, no new corner treatment.
  *
  * Layout: nodes repel each other, influence links act as springs, and a weak
  * horizontal force pulls each philosopher toward their chronological slot, so
@@ -36,7 +36,6 @@ interface SimNode extends GraphNode {
 const NODE_RADIUS = 15;
 const LABEL_GAP = 18;
 const EDGE_PAD = 64;
-const MONO = 'var(--font-jetbrains), ui-monospace, monospace';
 
 function nodeRadius(node: GraphNode): number {
   return NODE_RADIUS + Math.min(7, node.degree * 1.2);
@@ -515,47 +514,23 @@ export function InfluenceGraph({
         ref={containerRef}
         className="relative h-[480px] w-full overflow-hidden rounded-2xl border border-gold-500/25 bg-white/40 shadow-card dark:bg-midnight-800/40 sm:h-[540px] md:h-[600px]"
       >
-        {/* HUD corner brackets — the dashboard panels' signature frame. */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-2 top-2 h-3.5 w-3.5 border-l-2 border-t-2 border-gold-500/60"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-2 top-2 h-3.5 w-3.5 border-r-2 border-t-2 border-gold-500/60"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-2 left-2 h-3.5 w-3.5 border-b-2 border-l-2 border-gold-500/60"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-2 right-2 h-3.5 w-3.5 border-b-2 border-r-2 border-gold-500/60"
-        />
-
-        {/* Panel head, mono + glyph, like every dashboard panel. */}
-        <p
-          className="pointer-events-none absolute left-5 top-4 text-[11px] uppercase tracking-[0.18em] opacity-80"
-          style={{ fontFamily: MONO }}
-        >
-          <span aria-hidden="true" className="mr-1.5 text-gold-600 dark:text-gold-300">
-            ◈
-          </span>
-          {t(dict.influenceMap, locale)}
-        </p>
-        <p
-          className="pointer-events-none absolute right-5 top-4 hidden text-[10px] uppercase tracking-[0.18em] opacity-50 sm:block"
-          style={{ fontFamily: MONO }}
-        >
-          {t(dict.graphHint, locale)}
-        </p>
-
         <canvas
           ref={canvasRef}
           className="h-full w-full touch-none"
           role="img"
           aria-label={t(dict.graphCanvasAlt, locale)}
         />
+        {/* Same overlay-hint pattern as BustViewer's "drag to rotate" caption. */}
+        {!selectedNode && (
+          <>
+            <p className="pointer-events-none absolute bottom-3 left-0 right-0 hidden text-center text-[10px] uppercase tracking-[0.25em] opacity-50 sm:block">
+              {t(dict.graphHint, locale)}
+            </p>
+            <p className="pointer-events-none absolute bottom-3 left-0 right-0 text-center text-[10px] uppercase tracking-[0.25em] opacity-50 sm:hidden">
+              {t(dict.graphHintMobile, locale)}
+            </p>
+          </>
+        )}
 
         {selectedNode && (
           <aside
@@ -580,10 +555,7 @@ export function InfluenceGraph({
                 <p className="truncate text-xs italic opacity-70">
                   {t(selectedNode.philosopher.epithet, locale)}
                 </p>
-                <p
-                  className="text-[10px] uppercase tracking-[0.18em] opacity-50"
-                  style={{ fontFamily: MONO }}
-                >
+                <p className="text-[10px] uppercase tracking-[0.18em] opacity-50">
                   {t(selectedNode.philosopher.years, locale)}
                 </p>
               </div>
@@ -591,15 +563,15 @@ export function InfluenceGraph({
                 type="button"
                 onClick={() => setSelected(null)}
                 aria-label={t(dict.close, locale)}
-                className="ml-auto inline-flex shrink-0 items-center justify-center rounded-full border border-gold-500/40 p-1.5 hover:bg-gold-500/10"
+                className="ml-auto shrink-0 rounded-full border border-gold-500/40 px-2 py-0.5 text-xs hover:bg-gold-500/10"
               >
-                <Icon name="close" size={13} />
+                ✕
               </button>
             </div>
 
             <dl className="mt-3 space-y-1.5 text-xs">
               <div className="flex flex-wrap items-baseline gap-1.5">
-                <dt className="uppercase tracking-wider opacity-50" style={{ fontFamily: MONO }}>
+                <dt className="uppercase tracking-wider opacity-50">
                   {t(dict.influencedByLabel, locale)}:
                 </dt>
                 <dd className="flex flex-wrap gap-1">
@@ -621,7 +593,7 @@ export function InfluenceGraph({
               </div>
               {influencedNodes.length > 0 && (
                 <div className="flex flex-wrap items-baseline gap-1.5">
-                  <dt className="uppercase tracking-wider opacity-50" style={{ fontFamily: MONO }}>
+                  <dt className="uppercase tracking-wider opacity-50">
                     {t(dict.influencedLabel, locale)}:
                   </dt>
                   <dd className="flex flex-wrap gap-1">
@@ -642,20 +614,13 @@ export function InfluenceGraph({
 
             <Link
               href={`/${locale}/philosophers/${selectedNode.slug}`}
-              className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-gold-500 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
+              className="mt-3 inline-block rounded-full bg-gold-500 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
             >
-              {t(dict.viewProfile, locale)} <Icon name="arrow" size={13} />
+              {t(dict.viewProfile, locale)} →
             </Link>
           </aside>
         )}
       </div>
-
-      <p
-        className="text-center text-[10px] uppercase tracking-[0.18em] opacity-50 sm:hidden"
-        style={{ fontFamily: MONO }}
-      >
-        {t(dict.graphHintMobile, locale)}
-      </p>
     </div>
   );
 }

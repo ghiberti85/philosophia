@@ -103,7 +103,8 @@ function Topbar({ locale }: { locale: Locale }) {
           onClick={() => setTheme(dark ? 'light' : 'dark')}
           aria-label={dark ? t(dict.switchToLight, locale) : t(dict.switchToDark, locale)}
         >
-          <Icon name={dark ? 'sun' : 'moon'} />
+          {/* Same glyph as ThemeToggle (content pages) — one icon app-wide. */}
+          <span aria-hidden="true">{mounted ? (dark ? '☀' : '☾') : '◐'}</span>
         </button>
       </div>
     </header>
