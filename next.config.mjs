@@ -30,6 +30,14 @@ const nextConfig = {
           { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
         ],
       },
+      {
+        // The service worker script itself must never be served stale — a
+        // cached sw.js means the browser's update check (and PWAUpdateListener's
+        // explicit registration.update() calls) silently compare against the
+        // old file and never find a new one, so installed PWAs never update.
+        source: '/sw.js',
+        headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }],
+      },
     ];
   },
 };
