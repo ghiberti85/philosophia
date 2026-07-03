@@ -82,7 +82,7 @@ src/
 │   ├── dashboard/             # Dashboard shell: Dashboard.tsx, Philosopher.tsx,
 │   │                          #   QuizModal.tsx, IsoScene.tsx, ui.tsx, dashboard.css
 │   ├── graph/                 # InfluenceGraph.tsx — canvas force simulation, no graph lib
-│   └── bust/                  # 3D bust viewer (react-three-fiber, philosopher detail pages)
+│   └── bust/                  # FigureViewer (detail-page hero) + dormant 3D bust fallback
 ├── data/
 │   ├── types.ts               # School, Philosopher, KeyWork, BustConfig, BustLook…
 │   ├── schools.ts             # 8 schools — coreIdeas, keyWorks, philosopherSlugs, accent

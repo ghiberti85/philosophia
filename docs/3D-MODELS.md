@@ -3,11 +3,16 @@
 Philosophia supports three rendering modes for each philosopher, in order of
 priority:
 
-| Priority | Field | Result |
-|---|---|---|
-| 1st | `figureImage` | AI-generated statue image (WebP) in diorama style |
-| 2nd | `bust.modelPath` | Photogrammetry `.glb` scan rendered in the 3D bust viewer |
-| 3rd | *(fallback)* | Procedural marble bust (primitives + physical material) |
+| Priority | Field            | Result                                                    |
+| -------- | ---------------- | --------------------------------------------------------- |
+| 1st      | `figureImage`    | AI-generated statue image (WebP) in diorama style         |
+| 2nd      | `bust.modelPath` | Photogrammetry `.glb` scan rendered in the 3D bust viewer |
+| 3rd      | _(fallback)_     | Procedural marble bust (primitives + physical material)   |
+
+> **Note:** all 23 philosophers currently have a `figureImage`, so the 3D bust
+> viewer (options B and C) is dormant fallback code — it does not appear
+> anywhere in the app today. It only kicks in for a philosopher added without
+> a figure image.
 
 ---
 
@@ -34,8 +39,9 @@ statue image in WebP format.
    figureImage: '/figures/<slug>.webp',
    ```
 
-No other changes needed — `PhilosopherCard` and the dossier modal detect the
-field and render the image automatically.
+No other changes needed — `PhilosopherCard`, the dossier modal and the
+detail-page hero (`FigureViewer`) detect the field and render the image
+automatically.
 
 ---
 

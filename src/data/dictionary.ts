@@ -12,8 +12,8 @@ export const dict = {
     pt: 'Caminhe entre as grandes mentes',
   },
   heroSubtitle: {
-    en: 'Explore the major philosophical traditions, meet their thinkers as rotatable 3D busts, and test yourself with quizzes that are different every time.',
-    pt: 'Explore as principais tradições filosóficas, conheça seus pensadores em bustos 3D rotacionáveis e teste seus conhecimentos com quizzes diferentes a cada rodada.',
+    en: 'Explore the major philosophical traditions, meet their thinkers, trace who influenced whom, and test yourself with quizzes that are different every time.',
+    pt: 'Explore as principais tradições filosóficas, conheça seus pensadores, veja quem influenciou quem e teste seus conhecimentos com quizzes diferentes a cada rodada.',
   },
   exploreSchools: { en: 'Explore the schools', pt: 'Explorar as escolas' },
   meetPhilosophers: { en: 'Meet the philosophers', pt: 'Conheça os filósofos' },

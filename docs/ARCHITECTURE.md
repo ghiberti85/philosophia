@@ -7,10 +7,10 @@ This document explains the main design decisions behind Philosophia.
 1. **Portfolio quality** — clean, idiomatic, typed, tested code.
 2. **Performance** — everything that can be static _is_ static. The whole site
    is pre-rendered at build time; the only meaningful client-side JavaScript is
-   the quiz engine and the 3D bust viewer (loaded only on philosopher detail pages).
+   the quiz engine and the influence-map canvas.
 3. **Wow factor on a budget** — no heavy binary assets committed to the repo;
-   figures are WebP images, scenes are AI-generated PNGs with a procedural SVG
-   fallback, and 3D busts on detail pages use procedural meshes.
+   figures are WebP images and scenes are AI-generated PNGs with a procedural
+   SVG fallback.
 
 ## Stack choice
 
@@ -113,9 +113,12 @@ Renders the DALL-E `figureImage` (WebP) when set; falls back to a monogram
 initial letter. All 23 philosophers currently have a `figureImage`.
 
 **Philosopher detail page** (`/philosophers/[slug]`):
-Always renders an interactive 3D bust via `BustViewer` → `PhilosopherBust`
-(react-three-fiber). The `bust.modelPath` field swaps the procedural mesh for a
-scanned `.glb` file without touching page code. `figureImage` is not shown here.
+Renders the `figureImage` in the hero panel via `FigureViewer` (static image
+over the museum plaque — fast and identical on every device, including the
+installed PWA). Only when a philosopher has no `figureImage` does the page fall
+back to the legacy 3D bust viewer (`BustViewer` → `PhilosopherBust`,
+react-three-fiber). All 23 philosophers currently have a `figureImage`, so the
+3D bust does not appear anywhere in the app today.
 
 ## Bibliography data
 
@@ -169,16 +172,15 @@ fallback, composing scenes from a `Box`/`Column` vocabulary. The fallback is
 theme-aware (`--iso-*` CSS variables) and ~2 KB. The `School['scene']` field
 selects which scene to render: `agora | academy | lyceum | stoa | observatory | cafe | library`.
 
-## 3D busts (philosopher detail pages)
+## 3D busts (legacy fallback — not rendered today)
 
 `PhilosopherBust.tsx` (react-three-fiber) renders a stylized bust from
-primitives with a physical material. Each philosopher's `BustConfig` (head width,
-hair, beard, marble palette) differentiates the silhouette. The `BustLook`
-sub-config enables a toon character style with skin, hair, garment and accessories
-(laurel, headband, collar).
-
-The component is loaded with `next/dynamic` + `ssr: false` and never blocks first
-paint. A `modelPath` field swaps the mesh for a scanned `.glb`
+primitives with a physical material, differentiated per philosopher by
+`BustConfig`/`BustLook`. It is kept only as the fallback for philosophers
+without a `figureImage` — and since all 23 have one, it is not shown anywhere
+in the app. The component is loaded with `next/dynamic` + `ssr: false`, so the
+three.js chunk is never downloaded unless the fallback actually renders. A
+`modelPath` field can swap the mesh for a scanned `.glb`
 (see [3D-MODELS.md](3D-MODELS.md)).
 
 ## PWA

@@ -2,7 +2,7 @@
   "name": "philosophia",
   "version": "1.0.0",
   "private": true,
-  "description": "An elegant, bilingual (EN/PT-BR) encyclopedia of philosophical schools and philosophers, featuring rotatable 3D busts, isometric art and randomized quizzes.",
+  "description": "An elegant, bilingual (EN/PT-BR) encyclopedia of philosophical schools and philosophers, featuring AI-generated philosopher figures, an interactive influence map, isometric art and randomized quizzes.",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
