@@ -5,12 +5,11 @@ import './dashboard.css';
 import { LayoutGroup } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { flushSync } from 'react-dom';
 import { useTypewriter, useCountUp } from './hooks';
+import { Header } from '@/components/Header';
 import { dict } from '@/data/dictionary';
-import { philosophers } from '@/data/philosophers';
 import { getQuestionsFor } from '@/data/quizzes';
 import { schools } from '@/data/schools';
 import { getPhilosopher } from '@/data/philosophers';
@@ -53,62 +52,6 @@ const ERAS: Record<string, string> = {
   existentialism: 'XX',
 };
 const DEFAULT_SCHOOL = 3; // Stoicism
-
-/* ── Topbar ─────────────────────────────────────────────────────────── */
-
-function useQuoteOfDay(locale: Locale) {
-  return useMemo(() => {
-    const all = philosophers.flatMap((p) => p.quotes.map((q) => ({ text: q.text, who: p.name })));
-    const day = Math.floor(Date.now() / 86400000) % all.length;
-    const q = all[day];
-    return { text: t(q.text, locale), who: t(q.who, locale) };
-  }, [locale]);
-}
-
-function Topbar({ locale }: { locale: Locale }) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const qod = useQuoteOfDay(locale);
-  const dark = mounted && resolvedTheme === 'dark';
-  return (
-    <header className="topbar">
-      <div className="wordmark">
-        <span className="phi">Φ</span>
-        <span className="name">Philosophia</span>
-        <span className="sub mono" style={{ marginLeft: 4 }}>
-          {t(dict.tagline, locale)}
-        </span>
-      </div>
-      <div className="ticker" title={`${qod.text} — ${qod.who}`}>
-        <span className="ticker__label mono">{t(dict.quoteOfTheDay, locale)}</span>
-        <span className="ticker__text">
-          “{qod.text}”{' '}
-          <span className="mono" style={{ fontStyle: 'normal' }}>
-            — {qod.who}
-          </span>
-        </span>
-      </div>
-      <div className="topbar__actions">
-        <div className="seg" role="group" aria-label={t(dict.language, locale)}>
-          <Link href="/en" aria-current={locale === 'en'}>
-            EN
-          </Link>
-          <Link href="/pt" aria-current={locale === 'pt'}>
-            PT
-          </Link>
-        </div>
-        <button
-          className="iconbtn"
-          onClick={() => setTheme(dark ? 'light' : 'dark')}
-          aria-label={dark ? t(dict.switchToLight, locale) : t(dict.switchToDark, locale)}
-        >
-          <Icon name={dark ? 'sun' : 'moon'} />
-        </button>
-      </div>
-    </header>
-  );
-}
 
 /* ── Scene image with SVG fallback ─────────────────────────────────── */
 
@@ -847,7 +790,8 @@ export function Dashboard({ locale }: { locale: Locale }) {
         { '--accent-base': school.accent, '--panel-pad': 'clamp(22px, 2vw, 32px)' } as CSSProperties
       }
     >
-      <Topbar locale={locale} />
+      {/* Same shared header as every content page — one top menu app-wide. */}
+      <Header locale={locale} />
 
       <LayoutGroup>
         <main className="dash" data-layout="stacked" key={school.slug}>
