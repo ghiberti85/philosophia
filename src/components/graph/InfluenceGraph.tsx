@@ -1,10 +1,16 @@
 'use client';
 
+// The philosopher dossier modal and quiz share the dashboard skin.
+import '@/components/dashboard/dashboard.css';
+
 import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { PhilosopherModal } from '@/components/dashboard/Philosopher';
+import { QuizModal } from '@/components/dashboard/QuizModal';
 import { dict } from '@/data/dictionary';
+import { getQuestionsFor } from '@/data/quizzes';
 import { schools } from '@/data/schools';
+import type { Philosopher } from '@/data/types';
 import type { GraphLink, GraphNode } from '@/lib/influence-graph';
 import { lineageOf } from '@/lib/influence-graph';
 import { t, type Locale } from '@/lib/i18n';
@@ -71,6 +77,10 @@ export function InfluenceGraph({
   const [selected, setSelected] = useState<string | null>(null);
   const [schoolFilter, setSchoolFilter] = useState<string | null>(null);
   const [isDark, setIsDark] = useState(false);
+  // Full dossier card + quiz, same components the dashboard uses — the
+  // dedicated /philosophers/[slug] page is not part of this flow.
+  const [profile, setProfile] = useState<Philosopher | null>(null);
+  const [quizFor, setQuizFor] = useState<Philosopher | null>(null);
 
   const selectedNode = useMemo(
     () => nodes.find((n) => n.slug === selected) ?? null,
@@ -612,14 +622,46 @@ export function InfluenceGraph({
               )}
             </dl>
 
-            <Link
-              href={`/${locale}/philosophers/${selectedNode.slug}`}
+            <button
+              type="button"
+              onClick={() => setProfile(selectedNode.philosopher)}
               className="mt-3 inline-block rounded bg-gold-500 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
             >
               {t(dict.viewProfile, locale)} →
-            </Link>
+            </button>
           </aside>
         )}
+      </div>
+
+      {/* Dossier card + quiz — the dashboard's own modals, tinted with the
+          philosopher's school accent. */}
+      <div
+        style={
+          {
+            '--accent-base':
+              nodes.find((n) => n.slug === (profile ?? quizFor)?.slug)?.accent ?? '#c2922f',
+            '--panel-pad': 'clamp(22px, 2vw, 32px)',
+          } as CSSProperties
+        }
+      >
+        <PhilosopherModal
+          p={profile}
+          open={!!profile}
+          onClose={() => setProfile(null)}
+          onQuiz={(p) => {
+            setProfile(null);
+            setQuizFor(p);
+          }}
+          locale={locale}
+        />
+        <QuizModal
+          open={!!quizFor}
+          onClose={() => setQuizFor(null)}
+          pool={quizFor ? getQuestionsFor(quizFor.slug) : []}
+          title={quizFor ? t(quizFor.name, locale) : ''}
+          scoreKey={quizFor?.slug ?? ''}
+          locale={locale}
+        />
       </div>
     </div>
   );
