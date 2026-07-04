@@ -2,7 +2,6 @@
 
 import './dashboard.css';
 
-import { LayoutGroup } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
@@ -729,6 +728,9 @@ export function Dashboard({ locale }: { locale: Locale }) {
       typeof vtDocument.startViewTransition === 'function' &&
       !vtBusy.current &&
       window.matchMedia('(min-width: 900px)').matches &&
+      // Pointer check keeps landscape phones/tablets out — on touch devices a
+      // hung transition freezes taps while its snapshot overlay is up.
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (canTransition) {
       vtBusy.current = true;
@@ -793,37 +795,35 @@ export function Dashboard({ locale }: { locale: Locale }) {
       {/* Same shared header as every content page — one top menu app-wide. */}
       <Header locale={locale} />
 
-      <LayoutGroup>
-        <main className="dash" data-layout="stacked" key={school.slug}>
-          <Hero school={school} locale={locale} onDossier={() => setSchoolOpen(true)} />
-          <Stats
-            school={school}
-            idx={idx}
-            locale={locale}
-            poolCount={pool.length}
-            onOpen={setStatOpen}
-          />
-          <Tenets school={school} locale={locale} onIdea={setIdeaOpen} />
-          <Thinkers school={school} locale={locale} cardStyle="plaque" onOpen={setPhilOpen} />
-          <ContextQuiz
-            school={school}
-            locale={locale}
-            onQuiz={openSchoolQuiz}
-            onContext={() => setCtxOpen(true)}
-          />
-          <HistoricalEventsPanel school={school} locale={locale} onEventClick={setEventOpen} />
-        </main>
-
-        <Rail idx={idx} setIdx={setIdx} locale={locale} />
-
-        <PhilosopherModal
-          p={philOpen}
-          open={!!philOpen}
-          onClose={() => setPhilOpen(null)}
-          onQuiz={openPhilQuiz}
+      <main className="dash" data-layout="stacked" key={school.slug}>
+        <Hero school={school} locale={locale} onDossier={() => setSchoolOpen(true)} />
+        <Stats
+          school={school}
+          idx={idx}
           locale={locale}
+          poolCount={pool.length}
+          onOpen={setStatOpen}
         />
-      </LayoutGroup>
+        <Tenets school={school} locale={locale} onIdea={setIdeaOpen} />
+        <Thinkers school={school} locale={locale} cardStyle="plaque" onOpen={setPhilOpen} />
+        <ContextQuiz
+          school={school}
+          locale={locale}
+          onQuiz={openSchoolQuiz}
+          onContext={() => setCtxOpen(true)}
+        />
+        <HistoricalEventsPanel school={school} locale={locale} onEventClick={setEventOpen} />
+      </main>
+
+      <Rail idx={idx} setIdx={setIdx} locale={locale} />
+
+      <PhilosopherModal
+        p={philOpen}
+        open={!!philOpen}
+        onClose={() => setPhilOpen(null)}
+        onQuiz={openPhilQuiz}
+        locale={locale}
+      />
 
       <SchoolModal
         school={school}

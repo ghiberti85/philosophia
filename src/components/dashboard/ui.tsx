@@ -243,7 +243,12 @@ export function Modal({
           className="modal-backdrop"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          // pointerEvents is non-animatable, so Framer applies it the instant
+          // the exit starts. Crucial on iOS PWAs: if the exit animation hangs
+          // (rAF suspended on backgrounding), the invisible backdrop would
+          // otherwise stay mounted over the whole app, eating every tap while
+          // scroll still chains through — the page looks frozen.
+          exit={{ opacity: 0, pointerEvents: 'none' }}
           transition={{ duration: 0.18 }}
           onMouseDown={(e) => {
             if (e.target === e.currentTarget) onClose();
