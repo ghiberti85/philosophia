@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { dict } from '@/data/dictionary';
@@ -64,9 +63,7 @@ export function PhilosopherCard({
       onClick={() => onOpen(p)}
       aria-label={`${t(p.name, locale)} — ${t(dict.about, locale)}`}
     >
-      <motion.div layoutId={`portrait-${p.slug}`} style={{ display: 'contents' }}>
-        <Portrait p={p} locale={locale} />
-      </motion.div>
+      <Portrait p={p} locale={locale} />
       <span className="pcard__body">
         <span className="mono pcard__epithet">{t(p.epithet, locale)}</span>
         <span className="pcard__name serif">{t(p.name, locale)}</span>
@@ -179,9 +176,7 @@ export function PhilosopherModal({
     >
       <div className="modal__scroll">
         <div className="pm__head">
-          <motion.div layoutId={`portrait-${philosopher.slug}`} style={{ display: 'contents' }}>
-            <Portrait p={philosopher} big />
-          </motion.div>
+          <Portrait p={philosopher} big />
           <div className="pm__intro">
             <span className="mono pm__epithet">{t(philosopher.epithet, locale)}</span>
             <h2 className="pm__name" id={`${idBase}-name`}>

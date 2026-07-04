@@ -29,7 +29,6 @@
 | 🌍 **i18n (EN / PT-BR)**          | Type-safe localization layer; every `Localized<T>` record fails to compile if a translation is missing                                                                                                                                                             |
 | ✅ **Content integrity tests**    | Vitest + Testing Library suite validates every translation, slug cross-reference, quiz option count and id uniqueness                                                                                                                                              |
 | ✨ **View Transitions API**       | Morphing hero transitions between schools using `document.startViewTransition()` + `flushSync` for React state sync                                                                                                                                                |
-| 🎭 **Shared-element animations**  | Framer Motion `layoutId` moves the philosopher portrait from card to modal in a continuous arc                                                                                                                                                                     |
 | ⌨️ **Typewriter taglines**        | School tagline types character-by-character when switching schools, with `aria-live` for screen-readers                                                                                                                                                            |
 | 🔢 **Animated Roman numerals**    | Stat counters count up from zero on school change using an ease-out cubic rAF loop                                                                                                                                                                                 |
 
@@ -41,7 +40,7 @@
 | Styling    | Custom CSS design system ("Codex × HUD" skin, `color-mix(in oklch)` adaptive tokens) + Tailwind CSS utilities                                              |
 | Fonts      | `next/font/google` — Playfair Display, Cormorant Garamond, JetBrains Mono, Source Sans 3 (self-hosted at build time, no render-blocking CDN request)       |
 | Theming    | [next-themes](https://github.com/pacocoursey/next-themes) — dark/light with artwork that adapts                                                            |
-| Animations | [Framer Motion v12](https://www.framer.com/motion/) — shared-element via `layoutId`, `AnimatePresence` exits, `MotionConfig reducedMotion="user"`          |
+| Animations | [Framer Motion v12](https://www.framer.com/motion/) — `AnimatePresence` modal transitions, `MotionConfig reducedMotion="user"`                             |
 | PWA        | [@serwist/next](https://serwist.pages.dev) + Workbox — offline cache, installable, Web App Manifest                                                        |
 | Testing    | [Vitest](https://vitest.dev) + Testing Library + [Playwright](https://playwright.dev) E2E — logic, content integrity, full quiz round, browser smoke tests |
 | Quality    | ESLint (`next/core-web-vitals` + `next/typescript`) + Prettier + Husky + lint-staged — enforced in CI                                                      |
