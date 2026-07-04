@@ -16,13 +16,13 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname() ?? `/${locale}`;
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-gold-500/40 p-1 text-xs font-semibold uppercase tracking-wider">
+    <div className="flex items-center gap-1 rounded border border-gold-500/40 p-1 text-xs font-semibold uppercase tracking-wider">
       {LOCALES.map((l) => (
         <Link
           key={l}
           href={switchLocalePath(pathname, l)}
           aria-current={l === locale ? 'true' : undefined}
-          className={`rounded-full px-2.5 py-1 transition-colors ${
+          className={`rounded px-2.5 py-1 transition-colors ${
             l === locale
               ? 'bg-gold-500 text-white dark:bg-gold-400 dark:text-midnight-900'
               : 'hover:bg-gold-500/10'

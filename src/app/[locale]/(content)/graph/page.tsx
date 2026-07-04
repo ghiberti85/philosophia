@@ -37,7 +37,7 @@ export default function GraphPage({ params }: { params: { locale: Locale } }) {
             return (
               <li
                 key={p.slug}
-                className="rounded-xl border border-gold-500/20 bg-white/50 p-4 text-sm shadow-card dark:bg-midnight-800/50"
+                className="rounded-md border border-gold-500/20 bg-white/50 p-4 text-sm shadow-card dark:bg-midnight-800/50"
               >
                 <Link
                   href={`/${locale}/philosophers/${p.slug}`}
