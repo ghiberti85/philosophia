@@ -19,9 +19,8 @@ export function Header({ locale }: { locale: Locale }) {
           <span className="shrink-0 font-display text-xl tracking-wide text-gold-600 dark:text-gold-300 sm:text-2xl">
             Φ
           </span>
-          <span className="hidden font-display text-lg tracking-widest sm:inline sm:text-xl">
-            PHILOSOPHIA
-          </span>
+          {/* Always visible, title case — same wordmark as the dashboard topbar. */}
+          <span className="truncate font-display text-lg sm:text-xl">Philosophia</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm uppercase tracking-wider md:flex">
           {nav.map((item) => (

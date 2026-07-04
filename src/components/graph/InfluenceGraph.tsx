@@ -489,7 +489,7 @@ export function InfluenceGraph({
               type="button"
               onClick={() => setSchoolFilter(active ? null : school.slug)}
               aria-pressed={active}
-              className={`flex items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-[11px] uppercase tracking-wider transition-all ${
+              className={`flex items-center gap-2 rounded border py-1 pl-1 pr-2.5 text-[11px] uppercase tracking-wider transition-all ${
                 active
                   ? 'border-transparent text-white shadow-card'
                   : 'border-gold-500/30 opacity-80 hover:opacity-100'
@@ -501,7 +501,7 @@ export function InfluenceGraph({
                 alt=""
                 width={22}
                 height={22}
-                className="h-[22px] w-[22px] rounded-full border object-cover"
+                className="h-[22px] w-[22px] rounded border object-cover"
                 style={{ borderColor: active ? 'rgba(255,255,255,0.7)' : school.accent }}
               />
               {t(school.name, locale)}
@@ -512,7 +512,7 @@ export function InfluenceGraph({
 
       <div
         ref={containerRef}
-        className="relative h-[480px] w-full overflow-hidden rounded-2xl border border-gold-500/25 bg-white/40 shadow-card dark:bg-midnight-800/40 sm:h-[540px] md:h-[600px]"
+        className="relative h-[480px] w-full overflow-hidden rounded-md border border-gold-500/25 bg-white/40 shadow-card dark:bg-midnight-800/40 sm:h-[540px] md:h-[600px]"
       >
         <canvas
           ref={canvasRef}
@@ -534,7 +534,7 @@ export function InfluenceGraph({
 
         {selectedNode && (
           <aside
-            className="absolute bottom-3 left-3 right-3 max-w-md animate-fade-up rounded-xl border border-gold-500/30 bg-parchment-50/95 p-4 shadow-plinth backdrop-blur dark:bg-midnight-900/95 sm:right-auto"
+            className="absolute bottom-3 left-3 right-3 max-w-md animate-fade-up rounded-md border border-gold-500/30 bg-parchment-50/95 p-4 shadow-plinth backdrop-blur dark:bg-midnight-900/95 sm:right-auto"
             aria-live="polite"
           >
             <div className="flex items-start gap-3">
@@ -544,7 +544,7 @@ export function InfluenceGraph({
                   alt=""
                   width={56}
                   height={56}
-                  className="h-14 w-14 shrink-0 rounded-lg border object-cover"
+                  className="h-14 w-14 shrink-0 rounded border object-cover"
                   style={{ borderColor: selectedNode.accent }}
                 />
               )}
@@ -563,7 +563,7 @@ export function InfluenceGraph({
                 type="button"
                 onClick={() => setSelected(null)}
                 aria-label={t(dict.close, locale)}
-                className="ml-auto shrink-0 rounded-full border border-gold-500/40 px-2 py-0.5 text-xs hover:bg-gold-500/10"
+                className="ml-auto shrink-0 rounded border border-gold-500/40 px-2 py-0.5 text-xs hover:bg-gold-500/10"
               >
                 ✕
               </button>
@@ -581,7 +581,7 @@ export function InfluenceGraph({
                         key={n.slug}
                         type="button"
                         onClick={() => setSelected(n.slug)}
-                        className="rounded-full border border-gold-500/30 px-2 py-0.5 hover:bg-gold-500/10"
+                        className="rounded border border-gold-500/30 px-2 py-0.5 hover:bg-gold-500/10"
                       >
                         {t(n.philosopher.name, locale)}
                       </button>
@@ -602,7 +602,7 @@ export function InfluenceGraph({
                         key={n.slug}
                         type="button"
                         onClick={() => setSelected(n.slug)}
-                        className="rounded-full border border-gold-500/30 px-2 py-0.5 hover:bg-gold-500/10"
+                        className="rounded border border-gold-500/30 px-2 py-0.5 hover:bg-gold-500/10"
                       >
                         {t(n.philosopher.name, locale)}
                       </button>
@@ -614,7 +614,7 @@ export function InfluenceGraph({
 
             <Link
               href={`/${locale}/philosophers/${selectedNode.slug}`}
-              className="mt-3 inline-block rounded-full bg-gold-500 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
+              className="mt-3 inline-block rounded bg-gold-500 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white transition-transform hover:scale-105 dark:bg-gold-400 dark:text-midnight-900"
             >
               {t(dict.viewProfile, locale)} →
             </Link>
