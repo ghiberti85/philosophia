@@ -12,9 +12,9 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL(/\/pt/);
   });
 
-  test('influence map loads from the header link', async ({ page }) => {
+  test('influence map loads from the dashboard hero link', async ({ page }) => {
     await page.goto('/en');
-    await page.getByRole('link', { name: /influences/i }).click();
+    await page.getByRole('link', { name: /influence map/i }).click();
     await expect(page).toHaveURL(/\/en\/graph/);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });

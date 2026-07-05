@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { dict } from '@/data/dictionary';
-import { t, type Locale } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { ThemeToggle } from './ThemeToggle';
 
 /**
  * Top bar shared by the two screens of the app: the home dashboard and the
- * influence map. Both are immersive full-screen views, so there is a single
- * nav link between them — no secondary row, no per-route branching.
+ * influence map. No nav links — the dashboard hero already links to the
+ * influence map, and the wordmark links back home, so the bar stays clean
+ * on mobile.
  */
 export function Header({ locale }: { locale: Locale }) {
   return (
@@ -24,14 +24,6 @@ export function Header({ locale }: { locale: Locale }) {
           {/* Always visible, title case — same wordmark on every page. */}
           <span className="truncate font-display text-lg sm:text-xl">Philosophia</span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm uppercase tracking-wider">
-          <Link
-            href={`/${locale}/graph`}
-            className="transition-colors hover:text-gold-600 dark:hover:text-gold-300"
-          >
-            {t(dict.influenceMapNav, locale)}
-          </Link>
-        </nav>
         <div className="flex items-center gap-2 sm:gap-3">
           <LocaleSwitcher locale={locale} />
           <ThemeToggle locale={locale} />
