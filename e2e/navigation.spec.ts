@@ -18,4 +18,10 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL(/\/en\/graph/);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
+
+  test('return home link on the influence map goes back to the dashboard', async ({ page }) => {
+    await page.goto('/en/graph');
+    await page.getByRole('link', { name: /return home/i }).click();
+    await expect(page).toHaveURL(/\/en$/);
+  });
 });
