@@ -17,7 +17,7 @@ export default function ContentLayout({
   const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
   return (
     <>
-      <Header locale={locale} />
+      <Header locale={locale} showBack />
       <main className="mx-auto max-w-6xl px-4 pb-24">{children}</main>
       <footer className="border-t border-gold-500/20 py-8 text-center text-sm opacity-70">
         <p>
