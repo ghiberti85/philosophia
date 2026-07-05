@@ -26,7 +26,6 @@ export const dict = {
     en: 'Twenty-four centuries of ideas at a glance.',
     pt: 'Vinte e quatro séculos de ideias em um relance.',
   },
-  quoteOfTheDay: { en: 'Quote of the day', pt: 'Frase do dia' },
   coreIdeas: { en: 'Core ideas', pt: 'Ideias centrais' },
   keyThinkers: { en: 'Key thinkers', pt: 'Principais pensadores' },
   biography: { en: 'Biography', pt: 'Biografia' },
