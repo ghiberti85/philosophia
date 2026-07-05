@@ -260,9 +260,14 @@ export function Modal({
             aria-modal="true"
             aria-labelledby={labelledby}
             ref={ref}
-            initial={{ scale: 0.95, y: 12, opacity: 0 }}
-            animate={{ scale: 1, y: 0, opacity: 1 }}
-            exit={{ scale: 0.95, y: 12, opacity: 0 }}
+            // No opacity in this animation, only on purpose: if it were
+            // interrupted mid-spring (the same rAF-suspension class of bug
+            // fixed for the backdrop's exit above), the card would be left
+            // rendering at partial opacity, letting the page behind bleed
+            // through its always-solid background.
+            initial={{ scale: 0.95, y: 12 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.95, y: 12 }}
             transition={{ type: 'spring', stiffness: 380, damping: 30, mass: 0.8 }}
           >
             <button className="modal__close" onClick={onClose} aria-label={closeLabel}>

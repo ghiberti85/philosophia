@@ -141,7 +141,6 @@ export const dict = {
   learnMore: { en: 'Learn more', pt: 'Saiba mais' },
   significance: { en: 'Significance', pt: 'Significância' },
   influenceMap: { en: 'Influence Map', pt: 'Mapa de Influências' },
-  influenceMapNav: { en: 'Influences', pt: 'Influências' },
   influenceMapSubtitle: {
     en: 'Twenty-four centuries of ideas passing from mind to mind — every arrow reads "shaped the thought of". Trace how Socrates\' questions echo all the way to Sartre and Beauvoir.',
     pt: 'Vinte e quatro séculos de ideias passando de mente em mente — cada seta significa "moldou o pensamento de". Veja como as perguntas de Sócrates ecoam até Sartre e Beauvoir.',
