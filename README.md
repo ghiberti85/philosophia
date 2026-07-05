@@ -14,10 +14,9 @@
 | 🗿 **23 philosophers**            | 9 core + 14 secondary thinkers, each with biography, contributions, quotes, traits and remarkable facts                                                                                                                                                            |
 | 🖼 **AI-generated figure images** | DALL-E WebP statue images (diorama art style) for all 23 philosophers — shown in dashboard cards and modal portraits                                                                                                                                               |
 | 📚 **Bibliography card**          | 5 curated essential works per school — bilingual title, author, year and contextual annotation                                                                                                                                                                     |
-| 🎴 **Accordion dossiers**         | Philosopher modals with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — fully accessible without horizontal scrolling                                                                                                                     |
+| 🎴 **Accordion dossiers**         | Philosopher dossier cards (modal) with collapsible sections (Biography, Contributions, Quotes, Traits, Facts) — the single way to read a philosopher, opened from the dashboard or the influence map, never a dedicated page                                       |
 | 🔍 **Deep-dive ideas**            | Each core idea expands into a full essay panel; historical context opens a multi-paragraph long-read                                                                                                                                                               |
 | 🎲 **138-question quiz bank**     | Three pools (ancient, modern, extra) — each round draws 5 random questions with shuffled options; best score persisted in `localStorage`                                                                                                                           |
-| 📜 **Quote of the day**           | Deterministic daily rotation across all philosophers' quotes                                                                                                                                                                                                       |
 | ⚔️ **Parallel historical events** | Wars, revolutions, discoveries, and cultural milestones shown alongside each school's timeline period — click to explore context and significance                                                                                                                  |
 | 🕸 **Influence map**              | Force-directed canvas graph at `/graph` (zero dependencies): 23 philosophers as nodes coloured by school, arrows meaning "shaped the thought of" — hover traces a full lineage, click opens a dossier card, drag rearranges; mirrored as a crawlable lineage index |
 | 🔗 **Dynamic OG images**          | Per-philosopher, per-school and per-locale Open Graph cards generated at build time with `ImageResponse` (name, epithet, quote, school accent) — every shared link becomes a poster                                                                                |
@@ -66,36 +65,40 @@ npm start          # serve the production build
 
 ## 📁 Project structure
 
+The app is two screens: the **dashboard** (`/`) and the **influence map**
+(`/graph`). Every philosopher and school reads as a dossier card/modal
+opened from one of those two screens — there is no per-philosopher or
+per-school page to navigate to, and no separate quiz page (quizzes are
+modals too, opened from a dossier card).
+
 ```
 src/
 ├── app/[locale]/              # App Router — all routes pre-rendered in /en and /pt
 │   ├── page.tsx               # Dashboard (main entry point)
-│   ├── sitemap.ts             # /sitemap.xml — all school + philosopher routes in EN + PT
+│   ├── opengraph-image.tsx    # Dynamic OG card for the app itself
+│   ├── sitemap.ts             # /sitemap.xml — just / and /graph, in EN + PT
 │   ├── robots.ts              # /robots.txt
 │   └── (content)/
-│       ├── schools/           # Schools index + [slug] detail pages (+ dynamic OG images)
-│       ├── philosophers/      # Philosophers index + [slug] detail pages (+ dynamic OG images)
-│       ├── graph/             # Influence map (force-directed canvas graph)
-│       └── quiz/              # Quiz index + [slug] per-philosopher quiz
+│       └── graph/             # Influence map (force-directed canvas graph)
 ├── components/
-│   ├── dashboard/             # Dashboard shell: Dashboard.tsx, Philosopher.tsx,
-│   │                          #   QuizModal.tsx, IsoScene.tsx, ui.tsx, dashboard.css
-│   ├── graph/                 # InfluenceGraph.tsx — canvas force simulation, no graph lib
-│   └── bust/                  # FigureViewer (detail-page hero) + dormant 3D bust fallback
+│   ├── dashboard/             # Dashboard shell: Dashboard.tsx, Philosopher.tsx
+│   │                          #   (dossier modal), QuizModal.tsx, IsoScene.tsx,
+│   │                          #   ui.tsx, dashboard.css — shared by the graph too
+│   └── graph/                 # InfluenceGraph.tsx — canvas force simulation, no
+│                              #   graph lib; also renders the Lineage index
 ├── data/
-│   ├── types.ts               # School, Philosopher, KeyWork, BustConfig, BustLook…
+│   ├── types.ts               # School, Philosopher, KeyWork…
 │   ├── schools.ts             # 8 schools — coreIdeas, keyWorks, philosopherSlugs, accent
 │   ├── school-details.ts      # Per-idea deep-dive essays + long historical context
 │   ├── philosophers.ts        # 9 core philosophers (re-exports combined array)
 │   ├── philosophers-extra.ts  # 14 secondary philosophers
 │   ├── dictionary.ts          # All UI strings, EN + PT-BR
 │   └── quizzes-*.ts           # 138 questions across ancient / modern / extra pools
-├── lib/                       # i18n helpers, seeded RNG, quiz engine, quote-of-day
+├── lib/                       # i18n helpers, seeded RNG, quiz engine
 └── test/                      # Vitest setup
 public/
 ├── figures/                   # AI-generated philosopher figure images (WebP, 23 philosophers)
 ├── scenes/                    # AI-generated isometric city illustrations per school (PNG)
-├── models/                    # Optional .glb photogrammetry scans (see docs/3D-MODELS.md)
 ├── icon-*.png                 # PWA icons (96, 180, 192, 512 px + maskable variants)
 └── manifest.json              # Web App Manifest
 ```

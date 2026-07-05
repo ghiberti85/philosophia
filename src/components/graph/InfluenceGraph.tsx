@@ -7,12 +7,13 @@ import Image from 'next/image';
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { PhilosopherModal } from '@/components/dashboard/Philosopher';
 import { QuizModal } from '@/components/dashboard/QuizModal';
+import { SectionHeading } from '@/components/SectionHeading';
 import { dict } from '@/data/dictionary';
 import { getQuestionsFor } from '@/data/quizzes';
 import { schools } from '@/data/schools';
 import type { Philosopher } from '@/data/types';
 import type { GraphLink, GraphNode } from '@/lib/influence-graph';
-import { lineageOf } from '@/lib/influence-graph';
+import { influencedList, lineageOf } from '@/lib/influence-graph';
 import { t, type Locale } from '@/lib/i18n';
 
 /**
@@ -530,7 +531,7 @@ export function InfluenceGraph({
           role="img"
           aria-label={t(dict.graphCanvasAlt, locale)}
         />
-        {/* Same overlay-hint pattern as BustViewer's "drag to rotate" caption. */}
+        {/* Same overlay-hint pattern as the philosopher hero's caption. */}
         {!selectedNode && (
           <>
             <p className="pointer-events-none absolute bottom-3 left-0 right-0 hidden text-center text-[10px] uppercase tracking-[0.25em] opacity-50 sm:block">
@@ -544,7 +545,7 @@ export function InfluenceGraph({
 
         {selectedNode && (
           <aside
-            className="absolute bottom-3 left-3 right-3 max-w-md animate-fade-up rounded-md border border-gold-500/30 bg-parchment-50/95 p-4 shadow-plinth backdrop-blur dark:bg-midnight-900/95 sm:right-auto"
+            className="absolute bottom-3 left-3 right-3 max-w-md animate-fade-up rounded-md border border-gold-500/30 bg-parchment-50 p-4 shadow-plinth dark:bg-midnight-900 sm:right-auto"
             aria-live="polite"
           >
             <div className="flex items-start gap-3">
@@ -663,6 +664,81 @@ export function InfluenceGraph({
           locale={locale}
         />
       </div>
+
+      {/* Accessible / crawlable mirror of the graph: every relation as a
+          button that opens the same dossier card as the canvas nodes —
+          no navigation to a dedicated page. */}
+      <section className="space-y-6">
+        <SectionHeading>{t(dict.lineageIndex, locale)}</SectionHeading>
+        <ul className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {nodes.map((n) => {
+            const heirs = influencedList(n.slug);
+            const influencedByNodes = n.philosopher.influencedBy
+              .map((slug) => nodes.find((other) => other.slug === slug))
+              .filter((other): other is GraphNode => Boolean(other));
+            return (
+              <li
+                key={n.slug}
+                className="rounded-md border border-gold-500/20 bg-white/50 p-4 text-sm shadow-card dark:bg-midnight-800/50"
+              >
+                <button
+                  type="button"
+                  onClick={() => setProfile(n.philosopher)}
+                  className="font-display text-base hover:text-gold-600 dark:hover:text-gold-300"
+                >
+                  {t(n.philosopher.name, locale)}
+                </button>
+                <dl className="mt-2 space-y-1 text-xs">
+                  <div>
+                    <dt className="inline uppercase tracking-wider opacity-50">
+                      {t(dict.influencedByLabel, locale)}:{' '}
+                    </dt>
+                    <dd className="inline">
+                      {influencedByNodes.length > 0 ? (
+                        influencedByNodes.map((other, i) => (
+                          <span key={other.slug}>
+                            {i > 0 && ', '}
+                            <button
+                              type="button"
+                              onClick={() => setProfile(other.philosopher)}
+                              className="underline decoration-gold-500/40 underline-offset-2 hover:text-gold-600"
+                            >
+                              {t(other.philosopher.name, locale)}
+                            </button>
+                          </span>
+                        ))
+                      ) : (
+                        <span className="opacity-60">{t(dict.noInfluences, locale)}</span>
+                      )}
+                    </dd>
+                  </div>
+                  {heirs.length > 0 && (
+                    <div>
+                      <dt className="inline uppercase tracking-wider opacity-50">
+                        {t(dict.influencedLabel, locale)}:{' '}
+                      </dt>
+                      <dd className="inline">
+                        {heirs.map((other, i) => (
+                          <span key={other.slug}>
+                            {i > 0 && ', '}
+                            <button
+                              type="button"
+                              onClick={() => setProfile(other)}
+                              className="underline decoration-gold-500/40 underline-offset-2 hover:text-gold-600"
+                            >
+                              {t(other.name, locale)}
+                            </button>
+                          </span>
+                        ))}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
     </div>
   );
 }

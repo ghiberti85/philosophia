@@ -26,7 +26,6 @@ export const dict = {
     en: 'Twenty-four centuries of ideas at a glance.',
     pt: 'Vinte e quatro séculos de ideias em um relance.',
   },
-  quoteOfTheDay: { en: 'Quote of the day', pt: 'Frase do dia' },
   coreIdeas: { en: 'Core ideas', pt: 'Ideias centrais' },
   keyThinkers: { en: 'Key thinkers', pt: 'Principais pensadores' },
   biography: { en: 'Biography', pt: 'Biografia' },
@@ -34,7 +33,6 @@ export const dict = {
   notableQuotes: { en: 'Notable quotes', pt: 'Frases marcantes' },
   traits: { en: 'Traits', pt: 'Características' },
   remarkableFacts: { en: 'Remarkable facts', pt: 'Fatos marcantes' },
-  dragToRotate: { en: 'Drag to rotate the bust', pt: 'Arraste para girar o busto' },
   takeQuiz: { en: 'Take the quiz', pt: 'Fazer o quiz' },
   quizSubtitle: {
     en: 'Five questions drawn at random from a larger pool — every attempt is unique.',
