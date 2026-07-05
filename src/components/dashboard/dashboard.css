@@ -8,8 +8,12 @@
    next-themes sets on <html>.
    ─────────────────────────────────────────────────────────────────────── */
 
-.stage {
-  /* ── ds-editorial tokens ── */
+:root {
+  /* ── ds-editorial tokens ──
+     Global (not scoped to .stage): dashboard.css classes like .modal are
+     shared with the influence map page, which never wraps in .stage, so
+     these custom properties must resolve everywhere or components relying
+     on them (e.g. the dossier modal's background) fall back to nothing. */
   --color-base-cream: #faf7f2;
   --color-base-ink: #1a1208;
   --color-base-warm-gray: #8c7e6e;
@@ -48,16 +52,10 @@
   --accent: var(--accent-base, #a35e3b);
   --accent-soft: color-mix(in oklch, var(--accent) 16%, transparent);
   --ring: color-mix(in oklch, var(--accent) 38%, var(--color-semantic-border));
-
-  font-family: var(--typography-font-family-sans);
-  background: var(--color-semantic-background);
-  color: var(--color-semantic-foreground);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
 /* Midnight & candlelight — dark-mode token overrides (cool ink, warm light) */
-.dark .stage {
+.dark {
   --color-semantic-background: #15171f;
   --color-semantic-background-subtle: #1d2029;
   --color-semantic-foreground: #ede7d8;
@@ -70,6 +68,14 @@
   --shadow-xl: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
   /* candlelight accents — lift each school hue toward lamplight */
   --accent: oklch(from var(--accent-base, #a35e3b) min(0.78, calc(l + 0.16)) calc(c * 1.02) h);
+}
+
+.stage {
+  font-family: var(--typography-font-family-sans);
+  background: var(--color-semantic-background);
+  color: var(--color-semantic-foreground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* parchment / midnight ambient texture — flat color + a faint vignette only */
