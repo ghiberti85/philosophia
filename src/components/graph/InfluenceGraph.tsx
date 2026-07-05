@@ -545,7 +545,7 @@ export function InfluenceGraph({
 
         {selectedNode && (
           <aside
-            className="absolute bottom-3 left-3 right-3 max-w-md animate-fade-up rounded-md border border-gold-500/30 bg-parchment-50/95 p-4 shadow-plinth backdrop-blur dark:bg-midnight-900/95 sm:right-auto"
+            className="absolute bottom-3 left-3 right-3 max-w-md animate-fade-up rounded-md border border-gold-500/30 bg-parchment-50 p-4 shadow-plinth dark:bg-midnight-900 sm:right-auto"
             aria-live="polite"
           >
             <div className="flex items-start gap-3">
