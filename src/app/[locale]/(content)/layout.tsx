@@ -3,9 +3,9 @@ import { dict } from '@/data/dictionary';
 import { isLocale, t, type Locale } from '@/lib/i18n';
 
 /**
- * Layout for the inner content pages (schools, philosophers, quizzes):
- * centered container plus footer. The home page lives outside this group
- * so its one-page dashboard can use the full viewport.
+ * Layout for the influence map: centered container plus footer. The home
+ * page lives outside this group so its one-page dashboard can use the full
+ * viewport.
  */
 export default function ContentLayout({
   children,

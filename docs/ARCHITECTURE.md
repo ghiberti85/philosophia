@@ -104,21 +104,12 @@ independently.
 The `Accordion` component (`ui.tsx`) keeps an internal `Set<number>` of open
 indices, supporting multiple sections open simultaneously.
 
-## Philosopher figures — two rendering contexts
+## Philosopher figures
 
-Philosopher visuals appear in two distinct contexts:
-
-**Dashboard** (cards, `PhilosopherCard`, dossier modal `Portrait`):
-Renders the DALL-E `figureImage` (WebP) when set; falls back to a monogram
-initial letter. All 23 philosophers currently have a `figureImage`.
-
-**Philosopher detail page** (`/philosophers/[slug]`):
-Renders the `figureImage` in the hero panel via `FigureViewer` (static image
-over the museum plaque — fast and identical on every device, including the
-installed PWA). Only when a philosopher has no `figureImage` does the page fall
-back to the legacy 3D bust viewer (`BustViewer` → `PhilosopherBust`,
-react-three-fiber). All 23 philosophers currently have a `figureImage`, so the
-3D bust does not appear anywhere in the app today.
+Every philosopher has a required `figureImage` (DALL-E WebP, diorama art
+style). It renders on dashboard cards and in the dossier modal's `Portrait`
+(the image sits over a faint monogram-letter background) — the only place a
+philosopher's figure appears, since there is no dedicated detail page.
 
 ## Bibliography data
 
@@ -171,17 +162,6 @@ primary visual for the hero panel and school modals.
 fallback, composing scenes from a `Box`/`Column` vocabulary. The fallback is
 theme-aware (`--iso-*` CSS variables) and ~2 KB. The `School['scene']` field
 selects which scene to render: `agora | academy | lyceum | stoa | observatory | cafe | library`.
-
-## 3D busts (legacy fallback — not rendered today)
-
-`PhilosopherBust.tsx` (react-three-fiber) renders a stylized bust from
-primitives with a physical material, differentiated per philosopher by
-`BustConfig`/`BustLook`. It is kept only as the fallback for philosophers
-without a `figureImage` — and since all 23 have one, it is not shown anywhere
-in the app. The component is loaded with `next/dynamic` + `ssr: false`, so the
-three.js chunk is never downloaded unless the fallback actually renders. A
-`modelPath` field can swap the mesh for a scanned `.glb`
-(see [3D-MODELS.md](3D-MODELS.md)).
 
 ## PWA
 
@@ -248,8 +228,10 @@ the best score per philosopher in `localStorage`.
   production.
 - **Components**: Testing Library drives a full quiz round through the real
   engine (no mocks of the logic).
-- The WebGL canvas is intentionally not unit-tested (jsdom has no GL); its
-  logic surface is kept near zero.
+- The influence map's `<canvas>` (2D force simulation) is intentionally not
+  unit-tested (jsdom has no canvas 2D context); its logic surface — the force
+  math and lineage traversal — lives in `src/lib/influence-graph.ts`, which is
+  plain, unit-testable TypeScript.
 
 ## Animation system
 
@@ -270,11 +252,9 @@ if (typeof document !== 'undefined' && 'startViewTransition' in document) {
 
 CSS assigns `view-transition-name` to three hero elements (`.hero__title`, `.hero__visual`, `.hero__period`) and custom `@keyframes` (`vt-slide-out-up`, `vt-slide-in-up`, `vt-fade-scale-out`, `vt-fade-scale-in`) control the morph animation. All rules are gated inside `@media (prefers-reduced-motion: no-preference)`.
 
-### Shared-element transitions (philosopher card → modal)
+### Modal transitions
 
-Framer Motion `layoutId` moves the philosopher portrait from `PhilosopherCard` to `PhilosopherModal` in a continuous animated arc. Both components wrap `<Portrait>` with `<motion.div layoutId={\`portrait-${p.slug}\`}>`. A `<LayoutGroup>` at the Dashboard root scopes the shared elements so layout IDs remain unique across concurrent modals.
-
-Modal enter/exit is handled by `AnimatePresence` in `ui.tsx` with spring physics (`stiffness: 380, damping: 30, mass: 0.8`). The `AnimatePresence` approach required removing the previous CSS `opacity`/`transform` transitions from `.modal` and `.modal-backdrop` to prevent conflicts.
+Modal enter/exit is handled by `AnimatePresence` in `ui.tsx` with spring physics (`stiffness: 380, damping: 30, mass: 0.8`). The backdrop also sets `pointerEvents: 'none'` the instant its exit animation starts (a non-animatable property, applied immediately rather than tweened) — a defensive measure so a stuck or slow exit transition can never leave an invisible, click-eating overlay over the app. Portraits used to share a `layoutId` between the card and the modal for a continuous morph animation; this was removed after it was found to hang reliably on `display: contents` wrappers, keeping the backdrop mounted forever.
 
 ### Snapshot ref pattern
 

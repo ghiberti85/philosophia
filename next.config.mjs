@@ -12,7 +12,6 @@ const withSerwist = withSerwistInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['three'],
   async redirects() {
     return [
       { source: '/', destination: '/en', permanent: true },

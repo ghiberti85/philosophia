@@ -19,8 +19,9 @@ quotes, traits, facts, quiz pool).
    ```ts
    name: { en: 'Socrates', pt: 'Sócrates' }
    ```
-2. **Add a figure image** (required for dashboard display): generate a statue
-   image with DALL-E, convert to WebP and place it at `public/figures/<slug>.webp`:
+2. **Add a figure image** (required — `figureImage` is mandatory on the
+   `Philosopher` type): generate a statue image with DALL-E, convert to WebP
+   and place it at `public/figures/<slug>.webp`:
    ```bash
    python3 -c "from PIL import Image; Image.open('in.png').save('public/figures/<slug>.webp', quality=82)"
    ```
@@ -28,20 +29,16 @@ quotes, traits, facts, quiz pool).
    ```ts
    figureImage: '/figures/<slug>.webp',
    ```
-   If omitted, a monogram letter is shown instead in the dashboard cards and modal.
-3. **Link it to a school**: add the slug to `schoolSlugs` *and* add the
+   It renders on dashboard cards and in the dossier modal's portrait — the
+   only two places a philosopher's figure appears.
+3. **Link it to a school**: add the slug to `schoolSlugs` _and_ add the
    philosopher's slug to that school's `philosopherSlugs` in `src/data/schools.ts`
    (the integrity tests enforce both directions).
-4. **Configure the bust** (used on the `/philosophers/[slug]` detail page):
-   pick `marble`/`pedestal` colors and `headWidth`, `beard`, `hair` values in
-   `[0, 1]`. Use the `look` sub-config for the toon character style (skin, hair,
-   cloth, hairstyle, beard, accessories). Optionally set `modelPath` for a `.glb`
-   photogrammetry scan (see [3D-MODELS.md](3D-MODELS.md)).
-5. **Write the quiz pool**: add at least **6 questions** (rounds use 5; pools
+4. **Write the quiz pool**: add at least **6 questions** (rounds use 5; pools
    must be larger than a round) in `quizzes-ancient.ts` or `quizzes-modern.ts`.
    Convention: **`options[0]` is the correct answer** — it is shuffled at
    runtime. Use unique ids like `'<slug>-1'`.
-6. Run `npm test`. Pages, routes, timeline and quiz index pick the new
+5. Run `npm test`. The dashboard, timeline and influence map pick the new
    philosopher up automatically.
 
 ### Extra philosophers (`philosophers-extra.ts`)
@@ -92,10 +89,10 @@ Each school has a `keyWorks?: KeyWork[]` field. The `KeyWork` interface is:
 
 ```ts
 interface KeyWork {
-  title: Localized;    // { en: 'original title', pt: 'título em português' }
-  author: Localized;   // { en: '...', pt: '...' }
-  year: string;        // e.g. '380 BC' or '1781'
-  note?: Localized;    // short contextual annotation { en, pt }
+  title: Localized; // { en: 'original title', pt: 'título em português' }
+  author: Localized; // { en: '...', pt: '...' }
+  year: string; // e.g. '380 BC' or '1781'
+  note?: Localized; // short contextual annotation { en, pt }
 }
 ```
 
@@ -109,15 +106,15 @@ The `HistoricalEvent` interface is:
 
 ```ts
 interface HistoricalEvent {
-  slug: string;                          // unique identifier
-  name: Localized;                       // { en: '...', pt: '...' }
-  description: Localized;                // short tooltip, 1–2 sentences
-  year: string;                          // e.g. '399 BC' or 'c. 1776' or '1642–1651'
+  slug: string; // unique identifier
+  name: Localized; // { en: '...', pt: '...' }
+  description: Localized; // short tooltip, 1–2 sentences
+  year: string; // e.g. '399 BC' or 'c. 1776' or '1642–1651'
   category: 'war' | 'revolution' | 'discovery' | 'art' | 'construction' | 'disaster';
-  schoolSlugs: string[];                 // associated schools
-  significance: 1 | 2 | 3 | 4 | 5;      // visual weight (stars shown in modal)
-  context?: Localized;                   // optional deep-dive context for modal
-  iconName?: 'war' | 'book' | 'bolt' | 'landmark';  // optional icon override
+  schoolSlugs: string[]; // associated schools
+  significance: 1 | 2 | 3 | 4 | 5; // visual weight (stars shown in modal)
+  context?: Localized; // optional deep-dive context for modal
+  iconName?: 'war' | 'book' | 'bolt' | 'landmark'; // optional icon override
 }
 ```
 

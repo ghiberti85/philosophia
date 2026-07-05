@@ -33,7 +33,6 @@ export const dict = {
   notableQuotes: { en: 'Notable quotes', pt: 'Frases marcantes' },
   traits: { en: 'Traits', pt: 'Características' },
   remarkableFacts: { en: 'Remarkable facts', pt: 'Fatos marcantes' },
-  dragToRotate: { en: 'Drag to rotate the bust', pt: 'Arraste para girar o busto' },
   takeQuiz: { en: 'Take the quiz', pt: 'Fazer o quiz' },
   quizSubtitle: {
     en: 'Five questions drawn at random from a larger pool — every attempt is unique.',

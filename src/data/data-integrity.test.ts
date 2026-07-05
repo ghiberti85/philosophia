@@ -99,14 +99,9 @@ describe('philosophers', () => {
     }
   });
 
-  it('has a valid bust configuration', () => {
+  it('has a figure image', () => {
     for (const p of philosophers) {
-      expect(p.bust.marble).toMatch(/^#[0-9a-f]{6}$/i);
-      expect(p.bust.pedestal).toMatch(/^#[0-9a-f]{6}$/i);
-      for (const v of [p.bust.headWidth, p.bust.beard, p.bust.hair]) {
-        expect(v).toBeGreaterThanOrEqual(0);
-        expect(v).toBeLessThanOrEqual(1);
-      }
+      expect(p.figureImage, `${p.slug} figureImage`).toMatch(/^\/figures\/.+\.webp$/);
     }
   });
 });

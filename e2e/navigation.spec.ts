@@ -12,13 +12,10 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL(/\/pt/);
   });
 
-  test('schools index loads', async ({ page }) => {
-    await page.goto('/en/schools');
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  });
-
-  test('philosophers index loads', async ({ page }) => {
-    await page.goto('/en/philosophers');
+  test('influence map loads from the header link', async ({ page }) => {
+    await page.goto('/en');
+    await page.getByRole('link', { name: /influences/i }).click();
+    await expect(page).toHaveURL(/\/en\/graph/);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 });
