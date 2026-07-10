@@ -7,15 +7,20 @@ import { dict } from '@/data/dictionary';
 import { buildInfluenceGraph } from '@/lib/influence-graph';
 import { t, type Locale } from '@/lib/i18n';
 
-export function generateMetadata({ params }: { params: { locale: Locale } }): Metadata {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
   return {
-    title: t(dict.influenceMap, params.locale),
-    description: t(dict.influenceMapSubtitle, params.locale),
+    title: t(dict.influenceMap, locale),
+    description: t(dict.influenceMapSubtitle, locale),
   };
 }
 
-export default function GraphPage({ params }: { params: { locale: Locale } }) {
-  const { locale } = params;
+export default async function GraphPage({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const { nodes, links } = buildInfluenceGraph();
 
   return (

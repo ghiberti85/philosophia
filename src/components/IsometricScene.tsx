@@ -1,3 +1,4 @@
+import type { JSX } from 'react';
 import type { School } from '@/data/types';
 
 /**
@@ -23,7 +24,11 @@ export function iso([x, y, z]: Pt3, originX = 260, originY = 210): [number, numb
 
 function poly(points: Pt3[]): string {
   return points
-    .map((p) => iso(p).map((n) => n.toFixed(1)).join(','))
+    .map((p) =>
+      iso(p)
+        .map((n) => n.toFixed(1))
+        .join(','),
+    )
     .join(' ');
 }
 
@@ -56,9 +61,33 @@ function Box({
   const zt = z + h;
   return (
     <g stroke="var(--iso-line)" strokeWidth="1">
-      <polygon points={poly([[x0, y0, zt], [x1, y0, zt], [x1, y1, zt], [x0, y1, zt]])} fill={top} />
-      <polygon points={poly([[x0, y1, zt], [x1, y1, zt], [x1, y1, z], [x0, y1, z]])} fill={left} />
-      <polygon points={poly([[x1, y0, zt], [x1, y1, zt], [x1, y1, z], [x1, y0, z]])} fill={right} />
+      <polygon
+        points={poly([
+          [x0, y0, zt],
+          [x1, y0, zt],
+          [x1, y1, zt],
+          [x0, y1, zt],
+        ])}
+        fill={top}
+      />
+      <polygon
+        points={poly([
+          [x0, y1, zt],
+          [x1, y1, zt],
+          [x1, y1, z],
+          [x0, y1, z],
+        ])}
+        fill={left}
+      />
+      <polygon
+        points={poly([
+          [x1, y0, zt],
+          [x1, y1, zt],
+          [x1, y1, z],
+          [x1, y0, z],
+        ])}
+        fill={right}
+      />
     </g>
   );
 }
@@ -91,10 +120,27 @@ function Tree({ cx, cy, z = 0, s = 1 }: { cx: number; cy: number; z?: number; s?
   const [bx, by] = iso([cx, cy, z]);
   return (
     <g>
-      <Box cx={cx} cy={cy} z={z} w={6 * s} d={6 * s} h={6 * s} top="#7a5b3a" left="#5e4429" right="#4a351f" />
+      <Box
+        cx={cx}
+        cy={cy}
+        z={z}
+        w={6 * s}
+        d={6 * s}
+        h={6 * s}
+        top="#7a5b3a"
+        left="#5e4429"
+        right="#4a351f"
+      />
       <g stroke="rgba(0,0,0,0.18)" strokeWidth="0.8">
         <ellipse cx={bx} cy={by - 26 * s} rx={11 * s} ry={22 * s} fill="var(--iso-tree, #4d6b46)" />
-        <ellipse cx={bx - 3 * s} cy={by - 30 * s} rx={5 * s} ry={12 * s} fill="rgba(255,255,255,0.14)" stroke="none" />
+        <ellipse
+          cx={bx - 3 * s}
+          cy={by - 30 * s}
+          rx={5 * s}
+          ry={12 * s}
+          fill="rgba(255,255,255,0.14)"
+          stroke="none"
+        />
       </g>
     </g>
   );
@@ -106,7 +152,17 @@ function Brazier({ cx, cy, z = 0, uid }: { cx: number; cy: number; z?: number; u
   return (
     <g>
       <Box cx={cx} cy={cy} z={z} w={8} d={8} h={12} />
-      <Box cx={cx} cy={cy} z={z + 12} w={16} d={16} h={6} top="#8a6b40" left="#6e5430" right="#594324" />
+      <Box
+        cx={cx}
+        cy={cy}
+        z={z + 12}
+        w={16}
+        d={16}
+        h={6}
+        top="#8a6b40"
+        left="#6e5430"
+        right="#594324"
+      />
       <g className="iso-flame">
         <circle cx={fx} cy={fy} r={13} fill={`url(#flameGlow-${uid})`} />
         <path
@@ -160,13 +216,28 @@ function Platform({ accent }: { accent: string }) {
   }
   return (
     <g>
-      <Box cx={0} cy={0} z={0} w={310} d={310} h={14} top="var(--iso-ground)" left="var(--iso-ground-dark)" right="var(--iso-ground-dark)" />
+      <Box
+        cx={0}
+        cy={0}
+        z={0}
+        w={310}
+        d={310}
+        h={14}
+        top="var(--iso-ground)"
+        left="var(--iso-ground-dark)"
+        right="var(--iso-ground-dark)"
+      />
       <Box cx={0} cy={0} z={14} w={258} d={258} h={12} />
       <Box cx={0} cy={0} z={26} w={214} d={214} h={12} />
       {tiles}
       {/* Accent border inlay on the top step */}
       <polygon
-        points={poly([[-100, -100, 38.5], [100, -100, 38.5], [100, 100, 38.5], [-100, 100, 38.5]])}
+        points={poly([
+          [-100, -100, 38.5],
+          [100, -100, 38.5],
+          [100, 100, 38.5],
+          [-100, 100, 38.5],
+        ])}
         fill="none"
         stroke={accent}
         strokeWidth="2"
@@ -179,8 +250,14 @@ function Platform({ accent }: { accent: string }) {
 /** Sky: sun haze by day, moon + twinkling stars by night. */
 function Sky({ uid }: { uid: string }) {
   const stars: [number, number, number][] = [
-    [60, 60, 1.6], [120, 36, 1.2], [205, 64, 1.8], [318, 30, 1.3],
-    [400, 70, 1.7], [460, 44, 1.2], [86, 120, 1.1], [432, 120, 1.4],
+    [60, 60, 1.6],
+    [120, 36, 1.2],
+    [205, 64, 1.8],
+    [318, 30, 1.3],
+    [400, 70, 1.7],
+    [460, 44, 1.2],
+    [86, 120, 1.1],
+    [432, 120, 1.4],
   ];
   return (
     <>
@@ -206,22 +283,47 @@ function Pediment({ z, accent }: { z: number; accent: string }) {
     <g stroke="var(--iso-line)" strokeWidth="1">
       <Box cx={0} cy={0} z={z} w={196} d={134} h={12} />
       <polygon
-        points={poly([[-98, 67, z + 12], [98, 67, z + 12], [0, 67, z + 54]])}
+        points={poly([
+          [-98, 67, z + 12],
+          [98, 67, z + 12],
+          [0, 67, z + 54],
+        ])}
         fill="var(--iso-marble-shade)"
       />
       <polygon
-        points={poly([[98, -67, z + 12], [98, 67, z + 12], [0, 67, z + 54], [0, -67, z + 54]])}
+        points={poly([
+          [98, -67, z + 12],
+          [98, 67, z + 12],
+          [0, 67, z + 54],
+          [0, -67, z + 54],
+        ])}
         fill="var(--iso-marble-dark)"
       />
       {/* Carved frieze line + medallion */}
       <polygon
-        points={poly([[-92, 67.5, z + 16], [92, 67.5, z + 16], [92, 67.5, z + 19], [-92, 67.5, z + 19]])}
+        points={poly([
+          [-92, 67.5, z + 16],
+          [92, 67.5, z + 16],
+          [92, 67.5, z + 19],
+          [-92, 67.5, z + 19],
+        ])}
         fill={accent}
         opacity={0.45}
         stroke="none"
       />
-      <circle cx={iso([0, 67, z + 30])[0]} cy={iso([0, 67, z + 30])[1]} r={10} fill={accent} opacity={0.75} />
-      <circle cx={iso([0, 67, z + 30])[0]} cy={iso([0, 67, z + 30])[1]} r={5} fill="var(--iso-marble)" />
+      <circle
+        cx={iso([0, 67, z + 30])[0]}
+        cy={iso([0, 67, z + 30])[1]}
+        r={10}
+        fill={accent}
+        opacity={0.75}
+      />
+      <circle
+        cx={iso([0, 67, z + 30])[0]}
+        cy={iso([0, 67, z + 30])[1]}
+        r={5}
+        fill="var(--iso-marble)"
+      />
     </g>
   );
 }
@@ -235,7 +337,17 @@ function Temple({ accent, columns, uid }: { accent: string; columns: number; uid
       <Platform accent={accent} />
       <Box cx={0} cy={0} z={38} w={186} d={124} h={8} />
       {/* Inner cella wall, visible between columns */}
-      <Box cx={0} cy={0} z={46} w={120} d={80} h={58} top="var(--iso-marble-shade)" left="var(--iso-marble-dark)" right="var(--iso-marble-dark)" />
+      <Box
+        cx={0}
+        cy={0}
+        z={46}
+        w={120}
+        d={80}
+        h={58}
+        top="var(--iso-marble-shade)"
+        left="var(--iso-marble-dark)"
+        right="var(--iso-marble-dark)"
+      />
       {xs.map((x) => (
         <g key={`cols-${x}`}>
           <Column cx={x} cy={50} z={46} />
@@ -259,10 +371,25 @@ function Stoa({ accent, uid }: { accent: string; uid: string }) {
   return (
     <g>
       <Platform accent={accent} />
-      <Box cx={0} cy={-34} z={38} w={238} d={66} h={72} top="var(--iso-marble-shade)" left="var(--iso-marble-dark)" right="var(--iso-marble-dark)" />
+      <Box
+        cx={0}
+        cy={-34}
+        z={38}
+        w={238}
+        d={66}
+        h={72}
+        top="var(--iso-marble-shade)"
+        left="var(--iso-marble-dark)"
+        right="var(--iso-marble-dark)"
+      />
       {/* Painted fresco band (the "Stoa Poikile" was the painted porch) */}
       <polygon
-        points={poly([[-115, -1.5, 74], [115, -1.5, 74], [115, -1.5, 94], [-115, -1.5, 94]])}
+        points={poly([
+          [-115, -1.5, 74],
+          [115, -1.5, 74],
+          [115, -1.5, 94],
+          [-115, -1.5, 94],
+        ])}
         fill={accent}
         opacity={0.35}
         stroke="none"
@@ -271,7 +398,17 @@ function Stoa({ accent, uid }: { accent: string; uid: string }) {
         <Column key={x} cx={x} cy={44} z={38} h={72} />
       ))}
       <Box cx={0} cy={4} z={110} w={258} d={152} h={10} />
-      <Box cx={0} cy={4} z={120} w={218} d={112} h={9} top={accent} left={accent} right="var(--iso-marble-dark)" />
+      <Box
+        cx={0}
+        cy={4}
+        z={120}
+        w={218}
+        d={112}
+        h={9}
+        top={accent}
+        left={accent}
+        right="var(--iso-marble-dark)"
+      />
       {/* Marble bench + scattered scrolls */}
       <Box cx={-30} cy={92} z={38} w={64} d={14} h={10} />
       <Box cx={52} cy={92} z={38} w={8} d={8} h={3} top="#e9ddbe" left="#d3c39c" right="#c0ad84" />
@@ -291,7 +428,12 @@ function Observatory({ accent, uid }: { accent: string; uid: string }) {
       <Box cx={0} cy={0} z={38} w={114} d={114} h={92} />
       {/* Arched doorway */}
       <polygon
-        points={poly([[-14, 57.5, 38], [14, 57.5, 38], [14, 57.5, 78], [-14, 57.5, 78]])}
+        points={poly([
+          [-14, 57.5, 38],
+          [14, 57.5, 38],
+          [14, 57.5, 78],
+          [-14, 57.5, 78],
+        ])}
         fill="var(--iso-ground-dark)"
         stroke="none"
       />
@@ -299,7 +441,12 @@ function Observatory({ accent, uid }: { accent: string; uid: string }) {
       <Box cx={0} cy={0} z={142} w={92} d={92} h={36} />
       {/* Star chart band */}
       <polygon
-        points={poly([[-46, 46.5, 150], [46, 46.5, 150], [46, 46.5, 168], [-46, 46.5, 168]])}
+        points={poly([
+          [-46, 46.5, 150],
+          [46, 46.5, 150],
+          [46, 46.5, 168],
+          [-46, 46.5, 168],
+        ])}
         fill={accent}
         opacity={0.4}
         stroke="none"
@@ -330,36 +477,139 @@ function Cafe({ accent, uid }: { accent: string; uid: string }) {
   return (
     <g>
       <Platform accent={accent} />
-      <Box cx={12} cy={-22} z={38} w={154} d={112} h={86} top="var(--iso-marble-shade)" left="var(--iso-marble-dark)" right="var(--iso-marble-dark)" />
+      <Box
+        cx={12}
+        cy={-22}
+        z={38}
+        w={154}
+        d={112}
+        h={86}
+        top="var(--iso-marble-shade)"
+        left="var(--iso-marble-dark)"
+        right="var(--iso-marble-dark)"
+      />
       {/* Door + warm-lit windows */}
-      <polygon points={poly([[-20, 34.5, 38], [8, 34.5, 38], [8, 34.5, 90], [-20, 34.5, 90]])} fill="var(--iso-ground-dark)" stroke="none" />
-      <polygon points={poly([[24, 34.5, 58], [64, 34.5, 58], [64, 34.5, 88], [24, 34.5, 88]])} fill={accent} opacity={0.3} stroke="none" />
+      <polygon
+        points={poly([
+          [-20, 34.5, 38],
+          [8, 34.5, 38],
+          [8, 34.5, 90],
+          [-20, 34.5, 90],
+        ])}
+        fill="var(--iso-ground-dark)"
+        stroke="none"
+      />
+      <polygon
+        points={poly([
+          [24, 34.5, 58],
+          [64, 34.5, 58],
+          [64, 34.5, 88],
+          [24, 34.5, 88],
+        ])}
+        fill={accent}
+        opacity={0.3}
+        stroke="none"
+      />
       <g className="iso-night">
-        <polygon points={poly([[24, 34.5, 58], [64, 34.5, 58], [64, 34.5, 88], [24, 34.5, 88]])} fill="#f5c96a" opacity={0.85} stroke="none" />
-        <polygon points={poly([[-20, 34.5, 60], [8, 34.5, 60], [8, 34.5, 90], [-20, 34.5, 90]])} fill="#f5c96a" opacity={0.5} stroke="none" />
+        <polygon
+          points={poly([
+            [24, 34.5, 58],
+            [64, 34.5, 58],
+            [64, 34.5, 88],
+            [24, 34.5, 88],
+          ])}
+          fill="#f5c96a"
+          opacity={0.85}
+          stroke="none"
+        />
+        <polygon
+          points={poly([
+            [-20, 34.5, 60],
+            [8, 34.5, 60],
+            [8, 34.5, 90],
+            [-20, 34.5, 90],
+          ])}
+          fill="#f5c96a"
+          opacity={0.5}
+          stroke="none"
+        />
       </g>
       {/* Striped awning */}
-      <Box cx={12} cy={42} z={96} w={168} d={38} h={8} top={accent} left={accent} right="var(--iso-marble-dark)" />
+      <Box
+        cx={12}
+        cy={42}
+        z={96}
+        w={168}
+        d={38}
+        h={8}
+        top={accent}
+        left={accent}
+        right="var(--iso-marble-dark)"
+      />
       {stripes.map((x, i) =>
         i % 2 === 0 ? (
           <polygon
             key={x}
-            points={poly([[x - 2 + 12, 23, 104.5], [x + 12 + 12, 23, 104.5], [x + 12 + 12, 61, 104.5], [x - 2 + 12, 61, 104.5]])}
+            points={poly([
+              [x - 2 + 12, 23, 104.5],
+              [x + 12 + 12, 23, 104.5],
+              [x + 12 + 12, 61, 104.5],
+              [x - 2 + 12, 61, 104.5],
+            ])}
             fill="rgba(255,255,255,0.45)"
             stroke="none"
           />
         ) : null,
       )}
       {/* Cafe name board */}
-      <polygon points={poly([[-34, 34.8, 94], [58, 34.8, 94], [58, 34.8, 106], [-34, 34.8, 106]])} fill="var(--iso-ground-dark)" stroke="none" />
+      <polygon
+        points={poly([
+          [-34, 34.8, 94],
+          [58, 34.8, 94],
+          [58, 34.8, 106],
+          [-34, 34.8, 106],
+        ])}
+        fill="var(--iso-ground-dark)"
+        stroke="none"
+      />
       {/* Sidewalk tables and chairs */}
-      <Box cx={-66} cy={72} z={38} w={26} d={26} h={22} top={accent} left="var(--iso-marble-shade)" right="var(--iso-marble-dark)" />
+      <Box
+        cx={-66}
+        cy={72}
+        z={38}
+        w={26}
+        d={26}
+        h={22}
+        top={accent}
+        left="var(--iso-marble-shade)"
+        right="var(--iso-marble-dark)"
+      />
       <Box cx={-98} cy={52} z={38} w={14} d={14} h={16} />
       <Box cx={-38} cy={94} z={38} w={14} d={14} h={16} />
-      <Box cx={56} cy={88} z={38} w={26} d={26} h={22} top={accent} left="var(--iso-marble-shade)" right="var(--iso-marble-dark)" />
+      <Box
+        cx={56}
+        cy={88}
+        z={38}
+        w={26}
+        d={26}
+        h={22}
+        top={accent}
+        left="var(--iso-marble-shade)"
+        right="var(--iso-marble-dark)"
+      />
       <Box cx={88} cy={70} z={38} w={14} d={14} h={16} />
       {/* Lamppost that glows at night */}
-      <Box cx={-116} cy={64} z={38} w={5} d={5} h={64} top="#3a3f4c" left="#2c303b" right="#22252e" />
+      <Box
+        cx={-116}
+        cy={64}
+        z={38}
+        w={5}
+        d={5}
+        h={64}
+        top="#3a3f4c"
+        left="#2c303b"
+        right="#22252e"
+      />
       <circle cx={lx} cy={ly - 68} r={6} fill="#dfe6f3" opacity={0.85} />
       <g className="iso-night iso-flame">
         <circle cx={lx} cy={ly - 68} r={16} fill={`url(#flameGlow-${uid})`} />
@@ -380,7 +630,12 @@ function Library({ accent, uid }: { accent: string; uid: string }) {
       {[-52, -18, 16, 50].map((x) => (
         <polygon
           key={x}
-          points={poly([[x - 9, 57.5, 48], [x + 9, 57.5, 48], [x + 9, 57.5, 82], [x - 9, 57.5, 82]])}
+          points={poly([
+            [x - 9, 57.5, 48],
+            [x + 9, 57.5, 48],
+            [x + 9, 57.5, 82],
+            [x - 9, 57.5, 82],
+          ])}
           fill={accent}
           opacity={0.3}
           stroke="none"
@@ -390,26 +645,82 @@ function Library({ accent, uid }: { accent: string; uid: string }) {
         {[-52, -18, 16, 50].map((x) => (
           <polygon
             key={x}
-            points={poly([[x - 9, 57.5, 48], [x + 9, 57.5, 48], [x + 9, 57.5, 82], [x - 9, 57.5, 82]])}
+            points={poly([
+              [x - 9, 57.5, 48],
+              [x + 9, 57.5, 48],
+              [x + 9, 57.5, 82],
+              [x - 9, 57.5, 82],
+            ])}
             fill="#f5c96a"
             opacity={0.7}
             stroke="none"
           />
         ))}
       </g>
-      <Box cx={0} cy={0} z={94} w={134} d={92} h={42} top="var(--iso-marble-shade)" left="var(--iso-marble-dark)" right="var(--iso-marble-dark)" />
+      <Box
+        cx={0}
+        cy={0}
+        z={94}
+        w={134}
+        d={92}
+        h={42}
+        top="var(--iso-marble-shade)"
+        left="var(--iso-marble-dark)"
+        right="var(--iso-marble-dark)"
+      />
       <Box cx={0} cy={0} z={136} w={102} d={68} h={32} />
       {/* Dome cap */}
-      <circle cx={iso([0, 0, 184])[0]} cy={iso([0, 0, 184])[1]} r={20} fill={accent} opacity={0.85} />
+      <circle
+        cx={iso([0, 0, 184])[0]}
+        cy={iso([0, 0, 184])[1]}
+        r={20}
+        fill={accent}
+        opacity={0.85}
+      />
       <circle cx={iso([0, 0, 190])[0]} cy={iso([0, 0, 190])[1]} r={10} fill="var(--iso-marble)" />
       {/* Giant leaning books by the entrance */}
-      <Box cx={-94} cy={62} z={38} w={16} d={36} h={48} top={accent} left={accent} right="var(--iso-marble-dark)" />
-      <Box cx={-72} cy={66} z={38} w={12} d={32} h={40} top="#9a4a5a" left="#7e3a48" right="#67303b" />
-      <Box cx={-56} cy={70} z={38} w={10} d={28} h={33} top="#5b7fb9" left="#49679a" right="#3a527d" />
+      <Box
+        cx={-94}
+        cy={62}
+        z={38}
+        w={16}
+        d={36}
+        h={48}
+        top={accent}
+        left={accent}
+        right="var(--iso-marble-dark)"
+      />
+      <Box
+        cx={-72}
+        cy={66}
+        z={38}
+        w={12}
+        d={32}
+        h={40}
+        top="#9a4a5a"
+        left="#7e3a48"
+        right="#67303b"
+      />
+      <Box
+        cx={-56}
+        cy={70}
+        z={38}
+        w={10}
+        d={28}
+        h={33}
+        top="#5b7fb9"
+        left="#49679a"
+        right="#3a527d"
+      />
       {/* Lectern with open book */}
       <Box cx={78} cy={74} z={38} w={12} d={12} h={20} />
       <polygon
-        points={poly([[68, 68, 60], [88, 68, 60], [88, 82, 57], [68, 82, 57]])}
+        points={poly([
+          [68, 68, 60],
+          [88, 68, 60],
+          [88, 82, 57],
+          [68, 82, 57],
+        ])}
         fill="#f6efdd"
         stroke="var(--iso-line)"
       />
