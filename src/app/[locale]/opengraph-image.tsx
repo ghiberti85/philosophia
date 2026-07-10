@@ -3,15 +3,11 @@ import { dict } from '@/data/dictionary';
 import { philosophers } from '@/data/philosophers';
 import { quizQuestions } from '@/data/quizzes';
 import { schools } from '@/data/schools';
-import { LOCALES, t, type Locale } from '@/lib/i18n';
+import { t, type Locale } from '@/lib/i18n';
 import { OG_CONTENT_TYPE, OG_SIZE, OgFrame, ogFonts, ogStyles } from '@/lib/og';
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-
-export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
-}
 
 export function generateImageMetadata({ params }: { params: { locale: Locale } }) {
   return [

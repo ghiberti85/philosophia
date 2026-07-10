@@ -472,7 +472,6 @@ export function InfluenceGraph({
       canvas.removeEventListener('pointerup', onPointerUp);
       canvas.removeEventListener('pointerleave', onPointerLeave);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes, links, locale, isDark, selected, schoolSet]);
 
   const influencedByNodes = selectedNode

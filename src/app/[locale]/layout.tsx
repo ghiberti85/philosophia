@@ -46,8 +46,13 @@ export function generateStaticParams() {
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://philosophia.app';
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
-  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : 'en';
   return {
     metadataBase: new URL(BASE_URL),
     title: {
@@ -71,15 +76,15 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
   };
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  if (!isLocale(params.locale)) notFound();
-  const locale = params.locale;
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
 
   return (
     <html

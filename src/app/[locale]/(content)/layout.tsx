@@ -7,14 +7,15 @@ import { isLocale, t, type Locale } from '@/lib/i18n';
  * page lives outside this group so its one-page dashboard can use the full
  * viewport.
  */
-export default function ContentLayout({
+export default async function ContentLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const locale: Locale = isLocale(params.locale) ? params.locale : 'en';
+  const { locale: rawLocale } = await params;
+  const locale: Locale = isLocale(rawLocale) ? rawLocale : 'en';
   return (
     <>
       <Header locale={locale} />
